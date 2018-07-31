@@ -41,7 +41,7 @@ html {
   color: rgba(0,0,0,0.8);
 }
 .container {
-  width: 90%;
+  width: 700px;
 }
 @media (max-width: 767px) {
   .container {
