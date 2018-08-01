@@ -1,708 +1,474 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
-    
-
-    <title>读书 | </title>
-    <meta name="author" content="John Doe">
     
     
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-    <meta property="og:title" content="读书"/>
-    <meta property="og:site_name" content="黄聪的Blog"/>
-
+    <title>读书 | 黄聪的Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-    <meta property="og:image" content="undefined"/>
+    <meta name="keywords" content="undefined">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/third-party/swipebox.min.css?v=1.3.2">
+    <link rel="stylesheet" href="/css/style.css?v=1.3.2">
     
-
-    <link rel="icon" type="image/png" href="/favicon.png">
-    <link rel="alternate" href="/atom.xml" title="黄聪的Blog" type="application/atom+xml">
-    <link rel="stylesheet" href="/css/lib/materialize.min.css">
-    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
-
+    <script type="text/javascript">
+        // Data Center
+        var DC = {
+            reward:	true,
+            lv: JSON.parse('{"enable":false,"app_id":null,"app_key":null,"icon":true}'),
+            v: JSON.parse('{"enable":false,"appid":null,"appkey":null,"notify":true,"verify":true,"placeholder":"give me some sugers plz...","avatar":"wavatar"}'),
+            g: JSON.parse('{"enable":false,"lazy":true,"owner":"codefine","repo":"gitment","oauth":{"client_id":null,"client_secret":null},"perPage":10}'),
+            d: JSON.parse('{"app_id":null}')
+        };
+    </script>
+    <script type="text/javascript">
+        window.lazyScripts=[];
+    </script>
     
-        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
-    
-    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 </head>
 
 
 <body>
-    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+    <div id="loading" class="active"></div>
 
-    <nav class="indigo">
-    <div class="nav-wrapper">
-        <a href="#" data-activates="main-menu" class="button-collapse">
-            <i class="fa fa-navicon"></i>
-        </a>
-        <div class="">
-            <a href="/" class="brand-logo hide-on-med-and-down">黄聪的Blog</a>
-            <ul class="right hide-on-med-and-down">
-                
-                    <li>
-                        <a class="menu-home " href="/" >
-                            <i class="fa fa-home "></i>
-                            
-                            首页
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a class="menu-archive " href="/archives" >
-                            <i class="fa fa-archive "></i>
-                            
-                            归档
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu" >
-                            <i class="fa fa-bookmark "></i>
-                            
-                            分类
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a class="menu-reading " href="/reading" >
-                            <i class="fa fa-book "></i>
-                            
-                            读书
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a class="menu-about " href="/about" >
-                            <i class="fa fa-user "></i>
-                            
-                            关于
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a class="menu-search modal-trigger " href="#search" >
-                            <i class="fa fa-search "></i>
-                            
-                            搜索
-                        </a>
-                    </li>
-                
-            </ul>
-            <div>
-    <ul class="side-nav indigo darken-1" id="main-menu">
-        
-        <li class="side-user">
-            <div class="row">
-                <div class="col s4 no-padding">
-                    <img class="avatar-image circle responsive-img" src="http://ww2.sinaimg.cn/small/74990035jw1f1rjkd681bj20rs0rsdhg.jpg" alt="User Avatar">
-                </div>
-                <div class="info col s8 valign-wrapper no-padding">
-                    <div class="valign">
-                        <p class="name">黄聪</p>
-                        <p class="desc">Web前端/iOS/Flutter/js</p>
-                    </div>
-                </div>
-            </div>
-        </li>
-        
-
-        
-            <li class="no-padding">
-                <a class="waves-effect menu-home " href="/" >
-                    <i class="fa fa-home "></i>
-                    
-                    首页
-                </a>
-            </li>
-        
-            <li class="no-padding">
-                <a class="waves-effect menu-archive " href="/archives" >
-                    <i class="fa fa-archive "></i>
-                    
-                    归档
-                </a>
-            </li>
-        
-            <li class="no-padding">
-                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu" >
-                    <i class="fa fa-bookmark "></i>
-                    
-                    分类
-                </a>
-            </li>
-        
-            <li class="no-padding">
-                <a class="waves-effect menu-reading " href="/reading" >
-                    <i class="fa fa-book "></i>
-                    
-                    读书
-                </a>
-            </li>
-        
-            <li class="no-padding">
-                <a class="waves-effect menu-about " href="/about" >
-                    <i class="fa fa-user "></i>
-                    
-                    关于
-                </a>
-            </li>
-        
-            <li class="no-padding">
-                <a class="waves-effect menu-search modal-trigger " href="#search" >
-                    <i class="fa fa-search "></i>
-                    
-                    搜索
-                </a>
-            </li>
-        
-    </ul>
-
-    <ul class="side-nav indigo darken-1" id="category-menu">
-    
-
-            
-
-            <li class="collapse-level-0" collapse-level="0">
-                <a class="no-padding" href="/categories/编辑器/">
-                    编辑器 <span class="right">1 篇</span></a>
-                </a>
-            </li>
-
-        
-
-            <li class="collapse-level-0" collapse-level="0">
-                <a class="no-padding" href="/categories/iOS/">
-                    iOS <span class="right">1 篇</span></a>
-                </a>
-            </li>
-
-        
-
-            <li class="collapse-level-0" collapse-level="0">
-                <a class="no-padding" href="/categories/Hello-World/">
-                    Hello-World <span class="right">1 篇</span></a>
-                </a>
-            </li>
-
-        
-
-    </ul>
-</div>
-
-        </div>
-    </div>
-</nav>
-
-<div id="search" class="modal search-modal">
-    <div class="row">
-        <div class="input-field col s12">
-              <input id="search-input" type="text">
-              <label for="search-input">搜索</label>
-        </div>
-
-    </div>
-    <div id="search-result" class="search-result col s12">
-
-    </div>
-</div>
-
-
-    <main>
-        
-
-<div class="container main-container">
-    
-        <div class="">
-            <div class="row">
-                <ul class="tabs ">
-                    
-                        
-                        <li class="tab col s4 ">
-                            <a class="green-text " href="#readed">已读(3)</a>
-                        </li>
-                        
-                    
-                        
-                        <li class="tab col s4 ">
-                            <a class="green-text " href="#reading">在读(1)</a>
-                        </li>
-                        
-                    
-                        
-                        <li class="tab col s4 ">
-                            <a class="green-text " href="#wanted">想读(1)</a>
-                        </li>
-                        
-                    
-                </ul>
-            </div>
-
-            
-                <div id="readed" class="row" style="margin-top: 20px;">
-                    
-                    
-                        <div class="book-item col s12 m6">
-                            <div class="card small hoverable">
-                                <div class="card-image waves-effect waves-block waves-light">
-                                    <img class="card-cover-image activator" src="https://images-na.ssl-images-amazon.com/images/I/51xb%2B7p9wTL.jpg">
-                                </div>
-                                <div class="card-content indigo-link-context">
-                                    <span class="card-title truncate activator grey-text text-darken-4">大话设计模式
-                                    </span>
-                                    <p>评分: 7
-                                        <a class="external-link right" href="https://www.amazon.cn/dp/B0011FHN5S/ref=sr_1_1?ie=UTF8&amp;qid=1532946051&amp;sr=8-1&amp;keywords=%E5%A4%A7%E8%AF%9D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F" target="_blank">
-
-                                            <i class="fa fa-external-link"></i>
-                                        </a>
-                                    </p>
-                                </div>
-
-                                <div class="card-reveal">
-                                    <span class="card-title grey-text text-darken-4">简评
-                                        <i class="fa fa-times-circle-o right"></i>
-                                    </span>
-
-                                    <p>《大话设计模式》通篇都是以情景对话的形式，用多个小故事或编程示例来组织讲解GoF（设计模式的经典名著——Design Patterns: Elements of Reusable Object-Oriented Software，中译本名为《设计模式——可复用面向对象软件的基础》的四位作者Erich Gamma、Richard Helm、Ralph Johnson，以及JohnVlissides，这四人常被称为GangofFour，即四人组，简称GoF）总结的23个设计模式</p>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="book-item col s12 m6">
-                            <div class="card small hoverable">
-                                <div class="card-image waves-effect waves-block waves-light">
-                                    <img class="card-cover-image activator" src="https://images-na.ssl-images-amazon.com/images/I/61ffjLuLpvL.jpg">
-                                </div>
-                                <div class="card-content indigo-link-context">
-                                    <span class="card-title truncate activator grey-text text-darken-4">Objective-c 高级编程
-                                    </span>
-                                    <p>评分: 8.5
-                                        <a class="external-link right" href="https://www.amazon.cn/dp/B00DE60G3S/ref=sr_1_1?ie=UTF8&amp;qid=1532946319&amp;sr=8-1&amp;keywords=objective-c+%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B" target="_blank">
-
-                                            <i class="fa fa-external-link"></i>
-                                        </a>
-                                    </p>
-                                </div>
-
-                                <div class="card-reveal">
-                                    <span class="card-title grey-text text-darken-4">简评
-                                        <i class="fa fa-times-circle-o right"></i>
-                                    </span>
-
-                                    <p>在苹果公司公开的源代码基础上，深入剖析了对应用于内存管理的ARC以及应用于多线程开发的Blocks和GCD。这些新技术看似简单，实则非常容易成为技术开发的陷阱，开发 者仅靠阅读苹果公司的文档是不够的。 适合有一定基础的iOS开发 者阅读。</p>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="book-item col s12 m6">
-                            <div class="card small hoverable">
-                                <div class="card-image waves-effect waves-block waves-light">
-                                    <img class="card-cover-image activator" src="https://images-na.ssl-images-amazon.com/images/I/51G4h66Co4L.jpg">
-                                </div>
-                                <div class="card-content indigo-link-context">
-                                    <span class="card-title truncate activator grey-text text-darken-4">Effective objective-c 2.0 编写高质量ios与os x代码的52个有效方法
-                                    </span>
-                                    <p>评分: 9.5
-                                        <a class="external-link right" href="https://www.amazon.cn/dp/B00IDSGY06/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1532946724&amp;sr=1-1&amp;keywords=effective+objective-c+2.0+%E7%BC%96%E5%86%99%E9%AB%98%E8%B4%A8%E9%87%8Fios%E4%B8%8Eos+x%E4%BB%A3%E7%A0%81%E7%9A%8452%E4%B8%AA%E6%9C%89%E6%95%88%E6%96%B9%E6%B3%95" target="_blank">
-
-                                            <i class="fa fa-external-link"></i>
-                                        </a>
-                                    </p>
-                                </div>
-
-                                <div class="card-reveal">
-                                    <span class="card-title grey-text text-darken-4">简评
-                                        <i class="fa fa-times-circle-o right"></i>
-                                    </span>
-
-                                    <p>本书是世界级C++开发大师Scott Meyers亲自担当顾问编辑的“Effective Software Development Series”系列丛书中的新作，Amazon全五星评价。从语法、接口与API设计、内存管理、框架等7大方面总结和探讨了Objective-C编程中52个鲜为人知和容易被忽视的特性与陷阱。书中包含大量实用范例代码，为编写易于理解、便于维护、易于扩展和高效的Objective-C应用提供了解决方案。</p>
-                                </div>
-                            </div>
-                        </div>
-                    
-                </div>
-            
-                <div id="reading" class="row" style="margin-top: 20px;">
-                    
-                    
-                        <div class="book-item col s12 m6">
-                            <div class="card small hoverable">
-                                <div class="card-image waves-effect waves-block waves-light">
-                                    <img class="card-cover-image activator" src="https://images-na.ssl-images-amazon.com/images/I/81UxMCyUtwL.jpg">
-                                </div>
-                                <div class="card-content indigo-link-context">
-                                    <span class="card-title truncate activator grey-text text-darken-4">算法导论(原书第3版)
-                                    </span>
-                                    <p>评分: 9
-                                        <a class="external-link right" href="https://www.amazon.cn/dp/B00AK7BYJY/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1532946808&amp;sr=1-1&amp;keywords=%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA" target="_blank">
-
-                                            <i class="fa fa-external-link"></i>
-                                        </a>
-                                    </p>
-                                </div>
-
-                                <div class="card-reveal">
-                                    <span class="card-title grey-text text-darken-4">简评
-                                        <i class="fa fa-times-circle-o right"></i>
-                                    </span>
-
-                                    <p>在有关算法的书中，有一些叙述非常严谨，但不够全面；另一些涉及了大量的题材，但又缺乏严谨性。《算法导论(原书第3版)》将严谨性和全面性融为一体，深入讨论各类算法，并着力使这些算法的设计和分析能为各个层次的读者接受。全书各章自成体系，可以作为独立的学习单元；算法以英语和伪代码的形式描述，具备初步程序设计经验的人就能看懂；说明和解释力求浅显易懂，不失深度和数学严谨性。全书选材经典、内容丰富、结构合理、逻辑清晰，对本科生的数据结构课程和研究生的算法课程都是非常实用的教材，在IT专业人员的职业生涯中，《算法导论(原书第3版)》也是一本案头必备的参考书或工程实践手册。</p>
-                                </div>
-                            </div>
-                        </div>
-                    
-                </div>
-            
-                <div id="wanted" class="row" style="margin-top: 20px;">
-                    
-                    
-                        <div class="book-item col s12 m6">
-                            <div class="card small hoverable">
-                                <div class="card-image waves-effect waves-block waves-light">
-                                    <img class="card-cover-image activator" src="https://images-na.ssl-images-amazon.com/images/I/51pr526Ne8L.jpg">
-                                </div>
-                                <div class="card-content indigo-link-context">
-                                    <span class="card-title truncate activator grey-text text-darken-4">代码大全(第2版)
-                                    </span>
-                                    <p>评分: 9
-                                        <a class="external-link right" href="https://www.amazon.cn/dp/B0061XKRXA/ref=sr_1_1?ie=UTF8&amp;qid=1532946983&amp;sr=8-1&amp;keywords=%E4%BB%A3%E7%A0%81%E5%A4%A7%E5%85%A8" target="_blank">
-
-                                            <i class="fa fa-external-link"></i>
-                                        </a>
-                                    </p>
-                                </div>
-
-                                <div class="card-reveal">
-                                    <span class="card-title grey-text text-darken-4">简评
-                                        <i class="fa fa-times-circle-o right"></i>
-                                    </span>
-
-                                    <p></p>
-                                </div>
-                            </div>
-                        </div>
-                    
-                </div>
-            
-
-        </div>
-        
-
-
-
-    
-</div>
-
-        <div class="fixed-action-btn float-sitemap">
-    <a class="btn-floating btn-large green">
-      <i class="fa fa-caret-square-o-up"></i>
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
     </a>
-    <ul>
-      <li><a class="btn-return-top btn-floating waves-effect blue" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
-      <li><a class="btn-floating waves-effect button-collapse orange"  data-activates="main-menu" title="菜单"><i class="fa fa-navicon"></i></a></li>
-    </ul>
+    <div class="brand-wrap">
+      
+      <img src="/img/brand.jpg" class="brand-bg">
+      
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Eden Huang</h5>
+          <a href="mailto:huangcong520@icloud.com" title="huangcong520@icloud.com" class="mail">
+            
+              <span>h</span>
+            
+              <span>u</span>
+            
+              <span>a</span>
+            
+              <span>n</span>
+            
+              <span>g</span>
+            
+              <span>c</span>
+            
+              <span>o</span>
+            
+              <span>n</span>
+            
+              <span>g</span>
+            
+              <span>5</span>
+            
+              <span>2</span>
+            
+              <span>0</span>
+            
+              <span>@</span>
+            
+              <span>i</span>
+            
+              <span>c</span>
+            
+              <span>l</span>
+            
+              <span>o</span>
+            
+              <span>u</span>
+            
+              <span>d</span>
+            
+              <span>.</span>
+            
+              <span>c</span>
+            
+              <span>o</span>
+            
+              <span>m</span>
+            
+          </a>
+        </hgroup>
+        
+        <ul class="menu-link">
+          
+              <li>
+                <a href="https://github.com/ioshc" target="_blank">
+                  <i class="icon icon-lg icon-github"></i>
+                </a>
+              </li>
+            
+        </ul>
+        
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                HOME
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                CATEGORIES
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                TAGS
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                ARCHIVES
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/custom"  >
+                <i class="icon icon-lg icon-plus-square"></i>
+                CUSTOM
+              </a>
+            </li>
+        
+      </ul>
+    </div>
   </div>
+</aside>
 
-    </main>
-    <footer class="page-footer indigo darken-1">
-    
-    <div class="footer-container container">
-        <div class="row">
-            
-            <div class="social-group col m4 s12">
-                <h5 class="white-text">社交</h5>
-                
-                    <a class="social-link" href="https://github.com/ioshc" target="_blank">
-                        <i class="fa fa-2x fa-github"></i>
-                    </a>
-                
-                    <a class="social-link" href="/atom.xml" target="_blank">
-                        <i class="fa fa-2x fa-rss"></i>
-                    </a>
-                
-                
-    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-    </script>
-    <div class="site-visitors-container white-text">
-        <span>
-            <i class="fa fa-user"></i>
-            <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-        </span>
-        <span>&nbsp;|&nbsp;</span>
-        <span>
-            <i class="fa fa-eye"></i>
-            <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-        </span>
-    </div>
-
-
-            </div>
-            
-
-            
-            <div class="col m8 s12">
-                <h5 class="white-text">友情链接</h5>
-                
-                    <a class="social-link" href="https://github.com/ioshc" target="_blank">我的Github</a>
-                
-                    <a class="social-link" href="https://onevcat.com/" target="_blank">王巍的Blog</a>
-                
-                    <a class="social-link" href="https://blog.ibireme.com/" target="_blank">唐巧的Blog</a>
-                
-                    <a class="social-link" href="https://blog.ibireme.com/" target="_blank">YYKit作者Blog</a>
-                
-                    <a class="social-link" href="http://wwhy.tech/" target="_blank">成都老刘的Blog</a>
-                
-            </div>
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row clearfix">
+        <a href="javascript:;" class="header-icon pull-left waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">
+            <span>读书</span>
             
         </div>
+        
+        <a href="javascript:;" id="site_search_btn" class="header-icon pull-right waves-effect waves-circle waves-light">
+            <i class="icon icon-lg icon-search"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header page-header">
+    <img src="/img/banner.jpg" class="header-bg">
+    <div class="container fade-scale">
+        <h1 class="title">读书</h1>
+        <h5 class="subtitle">
+            
+        </h5>
+        
     </div>
     
 
-    <div class="footer-copyright indigo-link-context">
-        <div class="container">
-            © 2018 eden.com, All rights reserved.
-            <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+</header>
+
+<div id="site_search">
+    <div class="search-title clearfix">
+        <span class="pull-left">
+          <i class="icon icon-lg icon-search"></i>
+        </span>
+        <input type="text" id="local-search-input" name="q" results="0" placeholder="search my blog..." class="form-control pull-left"/>
+        <a href="javascript:;" class="close pull-right waves-effect waves-circle waves-light">
+          <i class="icon icon-lg icon-close"></i>
+        </a>
+    </div>
+    <div id="local-search-result"></div>
+</div>
+
+
+<div class="container body-wrap">
+    <article class="page-article fade" itemprop="blogPage">
+        <div class="post-content page-content" id="page-content" itemprop="pageContent">
+            
+            
         </div>
+        
+            <div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+        
+        
+        <div class="card page-about-me flex-row">
+            <a href="/" class="avatar waves-effect waves-circle waves-light"><img src="/img/avatar.jpg"></a>
+            <div class="content flex-col">
+                <p><strong>Eden Huang</strong></p>
+                <p><em></em></p>
+                <p></p>
+            </div>
+            <div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/reading/&title=《读书》 — 黄聪的Blog&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/reading/&title=《读书》 — 黄聪的Blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+        </div>
+        
+        
+        <div class="card">   
+           
+
+
+        </div>
+        
+    </article>
+    
+        <div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        我们一起来让这个世界有趣一点
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/reward-wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/reward-wechat.jpg" data-alipay="/img/reward-alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+    
+</div>
+
+        <footer class="footer">
+    
+    <div class="top">
+        
+            <p>
+    <span>Links：</span>
+    
+    <span class="blogroll-item">
+        <a href="https://onevcat.com/" target="_blank">王巍的Blog</a>
+    </span>
+    
+    <span class="blogroll-item">
+        <a href="https://blog.ibireme.com/" target="_blank">唐巧的Blog</a>
+    </span>
+    
+    <span class="blogroll-item">
+        <a href="https://blog.ibireme.com/" target="_blank">YYKit作者Blog</a>
+    </span>
+    
+    <span class="blogroll-item">
+        <a href="http://wwhy.tech/" target="_blank">成都老刘的Blog</a>
+    </span>
+    
+</p>
+
+        
+    </div>
+    
+    <div class="bottom">
+        <p>
+            <span>
+                Eden Huang &copy; 2018
+            </span>
+        		
+           	
+            
+            
+            <span>
+	            Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/codefine/hexo-theme-mellow" target="_blank">mellow</a>
+            </span>
+            
+            
+            
+
+            
+                
+<span class="site-uv" title="总访客量">
+    <i class="icon icon-user"></i>
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"></i>
+</span>
+
+
+<span class="site-pv" title="总访问量">
+    <i class="icon icon-eye"></i>
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"></i>
+</span>
+
+            
+        </p>
     </div>
 </footer>
 
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
 
-    <noscript>
-    <div class="noscript">
-        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
-    </div>
-</noscript>
-<div class="noscript">
-    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/reading/&title=《读书》 — 黄聪的Blog&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/reading/&title=《读书》 — 黄聪的Blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABzUlEQVR42u3aQW7DMAwEwPz/0ynQc+XsSpbiAqNTYCf2KAeCpPh6xev9u0bXV+6+dixcXNxl7vtyjR49oiTXR8+//g4uLu557nWgybeUbHX0/CjY4eLiPox7/avrK22gxMXF/S/cPK3J6bi4uE/m5ulLUuQkV7bXari4uAvctmG64/PG/i4uLm7JfZcraX/kyUr9dlxc3CPcPCnJW6J5qJorh3BxcXdzk2KjbXmsD1h8CGG4uLgHuTkxCU9z4xcf/g5cXNyD3DbtuH7N3FajUgoXF/dL3Hb8oj1YbUe4/uji4OLifonbtkfzANeektw2J4KLixtz28etNFvzQ9yia4KLi7uZ2xY/bVHUpkrDX+Hi4m7mtoOSyaFLG6RwcXGfyb1rjmOuCZKUSbi4uCe5edqxPmbRjnjW5z+4uLg3cdtmaLuxuYbscEu4uLgHue3oVQvKw1YUyHBxcY9w87V0OBoXRZEdFxd3G3fuEDQvjdpEJ7+Li4u7m5sEr5UW6kojdThNhouLe4Q7F7zy1sZcBMXFxX0+d66kyRuyUaDExcV9JHfliKVNbm4IZLi4uAvce0PPXG8mSoxwcXGPcOcapkmTtE2M2rYLLi7uBu4PnDW+VXvy7jIAAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 
-<script src="/js/jquery.min.js"></script>
-<script src="/js/materialize.min.js"></script>
+    
+    <!-- main-js -->
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/2.1.0/jquery.min.js"></script>
+<script type="text/javascript" src="/js/plugins/fastclick.js?v=1.3.2"></script>
+<script type="text/javascript" src="/js/plugins/ios-orientationchange-fix.js?v=1.3.2"></script>
+<script type="text/javascript" src="/js/plugins/jquery.swipebox.min.js?v=1.3.2"></script>
 
-<script>
-    (function($) {
-        $(document).ready(function() {
-            // 隐藏禁用javascript（针对微信内置浏览器）的提示
-            $('.noscript').hide();
+<script type="text/javascript" src="https://cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
 
-            // 图片缩放效果
-            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+<script type="text/javascript" src="/js/method.js?v=1.3.2"></script>
+<script type="text/javascript" src="/js/blog.js?v=1.3.2"></script>
 
-            // 给图片加上点击放大效果（materialbox插件）
-            $imgs.addClass('materialboxed').each(function(i, el) {
-                $(this).attr('data-caption', $(this).attr('alt') || ' ');
-            }).materialbox();
+<!-- third-party -->
+<script type="text/javascript">
+;( function( $ ) {
 
-            // 优化表格的显示
-            $('table').each(function() {
-                var $table = $(this);
-                // 除去多行代码的情况
-                if ($table.find('pre').length == 0) {
-                    $table.addClass('responsive-table striped bordered');
-                }
-            });
+	$( '.swipebox' ).swipebox({
+		hideCloseButtonOnMobile: true
+	});
 
-            // 首页幻灯片
-            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
-
-            $(".button-collapse").sideNav();
-            $(".category-menu").sideNav();
-
-            // 针对gallery post
-            $('.carousel').carousel({full_width: true});
-            $('.carousel-control.prev').click(function() {
-                $('.carousel').carousel('prev');
-            });
-            $('.carousel-control.next').click(function() {
-                $('.carousel').carousel('next');
-            });
-
-            // 文章目录
-            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
-
-            // 目录随屏幕滚动（防止目录过长越过footer）
-            var $toc = $('.toc');
-            var scrollTargetTop = 0;
-            $(window).scroll(function() {
-                var $activeLink = $toc.find('a.active.section');
-                if ($(window).scrollTop() < 100) {
-                    scrollTargetTop = 0;
-                } else {
-                    if ($activeLink[0]) {
-                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
-                    }
-                }
-                $toc.css('top', '-' + scrollTargetTop + 'px');
-            });
-
-            // 修正文章目录的left-border颜色
-            var color = $('.table-of-contents-text').css('color');
-            $('.table-of-contents-link').css('border-left-color', color);
-
-            // 针对移动端做的优化：FAB按钮点击一下收回
-            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                $('.fixed-action-btn').addClass('click-to-toggle');
-            }
-            // 回到顶部
-            $('.btn-return-top').click(function() {
-                $('body, html').animate({
-                    scrollTop: 0
-                }, 500);
-            });
-
-            // 重置读书页面的Tab标签页的颜色
-            $('li.tab a').hover(function() {
-                $(this).toggleClass('text-lighten-4');
-            });
-            $('.indicator').addClass('green lighten-2');
-
-            
-            // 添加new标签
-            $('.menu-reading, .menu-about').append('<span class="new badge pink"></span>');
-            
-
-            // 搜索功能
-            $('.modal-trigger').leanModal({
-                // 打开搜索框时自动聚焦
-                ready: function() {
-                    if ($('#search').is(":visible")) {
-                        $('#search-input').focus();
-                    }
-                }
-            });
-            var searchXml = "search.xml";
-            if (searchXml.length == 0) {
-             	searchXml = "search.xml";
-            }
-            var searchPath = "/" + searchXml;
-            initSearch(searchPath, 'search-input', 'search-result');
-        });
-
-        // 初始化搜索与匹配函数
-        var initSearch = function(path, search_id, content_id) {
-            'use strict';
-            $.ajax({
-                url: path,
-                dataType: "xml",
-                success: function(xmlResponse) {
-                    // get the contents from search data
-                    var datas = $("entry", xmlResponse).map(function() {
-                        return {
-                            title: $("title", this).text(),
-                            content: $("content", this).text(),
-                            url: $("url", this).text()
-                        };
-                    }).get();
-                    var $input = document.getElementById(search_id);
-                    var $resultContent = document.getElementById(content_id);
-                    $input.addEventListener('input', function() {
-                        var str = '<ul class=\"search-result-list\">';
-                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
-                        $resultContent.innerHTML = "";
-                        if (this.value.trim().length <= 0) {
-                            return;
-                        }
-                        // perform local searching
-                        datas.forEach(function(data) {
-                            var isMatch = true;
-                            var content_index = [];
-                            var data_title = data.title.trim().toLowerCase();
-                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
-                            var data_url = data.url;
-                            var index_title = -1;
-                            var index_content = -1;
-                            var first_occur = -1;
-                            // only match artiles with not empty titles and contents
-                            if (data_title != '' && data_content != '') {
-                                keywords.forEach(function(keyword, i) {
-                                    index_title = data_title.indexOf(keyword);
-                                    index_content = data_content.indexOf(keyword);
-                                    if (index_title < 0 && index_content < 0) {
-                                        isMatch = false;
-                                    } else {
-                                        if (index_content < 0) {
-                                            index_content = 0;
-                                        }
-                                        if (i == 0) {
-                                            first_occur = index_content;
-                                        }
-                                    }
-                                });
-                            }
-                            // show search results
-                            if (isMatch) {
-                                keywords.forEach(function(keyword) {
-                                    var regS = new RegExp(keyword, "gi");
-                                    data_title = data_title.replace(regS, "<span class=\"search-keyword indigo lighten-2\">" + keyword + "</span>");
-                                });
-
-                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
-                                var content = data.content.trim().replace(/<[^>]+>/g, "");
-                                if (first_occur >= 0) {
-                                    // cut out 100 characters
-                                    var start = first_occur - 20;
-                                    var end = first_occur + 80;
-                                    if (start < 0) {
-                                        start = 0;
-                                    }
-                                    if (start == 0) {
-                                        end = 100;
-                                    }
-                                    if (end > content.length) {
-                                        end = content.length;
-                                    }
-                                    var match_content = content.substring(start, end);
-                                    // highlight all keywords
-                                    keywords.forEach(function(keyword) {
-                                        var regS = new RegExp(keyword, "gi");
-                                        match_content = match_content.replace(regS, "<span class=\"search-keyword indigo lighten-2\">" + keyword + "</span>");
-                                    });
-
-                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
-                                }
-                                str += "</li>";
-                            }
-                        });
-                        str += "</ul>";
-                        $resultContent.innerHTML = str;
-                    });
-                }
-            });
-        }
-    })(jQuery);
+} )( jQuery );
 </script>
 
 
-<script src="/js/prettify.js"></script>
+
+
+
+
+<script type="text/javascript" src="/js/plugins/local_search.js?v=1.3.2"></script>
 <script type="text/javascript">
-    $(document).ready(function() {
-        $("pre").addClass("prettyprint");
-        prettyPrint();
+	var search_path = "search.xml";
+	if (search_path.length === 0) {
+		search_path = "search.xml";
+	}
+	var path = "/" + search_path;
+	searchFunc(path, "local-search-input", "local-search-result");
+</script>
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+    
+    
+
+
+
+
+
+    <!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+            processEscapes: true,
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
     });
 </script>
 
-
-
-
-
-
 <script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
-});
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
 </script>
-<script type="text/javascript" async
-  src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 
 
+
+
+
+    
 </body>
 </html>
