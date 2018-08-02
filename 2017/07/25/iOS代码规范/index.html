@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     
     
-    <title>iOS代码规范 | 黄聪的Blog</title>
+    <title>iOS代码规范 | Hello World | 路漫漫其修远兮，吾将上下而求索</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="keywords" content="iOS,代码规范">
@@ -116,35 +116,42 @@
             <li class="">
               <a href="/"  >
                 <i class="icon icon-lg icon-home"></i>
-                HOME
+                主页
               </a>
             </li>
         
             <li class="">
               <a href="/categories"  >
                 <i class="icon icon-lg icon-th-list"></i>
-                CATEGORIES
+                分类
               </a>
             </li>
         
             <li class="">
               <a href="/tags"  >
                 <i class="icon icon-lg icon-tags"></i>
-                TAGS
+                标签
               </a>
             </li>
         
             <li class="">
               <a href="/archives"  >
                 <i class="icon icon-lg icon-archives"></i>
-                ARCHIVES
+                归档
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                关于
               </a>
             </li>
         
             <li class="">
               <a href="/custom"  >
-                <i class="icon icon-lg icon-plus-square"></i>
-                CUSTOM
+                <i class="icon icon-lg icon-file"></i>
+                测试页面
               </a>
             </li>
         
@@ -356,11 +363,11 @@
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line">// 较短的 block 写在一行内</div><div class="line">[operation setCompletionBlock:^&#123; [self onOperationDone]; &#125;];</div><div class="line"></div><div class="line">// 分行书写的 block ，内部使用 4 空格缩进</div><div class="line">[operation setCompletionBlock:^&#123;</div><div class="line">	[self.delegate newDataAvailable];</div><div class="line">&#125;];</div><div class="line"></div><div class="line">// 使用 C 语言 API 调用的 block 遵循同样的书写规则</div><div class="line">dispatch_async(_fileIOQueue, ^&#123;</div><div class="line">	NSString* path = [self sessionFilePath];</div><div class="line">	if (path) &#123;</div><div class="line">	// ...</div><div class="line">	&#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">// 较长的 block 关键字可以缩进后在新行书写，注意 block 的右括号 &apos;&#125;&apos; 和调用 block 那行代码的第一个非空字符对齐</div><div class="line">[[SessionService sharedService]</div><div class="line">	loadWindowWithCompletionBlock:^(SessionWindow *window) &#123;</div><div class="line">		if (window) &#123;</div><div class="line">			[self windowDidLoad:window];</div><div class="line">		&#125; else &#123;</div><div class="line">			[self errorLoadingWindow];</div><div class="line">		&#125;</div><div class="line">	&#125;];</div><div class="line"></div><div class="line">// 较长的 block 参数列表同样可以缩进后在新行书写</div><div class="line">[[SessionService sharedService]</div><div class="line">	loadWindowWithCompletionBlock:</div><div class="line">		^(SessionWindow *window) &#123;</div><div class="line">			if (window) &#123;</div><div class="line">				[self windowDidLoad:window];</div><div class="line">			&#125; else &#123;</div><div class="line">				[self errorLoadingWindow];</div><div class="line">			&#125;</div><div class="line">	&#125;];</div><div class="line"></div><div class="line">// 庞大的 block 应该单独定义成变量使用</div><div class="line">void (^largeBlock)(void) = ^&#123;</div><div class="line">	// ...</div><div class="line">&#125;;</div><div class="line">[_operationQueue addOperationWithBlock:largeBlock];</div><div class="line"></div><div class="line">// 在一个调用中使用多个 block ，注意到他们不是像函数那样通过 &apos;:&apos; 对齐的，而是同时进行了 4 个空格的缩进</div><div class="line">[myObject doSomethingWith:arg1</div><div class="line">	firstBlock:^(Foo *a) &#123;</div><div class="line">		// ...</div><div class="line">	&#125;</div><div class="line">	secondBlock:^(Bar *b) &#123;</div><div class="line">		// ...</div><div class="line">&#125;];</div></pre></td></tr></table></figure>
 </li>
 </ol>
-<h2 id="八-单词简写"><a href="#八-单词简写" class="headerlink" title="八. 单词简写"></a>八. 单词简写</h2><p>不要使用单词的简写，拼写出完整的单词：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// 清晰</div><div class="line">destinationSelection</div><div class="line">setBackgroundColor:</div><div class="line">// 不清晰，不要使用简写</div><div class="line">destSel</div><div class="line">setBkgdColor:</div></pre></td></tr></table></figure>
-<p>然而，有部分单词简写在 <code>Objective-C</code> 编码过程中是非常常用的，以至于成为了一种规范，这些简写可以在代码中直接使用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">alloc == Allocate</div><div class="line">max == Maximum</div><div class="line">alt == Alternate</div><div class="line">min == Minimum</div><div class="line">app == Application</div><div class="line">msg == Message</div><div class="line">calc == Calculate</div><div class="line">nib == Interface Builder archive</div><div class="line">dealloc == Deallocate</div><div class="line">pboard == Pasteboard</div><div class="line">func == Function</div><div class="line">rect == Rectangle</div><div class="line">horiz == Horizontal</div><div class="line">Rep == Representation (used in class name such as NSBitmapImageRep).</div><div class="line">info == Information</div><div class="line">temp == Temporary</div><div class="line">init == Initialize</div><div class="line">vert == Vertical</div><div class="line">int == Integer</div><div class="line">btn == button</div><div class="line">txf == textField</div><div class="line">dict == dictionary</div></pre></td></tr></table></figure>
-<h2 id="九-注释"><a href="#九-注释" class="headerlink" title="九. 注释"></a>九. 注释</h2><ol>
+<h2 id="八-单词简写"><a href="#八-单词简写" class="headerlink" title="八. 单词简写"></a>八. 单词简写</h2><p>不要使用单词的简写，拼写出完整的单词：  </p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// 清晰</div><div class="line">destinationSelection</div><div class="line">setBackgroundColor:</div><div class="line">// 不清晰，不要使用简写</div><div class="line">destSel</div><div class="line">setBkgdColor:</div></pre></td></tr></table></figure>
+</code></pre><p>然而，有部分单词简写在 <code>Objective-C</code> 编码过程中是非常常用的，以至于成为了一种规范，这些简写可以在代码中直接使用  </p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">alloc == Allocate</div><div class="line">max == Maximum</div><div class="line">alt == Alternate</div><div class="line">min == Minimum</div><div class="line">app == Application</div><div class="line">msg == Message</div><div class="line">calc == Calculate</div><div class="line">nib == Interface Builder archive</div><div class="line">dealloc == Deallocate</div><div class="line">pboard == Pasteboard</div><div class="line">func == Function</div><div class="line">rect == Rectangle</div><div class="line">horiz == Horizontal</div><div class="line">Rep == Representation (used in class name such as NSBitmapImageRep).</div><div class="line">info == Information</div><div class="line">temp == Temporary</div><div class="line">init == Initialize</div><div class="line">vert == Vertical</div><div class="line">int == Integer</div><div class="line">btn == button</div><div class="line">txf == textField</div><div class="line">dict == dictionary</div></pre></td></tr></table></figure>
+</code></pre><h2 id="九-注释"><a href="#九-注释" class="headerlink" title="九. 注释"></a>九. 注释</h2><ol>
 <li>方法头部应进行注释，列出：函数的功能、输入参数、输出参数、返回值、修改信息等</li>
 <li>全局变量要有详细的注释，包括对其功能、取值范围等说明</li>
 <li>定义在头文件里的接口方法、属性必须要有注释</li>
@@ -371,7 +378,7 @@
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">一些良好的注释：</div><div class="line"></div><div class="line">objective-c</div><div class="line">/**</div><div class="line"> *  Create a new preconnector to replace the old one with given mac address.</div><div class="line"> *  NOTICE: We DO NOT stop the old preconnector, so handle it by yourself.</div><div class="line"> *</div><div class="line"> *  @param type       Connect type the preconnector use.</div><div class="line"> *  @param macAddress Preconnector&apos;s mac address.</div><div class="line"> */</div><div class="line">- (void)refreshConnectorWithConnectType:(IPCConnectType)type  Mac:(NSString *)macAddress;</div><div class="line"></div><div class="line">/**</div><div class="line"> *  Stop current preconnecting when application is going to background.</div><div class="line"> */</div><div class="line">-(void)stopRunning;</div><div class="line"></div><div class="line">/**</div><div class="line"> *  Get the COPY of cloud device with a given mac address.</div><div class="line"> *</div><div class="line"> *  @param macAddress Mac address of the device.</div><div class="line"> *</div><div class="line"> *  @return Instance of IPCCloudDevice.</div><div class="line"> */</div><div class="line">-(IPCCloudDevice *)getCloudDeviceWithMac:(NSString *)macAddress;</div><div class="line"></div><div class="line">// A delegate for NSApplication to handle notifications about app</div><div class="line">// launch and shutdown. Owned by the main app controller.</div><div class="line">@interface MyAppDelegate : NSObject &#123;</div><div class="line">  ...</div><div class="line">&#125;</div><div class="line">@end</div></pre></td></tr></table></figure>
 </li>
 <li><p>协议、委托的注释要明确说明其被触发的条件：</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/** Delegate - Sent when failed to init connection, like p2p failed. */</div><div class="line">-(void)initConnectionDidFailed:(IPCConnectHandler *)handler;</div></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">objective-c</div><div class="line">/** Delegate - Sent when failed to init connection, like p2p failed. */</div><div class="line">-(void)initConnectionDidFailed:(IPCConnectHandler *)handler;</div></pre></td></tr></table></figure>
 </li>
 <li><p>如果在注释中要引用参数名或者方法函数名，使用 <code>||</code> 将参数或者方法括起来以避免歧义：</p>
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">objective-c</div><div class="line">// Sometimes we need |count| to be less than zero.</div><div class="line">// Remember to call |StringWithoutSpaces(&quot;foo bar baz&quot;)|</div></pre></td></tr></table></figure></li>
@@ -383,16 +390,16 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-07-31T13:01:03.573Z" itemprop="dateUpdated">2018-07-31 21:01:03</time>
+    最后更新时间：<time datetime="2018-08-02T12:34:13.949Z" itemprop="dateUpdated">2018-08-02 20:34:13</time>
 </span><br>
 
 
         
-        转载注明出处，原文地址：<a href="/2017/07/25/iOS代码规范/" target="_blank" rel="external">http://yoursite.com/2017/07/25/iOS代码规范/</a>
+        转载注明出处，原文地址：<a href="/2017/07/25/iOS代码规范/" target="_blank" rel="external">http://http://ioshc.github.io/2017/07/25/iOS代码规范/</a>
         
     </div>
     <footer>
-        <a href="http://yoursite.com">
+        <a href="http://http://ioshc.github.io">
             <img src="/img/avatar.jpg" alt="Eden Huang">
             Eden Huang
         </a>
@@ -417,7 +424,7 @@
     <ul class="reset share-icons">
       
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2017/07/25/iOS代码规范/&title=《iOS代码规范》 — 黄聪的Blog&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://http://ioshc.github.io/2017/07/25/iOS代码规范/&title=《iOS代码规范》 — Hello World&pic=http://http://ioshc.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -429,7 +436,7 @@
       </li>
       
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2017/07/25/iOS代码规范/&title=《iOS代码规范》 — 黄聪的Blog&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://http://ioshc.github.io/2017/07/25/iOS代码规范/&title=《iOS代码规范》 — Hello World&source=任何描述都是多余的" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -462,13 +469,6 @@
     </div>
   
 
-  
-    <div class="next">
-      <a href="/2017/06/02/hello-world/" id="post-next" class="post-nav-link">
-        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Hello World</h4>
-      </a>
-    </div>
   
 </nav>
 
@@ -586,7 +586,7 @@
     <ul class="reset share-icons">
       
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2017/07/25/iOS代码规范/&title=《iOS代码规范》 — 黄聪的Blog&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://http://ioshc.github.io/2017/07/25/iOS代码规范/&title=《iOS代码规范》 — Hello World&pic=http://http://ioshc.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -598,7 +598,7 @@
       </li>
       
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2017/07/25/iOS代码规范/&title=《iOS代码规范》 — 黄聪的Blog&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://http://ioshc.github.io/2017/07/25/iOS代码规范/&title=《iOS代码规范》 — Hello World&source=任何描述都是多余的" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -610,7 +610,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACN0lEQVR42u3aXXLCMAxG0ex/02EBJXA/KaFj+fqJKVD7pDOqfnwceJ1/1tVnrj5/9e7VLscTS4YMGcsyzo+Lb0C+RQDkcbw5iQwZMjZgkABaO27tXX42GTJkyEg/U/tJZ18ZMmTIqL3mBfA//9+QIUPGUoxausaTP/LgeNtOhgwZuzF41/33rx+Zb8iQIWMpxhmuWkrXGSegU8mQIWM0gwe42jULHsR54ni5iwwZMoYyOsdKy9daaEaPT4YMGRswOiPMWqWZpoBfhp0yZMjYgMFb/5+3T1ND3j27rRcoQ4aMBRlfAlmYMvIHwZPIoMSVIUPGUAZv2acBlwRrfnUj/jvIkCFjAwbfng8706Y/+WeAuoYyZMhYnEGCLA+I/LfxqxvFM8iQIWMQI22TdcaTfBjAv1u86yFDhowFGbUrX2k5mgZT0hB8M4mVIUPGUAYpYvkggb+bNt3QZQsZMmSMY6TFZ//6Bb88wVNVGTJk7MAgza9OICYh+AaeDBkyRjM6I8l7L23wIaUMGTJ2Y5Cj18pLUqbeVR7LkCFjBwYaFoaXxtKEMn18QWYqQ4aMEYy0jOThlezY2V2GDBmzGWe4+GAyvWSWJqAot5UhQ8YIBl+87OQDgDRZjC9byJAhYxCDBNnaeOC5gFucbMiQIWNxRhr4auOEuMJOa3EZMmTIwGlfvzGXjitkyJAhgx+ah10+kEDtPBkyZGzAIEXsc0lk7VKaDBky9mGkpWNnuEgeU3odTYYMGaMZL/d+IuBpU2TeAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACK0lEQVR42u3aQU7DQAwF0N7/0mWLhBr+9wSkzLysUAmpXxbGHvv1iq/3t+v7J5/u+XldP/n6k9suDAyMxzKSr29/e/38JIb61WBgYBzAuE6F7aOTpHkddB4bBgYGRl7AzVL29ZMxMDAwVhjrzfD1i8DAwMCYNbHXZeKscc2Lxdt6cQwMjAcy8kT5/z//yXwDAwPjUYx3ea0k6Dy4OioMDIytGbND/HuHkbOEi4GBcTIjT52zscEvoawkawwMjE0Z7ZJEHkoSVrtk9pGHgYGxNSMPNCrOyiJvfXSKgYFxAiNPYbPEmqTpvNH9+LcYGBhbM/KkNlu8yENp1zJe7U0YGBiPZbQH9LNtjvYIL48h6sUxMDAezlgp7GYJtx1/1sdtGBgYWzPuSp0z8Erri4GBcQ6jHS7OUmp79F+XpBgYGMcw8hHjbLUiSaBLFS4GBsZ2jHZY2BZ5s6xYj1QxMDC2ZtzV0M7WKdqjtNs6cgwMjEcxkhItKf7ahjNfuahrWwwMjE0ZLWm2PNG+jmJ4gIGBcQxjdriWp+A2pRb/DDAwMI5h5E3myvhzpZNeKg0xMDAeyHiXV7seMQu6/l4MDIytGXeNAWaDyby5bYcHGBgY+zFmSbYtAdtjuLY8xcDAOIGRJ742Lf5P4YiBgYGR3DMbTM6WPIoJBgYGxvGMpMVNyse2hb454WJgYDyE0Q4gZ0n2+gn52gcGBsZpjLx1XEmI9y5bDIeaGBgYz2N8AcDwk2EewIOFAAAAAElFTkSuQmCC" alt="微信分享二维码">
 </div>
 
 
@@ -639,6 +639,16 @@
 
 
 
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?[object Object]";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
 
 
 
