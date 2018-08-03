@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     
     
-    <title>标签: iOS | Hello World | 路漫漫其修远兮，吾将上下而求索</title>
+    <title>reading | Hello World | 路漫漫其修远兮，吾将上下而求索</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="keywords" content="undefined">
@@ -15,7 +15,7 @@
     <script type="text/javascript">
         // Data Center
         var DC = {
-            reward:	false,
+            reward:	true,
             lv: JSON.parse('{"enable":false,"app_id":null,"app_key":null,"icon":true}'),
             v: JSON.parse('{"enable":false,"appid":null,"appkey":null,"notify":true,"verify":true,"placeholder":"give me some sugers plz...","avatar":"wavatar"}'),
             g: JSON.parse('{"enable":false,"lazy":true,"owner":"codefine","repo":"gitment","oauth":{"client_id":null,"client_secret":null},"perPage":10}'),
@@ -32,7 +32,7 @@
 <body>
     <div id="loading" class="active"></div>
 
-    <aside id="menu"  >
+    <aside id="menu" class="hide" >
   <div class="inner flex-row-vertical">
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
@@ -127,7 +127,7 @@
               </a>
             </li>
         
-            <li class=" active">
+            <li class="">
               <a href="/tags"  >
                 <i class="icon icon-lg icon-tags"></i>
                 标签
@@ -141,7 +141,7 @@
               </a>
             </li>
         
-            <li class="">
+            <li class=" active">
               <a href="/reading"  >
                 <i class="icon icon-lg icon-book"></i>
                 阅读
@@ -188,7 +188,7 @@
           <i class="icon icon-lg icon-navicon"></i>
         </a>
         <div class="flex-col header-title ellipsis">
-            <span>标签: iOS</span>
+            <span>reading</span>
             
         </div>
         
@@ -198,37 +198,16 @@
         
     </div>
 </header>
-<header class="content-header tags-header">
+<header class="content-header page-header">
     <img src="/img/banner.jpg" class="header-bg">
     <div class="container fade-scale">
-        <h1 class="title">标签: iOS</h1>
+        <h1 class="title">reading</h1>
         <h5 class="subtitle">
             
         </h5>
         
     </div>
     
-<div class="tabs-bar container">
-    <nav class="tags-list">
-        <a href="/tags" style="-webkit-order:-1;order:-1" class="tags-list-item waves-effect waves-button waves-light
-            ">All</a>
-        
-            <a href="/tags/iOS/" backup-style="-webkit-order:0;order:0" class="tags-list-item waves-effect waves-button waves-light active">iOS</a>
-            
-        
-            <a href="/tags/代码规范/" backup-style="-webkit-order:1;order:1" class="tags-list-item waves-effect waves-button waves-light">代码规范</a>
-            
-        
-            <a href="/tags/Markdown/" backup-style="-webkit-order:2;order:2" class="tags-list-item waves-effect waves-button waves-light">Markdown</a>
-            
-        
-    </nav>
-    <!-- PC show more-->
-    <div class="tags-list-more">
-        <a href="javascript:;" class="action tags-list-item waves-effect waves-circle waves-light"><i class="icon icon-ellipsis-h"></i></a>
-    </div>
-</div>
-
 
 </header>
 
@@ -245,47 +224,100 @@
     <div id="local-search-result"></div>
 </div>
 
-<div class="container body-wrap fade">
-    
-            <div class="waterfall">
-                
-                <div class="waterfall-item">
-  <article class="article-card archive-article">
-    <div class="post-meta">
-      <time class="post-time" title="2017-07-25 17:49:21" datetime="2017-07-25T09:49:21.000Z"  itemprop="datePublished">2017-07-25</time>
 
-      
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/iOS/">iOS</a></li></ul>
-
-
-
-    </div>
-    
-
-
-  
-    <h3 class="post-title " itemprop="name">
-      <a class="post-title-link" href="/2017/07/25/iOS代码规范/">iOS代码规范</a>
-    </h3>
-  
-
-
-
-    
-    <div class="post-footer">
+<div class="container body-wrap">
+    <article class="page-article fade" itemprop="blogPage">
+        <div class="post-content page-content" id="page-content" itemprop="pageContent">
+            
+            
+        </div>
         
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/代码规范/">代码规范</a></li></ul>
-
-    </div>
-    
-  </article>
+            <div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
 </div>
+
         
+        
+        <div class="card page-about-me flex-row">
+            <a href="/" class="avatar waves-effect waves-circle waves-light"><img src="/img/avatar.jpg"></a>
+            <div class="content flex-col">
+                <p><strong>Eden Huang</strong></p>
+                <p><em>路漫漫其修远兮，吾将上下而求索</em></p>
+                <p></p>
             </div>
-        
+            <div class="page-share-wrap">
     
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://http://ioshc.github.io/reading/&title=《reading》 — Hello World&pic=http://http://ioshc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://http://ioshc.github.io/reading/&title=《reading》 — Hello World&source=任何描述都是多余的" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
 </div>
 
+        </div>
+        
+        
+        <div class="card">   
+           
+
+
+        </div>
+        
+    </article>
+    
+        <div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        我们一起来让这个世界有趣一点
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/reward-wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/reward-wechat.jpg" data-alipay="/img/reward-alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+    
+</div>
 
         <footer class="footer">
     
@@ -359,7 +391,7 @@
     <ul class="reset share-icons">
       
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://http://ioshc.github.io/tags/iOS/&title=Hello World&pic=http://http://ioshc.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://http://ioshc.github.io/reading/&title=《reading》 — Hello World&pic=http://http://ioshc.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -371,7 +403,7 @@
       </li>
       
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://http://ioshc.github.io/tags/iOS/&title=Hello World&source=任何描述都是多余的" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://http://ioshc.github.io/reading/&title=《reading》 — Hello World&source=任何描述都是多余的" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -383,7 +415,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABxElEQVR42u3aQW7DMAwEwPz/0+61QIpml5JVoxidgkCJRz4QJMXXK17X23r//vf9ya+2LVxc3GXu9ev6vieht8/NDbi4uOe57d+1wS7//MGGi4v7SG6SpiTJDS4u7v/gJulIjsDFxX0+d9bIaEPb0VoNFxd3gTtrYez9fEt/FxcXd8S9lldyvKR8ip6Fi4t7hNsGnQSRRKH24hYXF/ckN29rbghAQVrz4QXh4uIe5CZBZzZ0lR8gSp5wcXEPcmfXpbPUJ2+LFCkOLi7ubdxZodKOa7SXK6/Zu8HFxd3KnTUvZqlMexGLi4v7t9y29bmSEuWjHri4uGe4sz9qGyXtns3pDi4u7ojbsnYVSLOOKC4u7t3cvMhJCp71Y9RzIri4uDdw81bmSlCbHaO4GcbFxd3KbQNZe7z1gPjDJSsuLu7N3LxBmRygPWReAuHi4p7kXuVqy6R8yCO6zsHFxT3CzddsLGOWAG1A4+LiLnNnwStJdPJmStFgxcXFPchtmxp5s6MYt0p24uLiPow7G54YBqwkFuLi4j6Am+yfjWXkRREuLu5J7uxhbYKSX8lEl6y4uLi3cdu8Yr28acPosL+Li4s74X4BkPfTanCCCQ8AAAAASUVORK5CYII=" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABx0lEQVR42u3ay2oDMQwF0P7/T6fQVaFMeiV5lLQcr0KGcY6zENbj4yNej6+VfP6+fn5/tefhhYuLO+Y+nq6rrZ8jqk8TAy4u7j43CV55kKq+lRhwcXHfk5tsl4RCXFzc/8TtJTAvjru4uLgDbpL8zJOZ/Ap1IFfDxcUdcM8WTHufX1bfxcXFLXYlkoCSB688bF3ug4uLu8J9XtqYh7M70iFcXNwdbrWNmg9hJPvkbRtcXNxXcfNCRu/H8jDXLJvi4uKOuXkzozqKcXbAq9z1xcXFHXALV4rxHaOXOF3+x7i4uLdxqz+TBLjJPavQDcbFxb2NmwemKqs6elUetsDFxb2NWx23SkohvcQmaqvg4uIucqsBZT5g0Wy44uLiLnJPjWclSVSvHYuLi7vJ7bU3ejnWpH2Li4u7ya2OTOVPe4nQL6ENFxd3kVttduZDFdXDR4EMFxd3hdtLe86WWaNj4OLirnCrASXvflaDXW8EBBcX9z5uErwmp8/bLcl1ChcXd5NbHbDIGyHJ08JgBy4u7ptxq+2WyRjW5fFwcXH/LDcPavkxcHFx97mFZmec2PTePVYWwcXFXSyYVosg+ZBH3vTFxcW9jfsJs4ZN1N5WrbMAAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 
