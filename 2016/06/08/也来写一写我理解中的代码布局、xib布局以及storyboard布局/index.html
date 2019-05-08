@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    
+    <title>也来写一写我理解中的代码布局、xib布局以及storyboard布局 | Hello World | 路漫漫其修远兮，吾将上下而求索</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="iOS,UI">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/third-party/swipebox.min.css?v=1.3.2">
+    <link rel="stylesheet" href="/css/style.css?v=1.3.2">
+    
+    <script type="text/javascript">
+        // Data Center
+        var DC = {
+            reward:	true,
+            lv: JSON.parse('{"enable":false,"app_id":null,"app_key":null,"icon":true}'),
+            v: JSON.parse('{"enable":false,"appid":null,"appkey":null,"notify":true,"verify":true,"placeholder":"give me some sugers plz...","avatar":"wavatar"}'),
+            g: JSON.parse('{"enable":false,"lazy":true,"owner":"codefine","repo":"gitment","oauth":{"client_id":null,"client_secret":null},"perPage":10}'),
+            d: JSON.parse('{"app_id":null}')
+        };
+    </script>
+    <script type="text/javascript">
+        window.lazyScripts=[];
+    </script>
+    
+</head>
+
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      
+      <img src="/img/brand.jpg" class="brand-bg">
+      
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Eden Huang</h5>
+          <a href="mailto:huangcong520@icloud.com" title="huangcong520@icloud.com" class="mail">
+            
+              <span>h</span>
+            
+              <span>u</span>
+            
+              <span>a</span>
+            
+              <span>n</span>
+            
+              <span>g</span>
+            
+              <span>c</span>
+            
+              <span>o</span>
+            
+              <span>n</span>
+            
+              <span>g</span>
+            
+              <span>5</span>
+            
+              <span>2</span>
+            
+              <span>0</span>
+            
+              <span>@</span>
+            
+              <span>i</span>
+            
+              <span>c</span>
+            
+              <span>l</span>
+            
+              <span>o</span>
+            
+              <span>u</span>
+            
+              <span>d</span>
+            
+              <span>.</span>
+            
+              <span>c</span>
+            
+              <span>o</span>
+            
+              <span>m</span>
+            
+          </a>
+        </hgroup>
+        
+        <ul class="menu-link">
+          
+              <li>
+                <a href="https://github.com/ioshc" target="_blank">
+                  <i class="icon icon-lg icon-github"></i>
+                </a>
+              </li>
+            
+        </ul>
+        
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/reading"  >
+                <i class="icon icon-lg icon-book"></i>
+                阅读
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/study"  >
+                <i class="icon icon-lg icon-question-circle"></i>
+                学习
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/themes"  >
+                <i class="icon icon-lg icon-file-image-o"></i>
+                主题
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                关于
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/custom"  >
+                <i class="icon icon-lg icon-file"></i>
+                测试页面
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row clearfix">
+        <a href="javascript:;" class="header-icon pull-left waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">
+            <span>也来写一写我理解中的代码布局、xib布局以及storyboard布局</span>
+            
+        </div>
+        
+        <a href="javascript:;" id="site_search_btn" class="header-icon pull-right waves-effect waves-circle waves-light">
+            <i class="icon icon-lg icon-search"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+    <img src="/img/banner.jpg" class="header-bg">
+    <div class="container fade-scale">
+        <h1 class="title">也来写一写我理解中的代码布局、xib布局以及storyboard布局</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2016-06-07T16:02:10.000Z" itemprop="datePublished" class="page-time">
+  2016-06-08
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/iOS/">iOS</a></li></ul>
+
+            
+        </h5>
+        
+    </div>
+    
+
+</header>
+
+<div id="site_search">
+    <div class="search-title clearfix">
+        <span class="pull-left">
+          <i class="icon icon-lg icon-search"></i>
+        </span>
+        <input type="text" id="local-search-input" name="q" results="0" placeholder="search my blog..." class="form-control pull-left"/>
+        <a href="javascript:;" class="close pull-right waves-effect waves-circle waves-light">
+          <i class="icon icon-lg icon-close"></i>
+        </a>
+    </div>
+    <div id="local-search-result"></div>
+</div>
+
+
+<div class="container body-wrap">
+    <article id="post-也来写一写我理解中的代码布局、xib布局以及storyboard布局"
+  class="post-article article-type-post" itemprop="blogPost">
+    <div class="post-card">
+        <h1 class="post-card-title">也来写一写我理解中的代码布局、xib布局以及storyboard布局</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2016-06-08 00:02:10" datetime="2016-06-07T16:02:10.000Z"  itemprop="datePublished">2016-06-08</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/iOS/">iOS</a></li></ul>
+
+
+
+            
+
+            
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>前几天在CocoaChina上看了一篇关于代码布局、xib布局以及storyboard布局的争论，我也参与了其中，大半夜的写出了我自己的理解，结果一个误操作，打了十几分钟的字，就被自己丢失掉了（哎，再一次上了没有保存的当！）。不过本着要发表点自己意见的心态， 还是再次花了十几分钟，重新发表了自己的想法。自己总算参与了iOS开发大军的互喷中。</p>
+<h3 id="为什么有人不喜欢xib和storyboard？"><a href="#为什么有人不喜欢xib和storyboard？" class="headerlink" title="为什么有人不喜欢xib和storyboard？"></a>为什么有人不喜欢xib和storyboard？</h3><p>看了网上很多人的评论，我总结了下，90%的开发认为：</p>
+<ol>
+<li>xib和storyboard布局，没有代码布局看着方便，在xib和storyboard上看UI布局的比较费时；</li>
+<li>xib和storyboard布局，容易冲突，多人协作的时候容易抓狂；</li>
+<li>xib和storyboard布局，不方便维护，后期需求修改的时候没有代码布局修改方便；</li>
+</ol>
+<p>其他的一些观点，我就不列举了。</p>
+<p>有位朋友这样说</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">对于支持xib的，我只想说，别坑自己人。</span><br><span class="line">团队开发矛盾就在这时候体现出来了。</span><br><span class="line">以后去了插件化公司你就会明白为什么不让你用xib了。</span><br><span class="line">之前公司所有分配的项目都要求打包成静态库或者动态库，而且不允许打包bundle，统一使用主框架下的图片。</span><br><span class="line">我看看你们傻眼不？</span><br></pre></td></tr></table></figure>
+<p>对于这位朋友的观点，我的想法是类似于架构设计，要有远见，但是也不能过度设计。因地制宜，杀鸡不用牛刀。</p>
+<h3 id="我自己的一些观点"><a href="#我自己的一些观点" class="headerlink" title="我自己的一些观点"></a>我自己的一些观点</h3><p>就个人观点， storyboard，xib 和代码， 都有各自适合的场景。</p>
+<p>在我的理解中， UI 是分成<strong>UI 逻辑</strong>和<strong>UI 布局</strong>， 然而， sb 和 xib，以及代码， 都只是 UI 布局这个环节。</p>
+<p>我个人倾向于 sb， 为什么呢？</p>
+<ol>
+<li>sb 更加直观， 对于整个项目来说， 一个完美的流程图及时呈现在你面前， 你肯定对 整个项目的掌握了然于胸。</li>
+<li>sb 实现起来更快。不论是添加控件，还是给控件布局，sb 都会很 nice 的。</li>
+<li>sb 减少了开发的工作。（我说的只是减少， 不是完全没了）sb 能够很好的把布局工作从代码中拿出来， 让我们的代码只专注于我们的业务和逻辑。我的开发理念是， 能少写一行代码的就不能多写一行。能把事情交给 apple 做的， 我就不会自己来做。</li>
+</ol>
+<p>和代码布局相比起来，</p>
+<ol>
+<li>代码布局不直观， 流程得看代码。（不要说整个项目都是一个人从头到尾做的，自己很清楚之类的。这儿主要讨论团队开发）</li>
+<li>代码布局太费时了。<br>用代码布局， 首先要写添加这个控件的代码， 然后写这个控件的布局，或者写约束，相对 sb 来说，的确太耗时了。<br>不过可能大家要说 sb 修改起来太麻烦了。 其实就我个人观点，sb 相对于代码来说，修改起来反而更加简单。因为要修改或者删除 sb 里面的控件的时候， 如果理不清的时候， 直接删掉所有控件， 重新添加控件， 重现布局，也不是一个多大的事。<br>然而， 如果用代码的话， 大家首先得理解这段代码的含义， 然后还要考虑这个代码能不能改， 能不能删，思考的时间绝对不少了。 而且，一般大家也不敢随便动其他人写的代码， 怕改出问题。</li>
+<li>代码布局效率高，sb 效率低。<br>我觉得编译时期， 的确 sb布局被代码完爆。 不过在运行的时候， 个人觉得差不太多， 估计代码布局会好点。但是相对于程序结构来说， 我觉得完全没必要。</li>
+<li>代码布局相对于 sb 布局的团队合作来说， 要略胜一筹。但是 sb 布局的冲突， 其实从技术上是可以规避的， 不过具体方式就不在这儿讨论了</li>
+</ol>
+<p>在 UI 的实现上，我在概念上将 UI分成 UI 逻辑和 UI 布局， 我觉得苹果之所以出 xib 和 sb，就是想把 UI 布局的工作给抽出来，让我们只关注与业务和逻辑。不要被布局给困扰。</p>
+<p>所以我在实现UI 的时候， 基本上我的代码只看得到 UI 逻辑部分， 而布局相关的代码完全没了。</p>
+<h3 id="一些大牛的观点"><a href="#一些大牛的观点" class="headerlink" title="一些大牛的观点"></a>一些大牛的观点</h3><p><a href="https://onevcat.com/2013/12/code-vs-xib-vs-storyboard/" target="_blank" rel="noopener">https://onevcat.com/2013/12/code-vs-xib-vs-storyboard/</a></p>
+<p><a href="http://blog.devtang.com/2015/03/22/ios-dev-controversy-2/" target="_blank" rel="noopener">http://blog.devtang.com/2015/03/22/ios-dev-controversy-2/</a></p>
+<h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><p>虽然上面我说了我个人倾向于sb，不过还是得看项目，不同的项目要因地制宜。</p>
+
+        </div>
+        
+<blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-05-08T10:43:01.476Z" itemprop="dateUpdated">2019-05-08 18:43:01</time>
+</span><br>
+
+
+        
+        转载注明出处，原文地址：<a href="/2016/06/08/也来写一写我理解中的代码布局、xib布局以及storyboard布局/" target="_blank" rel="external">http://http://ioshc.github.io/2016/06/08/也来写一写我理解中的代码布局、xib布局以及storyboard布局/</a>
+        
+    </div>
+    <footer>
+        <a href="http://http://ioshc.github.io">
+            <img src="/img/avatar.jpg" alt="Eden Huang">
+            Eden Huang
+        </a>
+    </footer>
+</blockquote>
+
+        
+            <div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+            
+        
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UI/">UI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+
+            <div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://http://ioshc.github.io/2016/06/08/也来写一写我理解中的代码布局、xib布局以及storyboard布局/&title=《也来写一写我理解中的代码布局、xib布局以及storyboard布局》 — Hello World&pic=http://http://ioshc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://http://ioshc.github.io/2016/06/08/也来写一写我理解中的代码布局、xib布局以及storyboard布局/&title=《也来写一写我理解中的代码布局、xib布局以及storyboard布局》 — Hello World&source=任何描述都是多余的" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+        </div>
+        
+            
+
+
+        
+    </div>
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="prev">
+      <a href="/2016/06/18/MVVM模式/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Swift中iOS应用程序的MVVM模式</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="next">
+      <a href="/2016/05/20/markdown基本语法/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">markdown基本语法</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+        <aside class="post-widget">
+            <nav class="post-toc-wrap" id="post-toc">
+                <strong>目录</strong>
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#为什么有人不喜欢xib和storyboard？"><span class="post-toc-number">2.</span> <span class="post-toc-text">为什么有人不喜欢xib和storyboard？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#我自己的一些观点"><span class="post-toc-number">3.</span> <span class="post-toc-text">我自己的一些观点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一些大牛的观点"><span class="post-toc-number">4.</span> <span class="post-toc-text">一些大牛的观点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#写在最后"><span class="post-toc-number">5.</span> <span class="post-toc-text">写在最后</span></a></li></ol>
+            </nav>
+            <div class="toc-bar"><div>
+        </aside>
+    
+</article>
+
+    <div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        我们一起来让这个世界有趣一点
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/reward-wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/reward-wechat.jpg" data-alipay="/img/reward-alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+    
+</div>
+
+        <footer class="footer">
+    
+    <div class="top">
+        
+    </div>
+    
+    <div class="bottom">
+        <p>
+            <span>
+                Eden Huang &copy; 2018 - 2019
+            </span>
+        		
+           	
+            
+            
+            <span>
+	            Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/codefine/hexo-theme-mellow" target="_blank">mellow</a>
+            </span>
+            
+            
+            
+
+            
+                
+<span class="site-uv" title="总访客量">
+    <i class="icon icon-user"></i>
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"></i>
+</span>
+
+
+<span class="site-pv" title="总访问量">
+    <i class="icon icon-eye"></i>
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"></i>
+</span>
+
+            
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://http://ioshc.github.io/2016/06/08/也来写一写我理解中的代码布局、xib布局以及storyboard布局/&title=《也来写一写我理解中的代码布局、xib布局以及storyboard布局》 — Hello World&pic=http://http://ioshc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://http://ioshc.github.io/2016/06/08/也来写一写我理解中的代码布局、xib布局以及storyboard布局/&title=《也来写一写我理解中的代码布局、xib布局以及storyboard布局》 — Hello World&source=任何描述都是多余的" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD8ElEQVR42u3aS24jSQwFQN//0j3bASzJ75GsHgMTtTJsK7MyckHx8/UVP3/+9Xz/zfe/fv5ssubnz75b5/tnv554cODAgQNHfNTPS38+WLvj5t0+r5lf3ovVcODAgQPHEUeyQb59HrCT9RPQhCO6GBw4cODA8R9x5MfIg3ebzuXhHwcOHDhw/GaOTQmvTfBaMhw4cODA8Xs4ko3zA8wKdrPy4qy4eVArxYEDBw4ck33rA//Onx+Z78CBAwcOHPG4QBt0ZwleG/CSEL55cODAgQPHniMPSO3I2ufD58fOBxTatPPtW+HAgQMHjlOOzZDBLK3K+fKAnQ86HHe9cODAgeN/z3F7vHxYbXaAliwfYniR0eLAgQMHjiOOtheTHHU2UpDjtqnm2+CNAwcOHDjWHLPg+nQhL08g80Q0L2LiwIEDB44rjjxczVKptuBYVDdHlb0fSoQ4cODAgWPE0Q4B5EErb/nkZcE84ZyN3OHAgQMHjluOvKjXJnW3lFetshd/xYEDBw4cj3HMUrsnhgxaxDZ448CBAweO5zja4YD295vxiDwlW7XEcODAgQPHKUdSdMsTpM3Y3CxUt2lbNBWIAwcOHDhKjk0raB842/XzImOywg9jDThw4MCBY8TRJkt5yjQLk21QbAcyfhjFw4EDBw4cRxxXzZtZsncbSjfXgAMHDhw4/g5HEsDa9KllasuIs71w4MCBA8ctx4MBbNT0SoqGeciPhh5w4MCBA8fDHM91/Gdks5JlcRk4cODAgWPNkQ8QtGNqs1fMw+q+HPn2DXHgwIEDx4KjDYp5iE2KfbN0K18tv5gX8x04cODAgWPEsS/bzRpOSVEvD8D7ttNZFRMHDhw4cIzKcHnYm6VSeTOs/UJQlCxx4MCBA8eC4zat2jeHZleSrBD9Jw4cOHDgWHDMUqBZWpWslg/ntQXE4XcNHDhw4MBxytGOOHwmuE0Fk73qrw44cODAgeOII0+i8mRv1qxKKPNgnF/n2/kOHDhw4MCx4Jhtkydym2c29JBcNg4cOHDgeIJjM47QhsyrQmRbaow+iwMHDhw4jjjysl076HDVWJoBtYkcDhw4cODYc2zaNklqNBuAm6V2+0YXDhw4cODYc/wpnxnWPmC3Ixf5+sVsBQ4cOHDgOI1r+1LgrDiY7JuH4bP2GA4cOHDg+MiRBNc80LZtp7YUONu9uH8cOHDgwHHE0Rb78iTtKktqOWanxoEDBw4cf59jNi6QHKzdJW+Jfe2dcODAgQPHwxybllJbrUyYZlf1QgAHDhw4cBxxJMXB/chC8tk2IZyBHrSdcODAgQPHeqAhHzhIgGYNsKs22KqIiQMHDhw4Xr/VP2GBaDq5uE1MAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+    
+    <!-- main-js -->
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/2.1.0/jquery.min.js"></script>
+<script type="text/javascript" src="/js/plugins/fastclick.js?v=1.3.2"></script>
+<script type="text/javascript" src="/js/plugins/ios-orientationchange-fix.js?v=1.3.2"></script>
+<script type="text/javascript" src="/js/plugins/jquery.swipebox.min.js?v=1.3.2"></script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script type="text/javascript" src="/js/method.js?v=1.3.2"></script>
+<script type="text/javascript" src="/js/blog.js?v=1.3.2"></script>
+
+<!-- third-party -->
+<script type="text/javascript">
+;( function( $ ) {
+
+	$( '.swipebox' ).swipebox({
+		hideCloseButtonOnMobile: true
+	});
+
+} )( jQuery );
+</script>
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?[object Object]";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<script type="text/javascript" src="/js/plugins/local_search.js?v=1.3.2"></script>
+<script type="text/javascript">
+	var search_path = "search.xml";
+	if (search_path.length === 0) {
+		search_path = "search.xml";
+	}
+	var path = "/" + search_path;
+	searchFunc(path, "local-search-input", "local-search-result");
+</script>
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+    
+    
+
+
+
+
+
+    <!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+            processEscapes: true,
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+    
+</body>
+</html>

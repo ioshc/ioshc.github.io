@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    
+    <title>优化之离屏渲染 | Hello World | 路漫漫其修远兮，吾将上下而求索</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="iOS,优化">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/third-party/swipebox.min.css?v=1.3.2">
+    <link rel="stylesheet" href="/css/style.css?v=1.3.2">
+    
+    <script type="text/javascript">
+        // Data Center
+        var DC = {
+            reward:	true,
+            lv: JSON.parse('{"enable":false,"app_id":null,"app_key":null,"icon":true}'),
+            v: JSON.parse('{"enable":false,"appid":null,"appkey":null,"notify":true,"verify":true,"placeholder":"give me some sugers plz...","avatar":"wavatar"}'),
+            g: JSON.parse('{"enable":false,"lazy":true,"owner":"codefine","repo":"gitment","oauth":{"client_id":null,"client_secret":null},"perPage":10}'),
+            d: JSON.parse('{"app_id":null}')
+        };
+    </script>
+    <script type="text/javascript">
+        window.lazyScripts=[];
+    </script>
+    
+</head>
+
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      
+      <img src="/img/brand.jpg" class="brand-bg">
+      
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Eden Huang</h5>
+          <a href="mailto:huangcong520@icloud.com" title="huangcong520@icloud.com" class="mail">
+            
+              <span>h</span>
+            
+              <span>u</span>
+            
+              <span>a</span>
+            
+              <span>n</span>
+            
+              <span>g</span>
+            
+              <span>c</span>
+            
+              <span>o</span>
+            
+              <span>n</span>
+            
+              <span>g</span>
+            
+              <span>5</span>
+            
+              <span>2</span>
+            
+              <span>0</span>
+            
+              <span>@</span>
+            
+              <span>i</span>
+            
+              <span>c</span>
+            
+              <span>l</span>
+            
+              <span>o</span>
+            
+              <span>u</span>
+            
+              <span>d</span>
+            
+              <span>.</span>
+            
+              <span>c</span>
+            
+              <span>o</span>
+            
+              <span>m</span>
+            
+          </a>
+        </hgroup>
+        
+        <ul class="menu-link">
+          
+              <li>
+                <a href="https://github.com/ioshc" target="_blank">
+                  <i class="icon icon-lg icon-github"></i>
+                </a>
+              </li>
+            
+        </ul>
+        
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/reading"  >
+                <i class="icon icon-lg icon-book"></i>
+                阅读
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/study"  >
+                <i class="icon icon-lg icon-question-circle"></i>
+                学习
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/themes"  >
+                <i class="icon icon-lg icon-file-image-o"></i>
+                主题
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                关于
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/custom"  >
+                <i class="icon icon-lg icon-file"></i>
+                测试页面
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row clearfix">
+        <a href="javascript:;" class="header-icon pull-left waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">
+            <span>优化之离屏渲染</span>
+            
+        </div>
+        
+        <a href="javascript:;" id="site_search_btn" class="header-icon pull-right waves-effect waves-circle waves-light">
+            <i class="icon icon-lg icon-search"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+    <img src="/img/banner.jpg" class="header-bg">
+    <div class="container fade-scale">
+        <h1 class="title">优化之离屏渲染</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-03-20T15:59:12.000Z" itemprop="datePublished" class="page-time">
+  2017-03-20
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/iOS/">iOS</a></li></ul>
+
+            
+        </h5>
+        
+    </div>
+    
+
+</header>
+
+<div id="site_search">
+    <div class="search-title clearfix">
+        <span class="pull-left">
+          <i class="icon icon-lg icon-search"></i>
+        </span>
+        <input type="text" id="local-search-input" name="q" results="0" placeholder="search my blog..." class="form-control pull-left"/>
+        <a href="javascript:;" class="close pull-right waves-effect waves-circle waves-light">
+          <i class="icon icon-lg icon-close"></i>
+        </a>
+    </div>
+    <div id="local-search-result"></div>
+</div>
+
+
+<div class="container body-wrap">
+    <article id="post-优化之离屏渲染"
+  class="post-article article-type-post" itemprop="blogPost">
+    <div class="post-card">
+        <h1 class="post-card-title">优化之离屏渲染</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-03-20 23:59:12" datetime="2017-03-20T15:59:12.000Z"  itemprop="datePublished">2017-03-20</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/iOS/">iOS</a></li></ul>
+
+
+
+            
+
+            
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            
+            <p>这篇文章主要是总结一下我对离屏渲染的理解，之前一直不太理解离屏渲染到底是个什么，也不太理解为什么他会引起滚动界面卡顿，一直也没有去深入了解，自己也深感惭愧。以前看到了<a href="https://blog.ibireme.com" target="_blank" rel="noopener">@ibireme</a>写的<a href="https://blog.ibireme.com/2015/11/12/smooth_user_interfaces_for_ios/" target="_blank" rel="noopener">iOS 保持界面流畅的技巧</a>这篇文章，里面也描述了下屏幕显示原理。现在再次深入阅读，才比较理解离屏渲染到底是怎么回事。</p>
+<h3 id="屏幕显示原理"><a href="#屏幕显示原理" class="headerlink" title="屏幕显示原理"></a>屏幕显示原理</h3><p>引用一下<a href="https://blog.ibireme.com" target="_blank" rel="noopener">@ibireme</a>的原文</p>
+<blockquote>
+<p>首先从过去的 CRT 显示器原理说起。CRT 的电子枪按照上面方式，从上到下一行行扫描，扫描完成后显示器就呈现一帧画面，随后电子枪回到初始位置继续下一次扫描。为了把显示器的显示过程和系统的视频控制器进行同步，显示器（或者其他硬件）会用硬件时钟产生一系列的定时信号。当电子枪换到新的一行，准备进行扫描时，显示器会发出一个水平同步信号（horizonal synchronization），简称 HSync；而当一帧画面绘制完成后，电子枪回复到原位，准备画下一帧前，显示器会发出一个垂直同步信号（vertical synchronization），简称 VSync。显示器通常以固定频率进行刷新，这个刷新率就是 VSync 信号产生的频率。尽管现在的设备大都是液晶显示屏了，但原理仍然没有变。</p>
+</blockquote>
+<blockquote>
+<p>CPU 计算好显示内容提交到 GPU，GPU 渲染完成后将渲染结果放入帧缓冲区，随后视频控制器会按照 VSync 信号逐行读取帧缓冲区的数据，经过可能的数模转换传递给显示器显示。</p>
+</blockquote>
+<figure class="image-box">
+                <a rel=优化之离屏渲染 href="2017-03-20/ios_screen_scan.png" class="swipebox" title=undefined><img src="2017-03-20/ios_screen_scan.png" alt="" title="" class=""></a>
+                <p></p>
+            </figure>
+<blockquote>
+<p>在最简单的情况下，帧缓冲区只有一个，这时帧缓冲区的读取和刷新都都会有比较大的效率问题。为了解决效率问题，显示系统通常会引入两个缓冲区，即双缓冲机制。在这种情况下，GPU 会预先渲染好一帧放入一个缓冲区内，让视频控制器读取，当下一帧渲染好后，GPU 会直接把视频控制器的指针指向第二个缓冲器。如此一来效率会有很大的提升。</p>
+</blockquote>
+<p>这里介绍了 GPU 为了效率问题，使用了两个帧缓冲区。对于帧缓冲区的个数，iOS 系统中使用的是双缓冲机制，而 Android 使用的三缓冲机制。题外话，不得不佩服 iOS 系统的设计，在硬件不如 Android 的提前下，界面的流畅度却超过 Android 机器。</p>
+<h3 id="离屏渲染"><a href="#离屏渲染" class="headerlink" title="离屏渲染"></a>离屏渲染</h3><p>直接引用网络上的一段文字：</p>
+<blockquote>
+<p>OpenGL中，GPU屏幕渲染有以下两种方式：</p>
+<ol>
+<li><strong>On-Screen Rendering</strong> 意为当前屏幕渲染，指的是GPU的渲染操作是在当前用于显示的屏幕缓冲区中进行。</li>
+<li><strong>Off-Screen Rendering</strong> 意为离屏渲染，指的是GPU在当前屏幕缓冲区以外新开辟一个缓冲区进行渲染操作。</li>
+</ol>
+</blockquote>
+<p>对于一个 UIView 的渲染过程：</p>
+<blockquote>
+<ol>
+<li>UIView的layer层有一个content，指向一块缓存，即backing store</li>
+<li>UIView绘制时，会调用drawRect方法，通过context将数据写入backing store</li>
+<li>在backing store写完后，通过render server交给GPU去渲染，将backing store中的bitmap数据显示在屏幕上</li>
+</ol>
+</blockquote>
+<figure class="image-box">
+                <a rel=优化之离屏渲染 href="2017-03-20/uiview_render.png" class="swipebox" title=undefined><img src="2017-03-20/uiview_render.png" alt="" title="" class=""></a>
+                <p></p>
+            </figure>
+<p>当我们在使用<strong>Group Opacity</strong>、<strong>corner（圆角）</strong>、<strong>shadow（阴影）</strong>、<strong>edge antialiasing（抗锯齿）</strong>和<strong>mask</strong>等视图功能的时候，由于图层不是那种简单的覆盖，而是需要额外计算图层的显示关系，由于当前已经是 GPU 渲染了，所以在 GPU 的当前屏幕缓冲区外，新建了一个缓冲区，在这个缓冲区中，去进行这些额外的渲染，这就是离屏渲染。</p>
+<ol>
+<li>创建离屏缓冲区是一个代价是很大的。</li>
+<li>（假设我们的在界面中画了圆角），如果我们创建的圆角 N 个，那么在这个离屏缓冲区中，去处理这 N 个圆角的时候，会大量的切换上下文，然而，切换上下文也是一个代价非常大的操作。</li>
+</ol>
+<p>所以，当在开发过程中，<strong>如果离屏渲染没有处理好，对 App 的性能影响是非常大的</strong>， 后文会有相关的实例对比。</p>
+<h3 id="离屏渲染的优化"><a href="#离屏渲染的优化" class="headerlink" title="离屏渲染的优化"></a>离屏渲染的优化</h3><ul>
+<li>尽量使用当前屏幕渲染。由于离屏渲染、CPU渲染可能带来的性能问题，一般情况下，尽量使用当前屏幕渲染。</li>
+<li>由于 GPU 的浮点运算能力比 CPU 强，虽然 CPU 渲染的效率不如 GPU，但有时使用 CPU 渲染的效率会比 GPU 离屏渲染好，毕竟离屏渲染要涉及到缓冲区创建和上下文切换等耗时操作。</li>
+</ul>
+<h4 id="圆角"><a href="#圆角" class="headerlink" title="圆角"></a>圆角</h4><p>一般情况，我们写圆角的时候，会这样写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">view.layer.cornerRadius = 10;</span><br><span class="line">view.layer.masksToBounds = YES;</span><br></pre></td></tr></table></figure>
+<p>运行时，查看 Off-screen Rendered</p>
+<figure class="image-box">
+                <a rel=优化之离屏渲染 href="2017-03-20/corner_offscreen_rendered.jpg" class="swipebox" title=undefined><img src="2017-03-20/corner_offscreen_rendered.jpg" alt="corner_offscreen_rendered" title="" class=""></a>
+                <p>corner_offscreen_rendered</p>
+            </figure>
+<p>我们可以看到按钮上的四个角被黄色覆盖，表明这四个角被离屏渲染了，这是因为 GPU 渲染的时候，发现这个按钮不是一个规整的图形，不能简单的采用(x, y, width, height)的规则进行渲染，对于上面的四个角，必须进行离屏渲染，新建一块缓冲区进行计算渲染，和下一层的 layer 进行合成处理，这样才能再界面上形成一个有弧度的视觉效果。</p>
+<p>然而这里只有四个角所处的矩形范围进行了离屏渲染，是因为计算机里面的图形坐标都是以类似于(x, y, width, height)的规则来描述的，也就是说是一个矩形图形。然而这儿不是整个按钮而只是其他的四个角的区域的原因，是因为效率问题，GPU 确定除了四个角所在的矩形区域之外， 其他的区域都不需要合成处理，这样选择性的进行离屏渲染，能够获得更高的性能。</p>
+<p>这里我们如何处理圆角带来的离屏渲染呢？答案是采用 Core Graphics 提供的函数，在 CPU 里面绘制圆角，这样相当于在 CPU 处理的时候就已经 GPU 离屏渲染做的事情给完成了。</p>
+<p>使用下面提供的代码能够给 UIView 的子类添加圆角，能够避免离屏渲染。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 仅添加圆角</span><br><span class="line">[view addCorner:30];</span><br><span class="line">// 添加圆角和边框</span><br><span class="line">[view addCorner:30 borderWidth:0.5 borderColor:[UIColor redColor]];</span><br></pre></td></tr></table></figure>
+<p>由于<code>addCorner:</code>和<code>addCorner:borderWidth:borderColor:</code>的代码较长，需要查看和下载的，<a href="https://snippets.cacher.io/snippet/6450c5ef0cf37484bb58" target="_blank" rel="noopener">请点击此处查看下载</a></p>
+<h4 id="阴影"><a href="#阴影" class="headerlink" title="阴影"></a>阴影</h4><p>对于 shadow 来说，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">view.layer.shadowColor = [UIColor redColor].CGColor;</span><br><span class="line">view.layer.shadowOffset = CGSizeMake(5, 5);</span><br><span class="line">view.layer.shadowOpacity = 1.0;</span><br></pre></td></tr></table></figure>
+<p>查看 Off-screen Rendered</p>
+<figure class="image-box">
+                <a rel=优化之离屏渲染 href="2017-03-20/shadow_offscreen_rendered.jpg" class="swipebox" title=undefined><img src="2017-03-20/shadow_offscreen_rendered.jpg" alt="corner_offscreen_rendered" title="" class=""></a>
+                <p>corner_offscreen_rendered</p>
+            </figure>
+<p>可以看到，整个 view 的 frame，包括 frame 之外还有一点都进行了离屏渲染。</p>
+<p>这儿有一个问题，如果有谁知道，请在评论区讲解一下。<strong>为什么是整个 view 都被离屏渲染了呢？</strong> 为了效率中间的区域可以不需要被离屏渲染，但是对于 shadow 却被离屏渲染了？</p>
+<p>对于 shadow 的优化，直接在上面的代码后面添加一句就行了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">view.layer.shadowColor = [UIColor redColor].CGColor;</span><br><span class="line">view.layer.shadowOffset = CGSizeMake(5, 5);</span><br><span class="line">view.layer.shadowOpacity = 1.0;</span><br><span class="line">// 添加 shadowPath，能够解决离屏渲染</span><br><span class="line">view.layer.shadowPath = [UIBezierPath bezierPathWithRect:view.bounds].CGPath;</span><br></pre></td></tr></table></figure>
+<h4 id="Mask"><a href="#Mask" class="headerlink" title="Mask"></a>Mask</h4><p>一般的 Mask 设置代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UIImageView * mask = [[UIImageView alloc] initWithFrame:view.bounds];</span><br><span class="line">mask.image = [UIImage imageNamed:@&quot;mask.png&quot;];</span><br><span class="line">view.maskView = mask;</span><br></pre></td></tr></table></figure>
+<p>对于 Mask 的优化，其实并没有一个很好的方式来解决，目前的解决方案是：rasterize（光栅化），然而 rasterize（光栅化）也会造成离屏渲染，不过由于离屏渲染大部分时候会在大量出现的时候造成性能问题，所以在滚动页面进行 rasterize（光栅化）的时候，会将光栅化后的内容缓存起来，如果对应的layer及其sublayers没有发生改变，在下一帧的时候可以直接复用, 把GPU的操作转到CPU上了，生成位图缓存，各种阴影遮罩等效果也会保存到位图中并缓存起来，直接读取复用，从而减少渲染的频度。rasterize（光栅化）有一个不好的效果，会造成文字 label 视觉效果模糊。</p>
+
+        </div>
+        
+<blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-05-08T10:43:21.059Z" itemprop="dateUpdated">2019-05-08 18:43:21</time>
+</span><br>
+
+
+        
+        转载注明出处，原文地址：<a href="/2017/03/20/优化之离屏渲染/" target="_blank" rel="external">http://http://ioshc.github.io/2017/03/20/优化之离屏渲染/</a>
+        
+    </div>
+    <footer>
+        <a href="http://http://ioshc.github.io">
+            <img src="/img/avatar.jpg" alt="Eden Huang">
+            Eden Huang
+        </a>
+    </footer>
+</blockquote>
+
+        
+            <div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+            
+        
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/优化/">优化</a></li></ul>
+
+            <div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://http://ioshc.github.io/2017/03/20/优化之离屏渲染/&title=《优化之离屏渲染》 — Hello World&pic=http://http://ioshc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://http://ioshc.github.io/2017/03/20/优化之离屏渲染/&title=《优化之离屏渲染》 — Hello World&source=任何描述都是多余的" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+        </div>
+        
+            
+
+
+        
+    </div>
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="prev">
+      <a href="/2017/04/02/再总结一下NSString 与 NSMutableString 的 property 约束/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">再总结一下NSString 与 NSMutableString 的 property 约束</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="next">
+      <a href="/2016/11/22/iOS的单元测试/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">iOS的单元测试</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+        <aside class="post-widget">
+            <nav class="post-toc-wrap" id="post-toc">
+                <strong>目录</strong>
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#屏幕显示原理"><span class="post-toc-number">1.</span> <span class="post-toc-text">屏幕显示原理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#离屏渲染"><span class="post-toc-number">2.</span> <span class="post-toc-text">离屏渲染</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#离屏渲染的优化"><span class="post-toc-number">3.</span> <span class="post-toc-text">离屏渲染的优化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#圆角"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">圆角</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#阴影"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">阴影</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Mask"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">Mask</span></a></li></ol></li></ol>
+            </nav>
+            <div class="toc-bar"><div>
+        </aside>
+    
+</article>
+
+    <div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        我们一起来让这个世界有趣一点
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/reward-wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/reward-wechat.jpg" data-alipay="/img/reward-alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+    
+</div>
+
+        <footer class="footer">
+    
+    <div class="top">
+        
+    </div>
+    
+    <div class="bottom">
+        <p>
+            <span>
+                Eden Huang &copy; 2018 - 2019
+            </span>
+        		
+           	
+            
+            
+            <span>
+	            Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/codefine/hexo-theme-mellow" target="_blank">mellow</a>
+            </span>
+            
+            
+            
+
+            
+                
+<span class="site-uv" title="总访客量">
+    <i class="icon icon-user"></i>
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"></i>
+</span>
+
+
+<span class="site-pv" title="总访问量">
+    <i class="icon icon-eye"></i>
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"></i>
+</span>
+
+            
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://http://ioshc.github.io/2017/03/20/优化之离屏渲染/&title=《优化之离屏渲染》 — Hello World&pic=http://http://ioshc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://http://ioshc.github.io/2017/03/20/优化之离屏渲染/&title=《优化之离屏渲染》 — Hello World&source=任何描述都是多余的" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACrElEQVR42u3c0WojMQwF0Pz/T+++LpQk90p2moUzT2Wazvi4YKmS6OMRX3+C6/VP/Xvn2SeT9z5uXHh4eHhHl/56ocnSf3735yefAZL1vNkCPDw8vGu8fEHPFpGczKfwRYDBw8PD+wLe66O5ZW8CAx4eHt7/y5sFkjZNx8PDw/s2XlKMaNPc/RYkgeRYrQUPDw+v61VFXaTv+fpKfw8PDw/v0EBAcrifumZh4OnT8PDw8C7w8gN3Vk5txwvagkjUbMPDw8M7ysvbWgljA94c/U/XgIeHh3eZlzfyZ6MAyZ1kO4qhLjw8PLwLvLYRNQsPs9LGvkmGh4eHd4M3KxPkx31enM3fWHwGDw8P7wKvPcTzdDYPMO3b69ErPDw8vMu8tnv2Osluy7izeao3QQ4PDw/vKC8/9NuSQV62mJV9oyQeDw8P7zJvNt6UH9m3RwfeDF3h4eHhHeXl6W973uZ5fZuaR3fw8PDwLvNy0gw5Cx6zttyjfSgeHh7evP9e/JuSTemhpW4CCR4eHt5Z3uwIzocGElhb3i0GDvDw8PAu8G4UZGel2+QJw64WHh4e3gVemzonafSm/d+Goih/xsPDwzvEm40IzBLl/Wa1YQwPDw/vBm8DSA73pCicPL/dmje/Qzw8PLw1r2Vsjuz8OgvGw8PDO8vLh6LylPfspswCGB4eHt5nePvG1b4E3G538RcDHh4e3gVeeyjn9zcjWe2Fh4eHd483KxDMBq0SZFuSwMPDw/s8rz1q21CRjFW17bThAAEeHh7eUV4bDFYjUOUmtgXip0NXeHh4eBd4+8R3U4QdNrfqwgseHh7e7/D2aXfdxIq3O6pS4+Hh4X2c1za98gW1mxg9AQ8PD+8abzNuNWtoJUuflTPw8PDwbvPaH9u8/tQTDpct8PDw8FLeX0TNNcqC1CWMAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+    
+    <!-- main-js -->
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/2.1.0/jquery.min.js"></script>
+<script type="text/javascript" src="/js/plugins/fastclick.js?v=1.3.2"></script>
+<script type="text/javascript" src="/js/plugins/ios-orientationchange-fix.js?v=1.3.2"></script>
+<script type="text/javascript" src="/js/plugins/jquery.swipebox.min.js?v=1.3.2"></script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script type="text/javascript" src="/js/method.js?v=1.3.2"></script>
+<script type="text/javascript" src="/js/blog.js?v=1.3.2"></script>
+
+<!-- third-party -->
+<script type="text/javascript">
+;( function( $ ) {
+
+	$( '.swipebox' ).swipebox({
+		hideCloseButtonOnMobile: true
+	});
+
+} )( jQuery );
+</script>
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?[object Object]";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<script type="text/javascript" src="/js/plugins/local_search.js?v=1.3.2"></script>
+<script type="text/javascript">
+	var search_path = "search.xml";
+	if (search_path.length === 0) {
+		search_path = "search.xml";
+	}
+	var path = "/" + search_path;
+	searchFunc(path, "local-search-input", "local-search-result");
+</script>
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+    
+    
+
+
+
+
+
+    <!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+            processEscapes: true,
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+    
+</body>
+</html>

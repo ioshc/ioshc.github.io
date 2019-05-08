@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    
+    <title>这些__attribute__的知识你应该知道 | Hello World | 路漫漫其修远兮，吾将上下而求索</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="iOS,OC">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/third-party/swipebox.min.css?v=1.3.2">
+    <link rel="stylesheet" href="/css/style.css?v=1.3.2">
+    
+    <script type="text/javascript">
+        // Data Center
+        var DC = {
+            reward:	true,
+            lv: JSON.parse('{"enable":false,"app_id":null,"app_key":null,"icon":true}'),
+            v: JSON.parse('{"enable":false,"appid":null,"appkey":null,"notify":true,"verify":true,"placeholder":"give me some sugers plz...","avatar":"wavatar"}'),
+            g: JSON.parse('{"enable":false,"lazy":true,"owner":"codefine","repo":"gitment","oauth":{"client_id":null,"client_secret":null},"perPage":10}'),
+            d: JSON.parse('{"app_id":null}')
+        };
+    </script>
+    <script type="text/javascript">
+        window.lazyScripts=[];
+    </script>
+    
+</head>
+
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      
+      <img src="/img/brand.jpg" class="brand-bg">
+      
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Eden Huang</h5>
+          <a href="mailto:huangcong520@icloud.com" title="huangcong520@icloud.com" class="mail">
+            
+              <span>h</span>
+            
+              <span>u</span>
+            
+              <span>a</span>
+            
+              <span>n</span>
+            
+              <span>g</span>
+            
+              <span>c</span>
+            
+              <span>o</span>
+            
+              <span>n</span>
+            
+              <span>g</span>
+            
+              <span>5</span>
+            
+              <span>2</span>
+            
+              <span>0</span>
+            
+              <span>@</span>
+            
+              <span>i</span>
+            
+              <span>c</span>
+            
+              <span>l</span>
+            
+              <span>o</span>
+            
+              <span>u</span>
+            
+              <span>d</span>
+            
+              <span>.</span>
+            
+              <span>c</span>
+            
+              <span>o</span>
+            
+              <span>m</span>
+            
+          </a>
+        </hgroup>
+        
+        <ul class="menu-link">
+          
+              <li>
+                <a href="https://github.com/ioshc" target="_blank">
+                  <i class="icon icon-lg icon-github"></i>
+                </a>
+              </li>
+            
+        </ul>
+        
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/reading"  >
+                <i class="icon icon-lg icon-book"></i>
+                阅读
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/study"  >
+                <i class="icon icon-lg icon-question-circle"></i>
+                学习
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/themes"  >
+                <i class="icon icon-lg icon-file-image-o"></i>
+                主题
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                关于
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/custom"  >
+                <i class="icon icon-lg icon-file"></i>
+                测试页面
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row clearfix">
+        <a href="javascript:;" class="header-icon pull-left waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">
+            <span>这些__attribute__的知识你应该知道</span>
+            
+        </div>
+        
+        <a href="javascript:;" id="site_search_btn" class="header-icon pull-right waves-effect waves-circle waves-light">
+            <i class="icon icon-lg icon-search"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+    <img src="/img/banner.jpg" class="header-bg">
+    <div class="container fade-scale">
+        <h1 class="title">这些__attribute__的知识你应该知道</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-10-03T15:01:48.000Z" itemprop="datePublished" class="page-time">
+  2017-10-03
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/iOS/">iOS</a></li></ul>
+
+            
+        </h5>
+        
+    </div>
+    
+
+</header>
+
+<div id="site_search">
+    <div class="search-title clearfix">
+        <span class="pull-left">
+          <i class="icon icon-lg icon-search"></i>
+        </span>
+        <input type="text" id="local-search-input" name="q" results="0" placeholder="search my blog..." class="form-control pull-left"/>
+        <a href="javascript:;" class="close pull-right waves-effect waves-circle waves-light">
+          <i class="icon icon-lg icon-close"></i>
+        </a>
+    </div>
+    <div id="local-search-result"></div>
+</div>
+
+
+<div class="container body-wrap">
+    <article id="post-这些__attribute__的知识你应该知道"
+  class="post-article article-type-post" itemprop="blogPost">
+    <div class="post-card">
+        <h1 class="post-card-title">这些__attribute__的知识你应该知道</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-10-03 23:01:48" datetime="2017-10-03T15:01:48.000Z"  itemprop="datePublished">2017-10-03</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/iOS/">iOS</a></li></ul>
+
+
+
+            
+
+            
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            
+            <h3 id="序"><a href="#序" class="headerlink" title="序"></a>序</h3><p>最近查看在网上发现了个有趣的小玩意<code>__attribute__</code>, 也就是 Clang Attributes，这是一个编译器提供的功能，能够让我向编译器指定一些特殊的功能，比如</p>
+<ul>
+<li><strong>attribute</strong>((deprecated))：描述一个方法已经废弃；</li>
+<li><strong>attribute</strong>((objc_requires_super))：描述子类继承父类的方法时需要调用 super方法；</li>
+<li><strong>attribute</strong>((cleanup(…))): 描述一个变量在作用域结束时能够执行指定方法；</li>
+<li>……</li>
+</ul>
+<p>Clang 编译器提供了很多的 <code>__attribute__</code> 功能，下面会介绍一些 Objective-C 中常用的一些功能。</p>
+<p>可以参考相关的文章 <a href="http://nshipster.com/__attribute__/" target="_blank" rel="noopener">NShipster</a> 和 <a href="http://blog.sunnyxx.com/2016/05/14/clang-attributes/" target="_blank" rel="noopener">clang-attributes</a>。</p>
+<h3 id="attribute-deprecated"><a href="#attribute-deprecated" class="headerlink" title="__attribute__((deprecated))"></a>__attribute__((deprecated))</h3><p>描述一个<strong>方法</strong>，表明这是一个被废弃的方法，如果有地方在调用，编译器会提示一个警告；并且也提供自定义警告信息，格式如下<strong>attribute</strong>((deprecated(“meesage”)))</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)thisIsADeprecatedMethod __attribute__((deprecated(&quot;This is a deprecated message&quot;)));</span><br></pre></td></tr></table></figure>
+<p>在 Xcode 中，我们编写代码的时候， 编辑器会和 Clang 编译器的预编译系统配合，在我们写代码的时候，就在 IDE 中把警告给显示出来。</p>
+<figure class="image-box">
+                <a rel=这些__attribute__的知识你应该知道 href="2017-10-03/1.jpg" class="swipebox" title=undefined><img src="2017-10-03/1.jpg" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<h3 id="attribute-objc-boxable"><a href="#attribute-objc-boxable" class="headerlink" title="__attribute__((objc_boxable))"></a>__attribute__((objc_boxable))</h3><p>能够给 struct 和 union 提供快捷的“包装”方式。</p>
+<ol>
+<li>CGRect， CGSize， CGPoint, CGVector 能够使用框架提供的 boxable 快速“包装”；</li>
+<li>自定义 struct 或 union 类型，也可以添加 <strong>attribute</strong>((objc_boxable)) 以支持 boxable 快速“包装”。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">CGPoint point = &#123;1, 2&#125;;                     // x = 1, y = 2</span><br><span class="line">CGRect rect1 = &#123;1, 2, 3, 4&#125;;                // x = 1, y = 2, width = 3, height = 4</span><br><span class="line">CGTriangle triange1 = &#123;1, 2, 3, 4, 5, 6&#125;;   // a.x = 1, a.y = 2, b.x = 3, b.y = 4, c.x = 5, c.y = 6</span><br><span class="line">// “包装”需要的数据不够，不够的数据补0</span><br><span class="line">CGSize size = &#123;1&#125;;                          // width = 1, height = 0</span><br><span class="line">// “包装”的 CGRect 中的 CGPoint 需要的数据不够，不够的数据补0</span><br><span class="line">CGRect rect2 = &#123;&#123;1&#125;, &#123;3, 4&#125;&#125;;               // x = 1, y = 0, width = 3, height = 4</span><br><span class="line"></span><br><span class="line">typedef struct __attribute__((objc_boxable)) &#123;</span><br><span class="line">    CGPoint x;</span><br><span class="line">    CGPoint y;</span><br><span class="line">    CGPoint z;</span><br><span class="line">&#125; CGTriangle;</span><br><span class="line"></span><br><span class="line">CGTriangle triange = &#123;1, 2, 3, 4, 5, 6&#125;;</span><br><span class="line">// “包装”的数据多了，最后一条丢掉</span><br><span class="line">CGTriangle triange2 = &#123;1, 2, 3, 4, 5, 6, 7&#125;;// a.x = 1, a.y = 2, b.x = 3, b.y = 4, c.x = 5, c.y = 6</span><br></pre></td></tr></table></figure>
+<p>这里“包装”的方式需要注意：</p>
+<ul>
+<li>可以采用<strong>平铺</strong>，如<code>{1, 2, 3, 4}</code>，也可以采用<strong>嵌套</strong>，如 <code>{ {1, 2}, {3, 4} }</code></li>
+<li>如果“包装”赋值数据的个数比定义的少，则没有赋值的部分全部为0，如<code>CGSize size = {1}; // width = 1, height = 0</code></li>
+<li>如果“包装”赋值数据的个数比定义的多，则多余的部分丢掉。如<code>CGTriangle triange2 = {1, 2, 3, 4, 5, 6, 7};// a.x = 1, a.y = 2, b.x = 3, b.y = 4, c.x = 5, c.y = 6</code></li>
+</ul>
+<figure class="image-box">
+                <a rel=这些__attribute__的知识你应该知道 href="2017-10-03/2.jpg" class="swipebox" title=undefined><img src="2017-10-03/2.jpg" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<h3 id="attribute-objc-subclassing-restricted"><a href="#attribute-objc-subclassing-restricted" class="headerlink" title="__attribute__((objc_subclassing_restricted))"></a>__attribute__((objc_subclassing_restricted))</h3><p>描述一个<strong>类</strong>是一个不能被继承的类。</p>
+<p>如果定义一个 Father 类，并且使用<code>__attribute__((objc_subclassing_restricted))</code>描述，那么如果一个 Son 类要去继承于 Father，编辑器会在编译器的预编译系统的帮助下，在 IDE 里面就把错误显示出来。</p>
+<figure class="image-box">
+                <a rel=这些__attribute__的知识你应该知道 href="2017-10-03/3.jpg" class="swipebox" title=undefined><img src="2017-10-03/3.jpg" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<h3 id="attribute-objc-requires-super"><a href="#attribute-objc-requires-super" class="headerlink" title="__attribute__((objc_requires_super))"></a>__attribute__((objc_requires_super))</h3><p>描述一个<strong>子类</strong>继承父类的方法时，需要调用 super，否则给出编译警告。</p>
+<p>如果定义一个 Father 类，里面包含一个 call 方法，并且使用<code>__attribute__((objc_requires_super))</code>描述，那么如果一个 Son 在调用 call 的时候，需要显式的调用[super call]，如果没有调用，那么编辑器会在编译器的预编译系统的帮助下，在 IDE 里面就把警告显示出来。</p>
+<figure class="image-box">
+                <a rel=这些__attribute__的知识你应该知道 href="2017-10-03/4.jpg" class="swipebox" title=undefined><img src="2017-10-03/4.jpg" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<h3 id="attribute-warn-unused-result"><a href="#attribute-warn-unused-result" class="headerlink" title="__attribute__((warn_unused_result))"></a>__attribute__((warn_unused_result))</h3><p>描述一个<strong>方法</strong>，如果此方法有返回值，但是调用的地方<strong>并未使用返回值</strong>，编译器就会提示一个警告。（编辑器在编译器的预编译系统的帮助下，也会在 IDE 中显示警告）</p>
+<p>如下面 Hippo 类的 bite 方法，使用了 <code>__attribute__((warn_unused_result))</code> 进行描述，在 bite 方法调用的时候没有使用返回值，编译器就就提示了一个警告</p>
+<figure class="image-box">
+                <a rel=这些__attribute__的知识你应该知道 href="2017-10-03/5.jpg" class="swipebox" title=undefined><img src="2017-10-03/5.jpg" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<h3 id="attribute-cleanup-…"><a href="#attribute-cleanup-…" class="headerlink" title="__attribute__((cleanup(…)))"></a>__attribute__((cleanup(…)))</h3><p>修饰一个<strong>变量</strong>，在它的作用域结束时可以执行一个指定的方法。</p>
+<p>cleanup 是一个用好了就很爽的属性，详细内容可以查看<a href="http://blog.sunnyxx.com/2014/09/15/objc-attribute-cleanup/" target="_blank" rel="noopener">黑魔法<strong>attribute</strong>((cleanup))</a></p>
+<h4 id="基本类型变量"><a href="#基本类型变量" class="headerlink" title="基本类型变量"></a>基本类型变量</h4><p>如果一个<strong>临时基本类型变量</strong>，在其超出作用域之后，这个变量会直接调用 cleanup。</p>
+<figure class="image-box">
+                <a rel=这些__attribute__的知识你应该知道 href="2017-10-03/8.jpg" class="swipebox" title=undefined><img src="2017-10-03/8.jpg" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<h4 id="对象变量"><a href="#对象变量" class="headerlink" title="对象变量"></a>对象变量</h4><p>如果一个<strong>临时变量对象</strong>，在超出其作用域之后，其临时变量（变量本身）会被释放，但是其指向的对象则会根据他的生命周期来决定是否释放。也就是说：</p>
+<blockquote>
+<ul>
+<li>如果临时变量对象，没有被其他对象持有，那么最后其会先调用 cleanup，然后再调用 dealloc 方法</li>
+<li>如果临时变量对象，被其他对象持有了，那么其只会调用 cleanup，而 dealloc 是不会被调用的。（这是因为临时变量（变量本身）会被释放，但是其指向的对象则会根据他的生命周期来决定是否释放）</li>
+</ul>
+</blockquote>
+<p>下面两个例子可以很好的阐述上面两个观点：</p>
+<figure class="image-box">
+                <a rel=这些__attribute__的知识你应该知道 href="2017-10-03/6.jpg" class="swipebox" title=undefined><img src="2017-10-03/6.jpg" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<p>而下面的 hippo 对象被当前类给持有了，所以 dealloc 是不会调用的，只会调用 cleanup。</p>
+<figure class="image-box">
+                <a rel=这些__attribute__的知识你应该知道 href="2017-10-03/7.jpg" class="swipebox" title=undefined><img src="2017-10-03/7.jpg" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>__attribute__ 提供了很多的编译时功能，恰当的运用这些功能，可以使我们的代码更加灵活。</p>
+
+        </div>
+        
+<blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-05-08T10:45:01.094Z" itemprop="dateUpdated">2019-05-08 18:45:01</time>
+</span><br>
+
+
+        
+        转载注明出处，原文地址：<a href="/2017/10/03/这些__attribute__的知识你应该知道/" target="_blank" rel="external">http://http://ioshc.github.io/2017/10/03/这些__attribute__的知识你应该知道/</a>
+        
+    </div>
+    <footer>
+        <a href="http://http://ioshc.github.io">
+            <img src="/img/avatar.jpg" alt="Eden Huang">
+            Eden Huang
+        </a>
+    </footer>
+</blockquote>
+
+        
+            <div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+            
+        
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OC/">OC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+
+            <div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://http://ioshc.github.io/2017/10/03/这些__attribute__的知识你应该知道/&title=《这些__attribute__的知识你应该知道》 — Hello World&pic=http://http://ioshc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://http://ioshc.github.io/2017/10/03/这些__attribute__的知识你应该知道/&title=《这些__attribute__的知识你应该知道》 — Hello World&source=任何描述都是多余的" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+        </div>
+        
+            
+
+
+        
+    </div>
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="prev">
+      <a href="/2017/11/09/iOS 11 中 UIBarButtonItem 的变化/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">iOS 11 中 UIBarButtonItem 的变化</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="next">
+      <a href="/2017/09/13/NSTimer 不用的时候为什么需要调用invalidate？/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">NSTimer 不用的时候为什么需要调用invalidate？</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+        <aside class="post-widget">
+            <nav class="post-toc-wrap" id="post-toc">
+                <strong>目录</strong>
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#序"><span class="post-toc-number">1.</span> <span class="post-toc-text">序</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#attribute-deprecated"><span class="post-toc-number">2.</span> <span class="post-toc-text">__attribute__((deprecated))</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#attribute-objc-boxable"><span class="post-toc-number">3.</span> <span class="post-toc-text">__attribute__((objc_boxable))</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#attribute-objc-subclassing-restricted"><span class="post-toc-number">4.</span> <span class="post-toc-text">__attribute__((objc_subclassing_restricted))</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#attribute-objc-requires-super"><span class="post-toc-number">5.</span> <span class="post-toc-text">__attribute__((objc_requires_super))</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#attribute-warn-unused-result"><span class="post-toc-number">6.</span> <span class="post-toc-text">__attribute__((warn_unused_result))</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#attribute-cleanup-…"><span class="post-toc-number">7.</span> <span class="post-toc-text">__attribute__((cleanup(…)))</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#基本类型变量"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">基本类型变量</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#对象变量"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">对象变量</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#总结"><span class="post-toc-number">8.</span> <span class="post-toc-text">总结</span></a></li></ol>
+            </nav>
+            <div class="toc-bar"><div>
+        </aside>
+    
+</article>
+
+    <div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        我们一起来让这个世界有趣一点
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/reward-wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/reward-wechat.jpg" data-alipay="/img/reward-alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+    
+</div>
+
+        <footer class="footer">
+    
+    <div class="top">
+        
+    </div>
+    
+    <div class="bottom">
+        <p>
+            <span>
+                Eden Huang &copy; 2018 - 2019
+            </span>
+        		
+           	
+            
+            
+            <span>
+	            Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/codefine/hexo-theme-mellow" target="_blank">mellow</a>
+            </span>
+            
+            
+            
+
+            
+                
+<span class="site-uv" title="总访客量">
+    <i class="icon icon-user"></i>
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"></i>
+</span>
+
+
+<span class="site-pv" title="总访问量">
+    <i class="icon icon-eye"></i>
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"></i>
+</span>
+
+            
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://http://ioshc.github.io/2017/10/03/这些__attribute__的知识你应该知道/&title=《这些__attribute__的知识你应该知道》 — Hello World&pic=http://http://ioshc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://http://ioshc.github.io/2017/10/03/这些__attribute__的知识你应该知道/&title=《这些__attribute__的知识你应该知道》 — Hello World&source=任何描述都是多余的" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADL0lEQVR42u3a227qQAwFUP7/p6l01JeqIt22wxFxVp6qAMOsiVTjy+MRX89/1/Gd5LOvPvX8deXfku+kfGFjY2NfhP08vI7Zr97f+5bf7zy+8+rvaG/Y2NjY69jnBp487CXIyeN5eR8bGxv7luw8sPUCUu8QsbGxsbGrAWxe9MlLVNWDxsbGxr4zO/mJn5SNJryc/V9radjY2Ngfz540az/t7zf2t7GxsbE/kv1sXclqSdjrhaXJzr9XwMbGxl7EztOMswZxqiM4yeFWWwXY2NjY+9i9Fm81gDWL+ANYubSEjY2NfUF2NRgkzYNeOtE7gmbhCRsbG3sRex6EekFl3pzIDzH6RmxsbOzLsqtpRrXEn6cQ1bGbZMQnagxgY2Njr2DnAaDafK2uPE+BkkPHxsbG3squhrRe8pCExmRXvSEebGxs7H3svJyUb2uyWn5YzQ42NjY29jp2Nc2YH1+vwVBtJP9xENjY2NhL2XmhJ6f2EpXqnaSc9OM92NjY2OvYeXiYFH3ykJOvnITVqL+NjY2NfVn2JLWYrJCnGfmn8seGjY2NvZt9VviZl6veUX6K2r3Y2NjYl2L3ivi9ck+PelzVr7YlsLGxsfex80GZasGoOl5zbuA83j82Njb2PnZvqLGaYOTH1CtgVR8DNjY29g5276d/XtbJm7WTIFS+g42Njb2InZfy83DVK0L1EqH8sWFjY2PvZuepRbUxkAeeXjLTK0hhY2Njb2VXh2Am5adCyX6wt2QFbGxs7H3s6s/6XtpwFqwXaLGxsbF3s/OUoFfiqZby88CZt66xsbGxt7J7Bfd5qyBPbCYt5BOeMzY2Nval2JOif++YoiJ+UhgqthawsbGxt7LnrdZe0zcJh49zL2xsbOyLs3s/5fMEI09RervNV/vxKjY2NvYidvV//rydkG+o1x6epzHY2NjYV2T3Gre9Ek9eTpoMCUWvYmNjY69jTwJDNbDl35gP+jSnk7CxsbFvyS4MxMTJSW+UZxRusbGxsW/JrpaHkuOotoHzJvQfe8bGxsZex543d/O04axBzyQQYmNjY9+BXW30Vnm9NavNg7eP7GBjY2N/IvsLqsJt8XR06BwAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+    
+    <!-- main-js -->
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/2.1.0/jquery.min.js"></script>
+<script type="text/javascript" src="/js/plugins/fastclick.js?v=1.3.2"></script>
+<script type="text/javascript" src="/js/plugins/ios-orientationchange-fix.js?v=1.3.2"></script>
+<script type="text/javascript" src="/js/plugins/jquery.swipebox.min.js?v=1.3.2"></script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script type="text/javascript" src="/js/method.js?v=1.3.2"></script>
+<script type="text/javascript" src="/js/blog.js?v=1.3.2"></script>
+
+<!-- third-party -->
+<script type="text/javascript">
+;( function( $ ) {
+
+	$( '.swipebox' ).swipebox({
+		hideCloseButtonOnMobile: true
+	});
+
+} )( jQuery );
+</script>
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?[object Object]";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<script type="text/javascript" src="/js/plugins/local_search.js?v=1.3.2"></script>
+<script type="text/javascript">
+	var search_path = "search.xml";
+	if (search_path.length === 0) {
+		search_path = "search.xml";
+	}
+	var path = "/" + search_path;
+	searchFunc(path, "local-search-input", "local-search-result");
+</script>
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+    
+    
+
+
+
+
+
+    <!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+            processEscapes: true,
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+    
+</body>
+</html>

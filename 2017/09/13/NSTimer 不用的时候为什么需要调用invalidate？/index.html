@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    
+    <title>NSTimer 不用的时候为什么需要调用invalidate？ | Hello World | 路漫漫其修远兮，吾将上下而求索</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="iOS,NSTimer,OC">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/third-party/swipebox.min.css?v=1.3.2">
+    <link rel="stylesheet" href="/css/style.css?v=1.3.2">
+    
+    <script type="text/javascript">
+        // Data Center
+        var DC = {
+            reward:	true,
+            lv: JSON.parse('{"enable":false,"app_id":null,"app_key":null,"icon":true}'),
+            v: JSON.parse('{"enable":false,"appid":null,"appkey":null,"notify":true,"verify":true,"placeholder":"give me some sugers plz...","avatar":"wavatar"}'),
+            g: JSON.parse('{"enable":false,"lazy":true,"owner":"codefine","repo":"gitment","oauth":{"client_id":null,"client_secret":null},"perPage":10}'),
+            d: JSON.parse('{"app_id":null}')
+        };
+    </script>
+    <script type="text/javascript">
+        window.lazyScripts=[];
+    </script>
+    
+</head>
+
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      
+      <img src="/img/brand.jpg" class="brand-bg">
+      
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Eden Huang</h5>
+          <a href="mailto:huangcong520@icloud.com" title="huangcong520@icloud.com" class="mail">
+            
+              <span>h</span>
+            
+              <span>u</span>
+            
+              <span>a</span>
+            
+              <span>n</span>
+            
+              <span>g</span>
+            
+              <span>c</span>
+            
+              <span>o</span>
+            
+              <span>n</span>
+            
+              <span>g</span>
+            
+              <span>5</span>
+            
+              <span>2</span>
+            
+              <span>0</span>
+            
+              <span>@</span>
+            
+              <span>i</span>
+            
+              <span>c</span>
+            
+              <span>l</span>
+            
+              <span>o</span>
+            
+              <span>u</span>
+            
+              <span>d</span>
+            
+              <span>.</span>
+            
+              <span>c</span>
+            
+              <span>o</span>
+            
+              <span>m</span>
+            
+          </a>
+        </hgroup>
+        
+        <ul class="menu-link">
+          
+              <li>
+                <a href="https://github.com/ioshc" target="_blank">
+                  <i class="icon icon-lg icon-github"></i>
+                </a>
+              </li>
+            
+        </ul>
+        
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/reading"  >
+                <i class="icon icon-lg icon-book"></i>
+                阅读
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/study"  >
+                <i class="icon icon-lg icon-question-circle"></i>
+                学习
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/themes"  >
+                <i class="icon icon-lg icon-file-image-o"></i>
+                主题
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                关于
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/custom"  >
+                <i class="icon icon-lg icon-file"></i>
+                测试页面
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row clearfix">
+        <a href="javascript:;" class="header-icon pull-left waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">
+            <span>NSTimer 不用的时候为什么需要调用invalidate？</span>
+            
+        </div>
+        
+        <a href="javascript:;" id="site_search_btn" class="header-icon pull-right waves-effect waves-circle waves-light">
+            <i class="icon icon-lg icon-search"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+    <img src="/img/banner.jpg" class="header-bg">
+    <div class="container fade-scale">
+        <h1 class="title">NSTimer 不用的时候为什么需要调用invalidate？</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-09-13T14:13:03.000Z" itemprop="datePublished" class="page-time">
+  2017-09-13
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/iOS/">iOS</a></li></ul>
+
+            
+        </h5>
+        
+    </div>
+    
+
+</header>
+
+<div id="site_search">
+    <div class="search-title clearfix">
+        <span class="pull-left">
+          <i class="icon icon-lg icon-search"></i>
+        </span>
+        <input type="text" id="local-search-input" name="q" results="0" placeholder="search my blog..." class="form-control pull-left"/>
+        <a href="javascript:;" class="close pull-right waves-effect waves-circle waves-light">
+          <i class="icon icon-lg icon-close"></i>
+        </a>
+    </div>
+    <div id="local-search-result"></div>
+</div>
+
+
+<div class="container body-wrap">
+    <article id="post-NSTimer 不用的时候为什么需要调用invalidate？"
+  class="post-article article-type-post" itemprop="blogPost">
+    <div class="post-card">
+        <h1 class="post-card-title">NSTimer 不用的时候为什么需要调用invalidate？</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-09-13 22:13:03" datetime="2017-09-13T14:13:03.000Z"  itemprop="datePublished">2017-09-13</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/iOS/">iOS</a></li></ul>
+
+
+
+            
+
+            
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            
+            <p>最近在调试 NSTimer，发现了一些有趣的东西，在此文分析研究一下。</p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>一个 viewController，持有了一个 timer, 当不需要这个 timer 的时候，能不能只调用 <code>self.timer = nil;</code>？</p>
+<h3 id="什么是-NSTimer？"><a href="#什么是-NSTimer？" class="headerlink" title="什么是 NSTimer？"></a>什么是 NSTimer？</h3><p>根据 Apple 的开源代码 <a href="https://opensource.apple.com/source/CF/CF-1153.18/CFRunLoop.c" target="_blank" rel="noopener">CFRunLoop.c</a> 的定义，NSTimer 对应着一个 __CFRunLoopTimer 的结构体，具体代码如下：</p>
+<h4 id="CFRunLoopTimer"><a href="#CFRunLoopTimer" class="headerlink" title="__CFRunLoopTimer"></a>__CFRunLoopTimer</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">struct __CFRunLoopTimer &#123;</span><br><span class="line">    CFRuntimeBase _base;</span><br><span class="line">    uint16_t _bits;</span><br><span class="line">    pthread_mutex_t _lock;</span><br><span class="line">    CFRunLoopRef _runLoop;</span><br><span class="line">    CFMutableSetRef _rlModes;</span><br><span class="line">    CFAbsoluteTime _nextFireDate;</span><br><span class="line">    CFTimeInterval _interval;		/* immutable */</span><br><span class="line">    CFTimeInterval _tolerance;          /* mutable */</span><br><span class="line">    uint64_t _fireTSR;			/* TSR units */</span><br><span class="line">    CFIndex _order;			/* immutable */</span><br><span class="line">    CFRunLoopTimerCallBack _callout;	/* immutable */</span><br><span class="line">    CFRunLoopTimerContext _context;	/* immutable, except invalidation */</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>可以看到 <strong>CFRunLoopTimer 里面有一个<code>CFRunLoopRef _runLoop</code>，这个表示 timer 是属于哪一个 runLoop 的，而里面的<code>CFMutableSetRef _rlModes</code>则表示这个 timer 是在 runLoop 的哪些 mode（</strong>CFRunLoopMode） 中生效。</p>
+<p>同时我们也能看到 __CFRunLoopTimer（即 NSTimer） 使用的是 pthread_mutex_t 锁。</p>
+<h4 id="CFRunLoopMode"><a href="#CFRunLoopMode" class="headerlink" title="__CFRunLoopMode"></a>__CFRunLoopMode</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">struct __CFRunLoopMode &#123;</span><br><span class="line">    CFRuntimeBase _base;</span><br><span class="line">    pthread_mutex_t _lock;	/* must have the run loop locked before locking this */</span><br><span class="line">    CFStringRef _name;</span><br><span class="line">    Boolean _stopped;</span><br><span class="line">    char _padding[3];</span><br><span class="line">    CFMutableSetRef _sources0;</span><br><span class="line">    CFMutableSetRef _sources1;</span><br><span class="line">    CFMutableArrayRef _observers;</span><br><span class="line">    CFMutableArrayRef _timers;</span><br><span class="line">    CFMutableDictionaryRef _portToV1SourceMap;</span><br><span class="line">    __CFPortSet _portSet;</span><br><span class="line">    CFIndex _observerMask;</span><br><span class="line">#if USE_DISPATCH_SOURCE_FOR_TIMERS</span><br><span class="line">    dispatch_source_t _timerSource;</span><br><span class="line">    dispatch_queue_t _queue;</span><br><span class="line">    Boolean _timerFired; // set to true by the source when a timer has fired</span><br><span class="line">    Boolean _dispatchTimerArmed;</span><br><span class="line">#endif</span><br><span class="line">#if USE_MK_TIMER_TOO</span><br><span class="line">    mach_port_t _timerPort;</span><br><span class="line">    Boolean _mkTimerArmed;</span><br><span class="line">#endif</span><br><span class="line">#if DEPLOYMENT_TARGET_WINDOWS</span><br><span class="line">    DWORD _msgQMask;</span><br><span class="line">    void (*_msgPump)(void);</span><br><span class="line">#endif</span><br><span class="line">    uint64_t _timerSoftDeadline; /* TSR */</span><br><span class="line">    uint64_t _timerHardDeadline; /* TSR */</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>从 __CFRunLoopMode 的源代码中， 我们可看到里面包含着一个<code>CFMutableArrayRef _timers</code>，也就是说 runLoopMode 有一个存放 timer 的数组，即当我们指定一个 timer 的 runLoopMode 的时候，<code>[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode]</code>， 会把这个 timer 放入相应的 runLoopMode 对象中。也就是说这个 runLoopMode 对象里面的 _timers 数组，会持有这个 timer 对象。这一点可以从 Xcode 的 Memory Graph中看到<br><figure class="image-box">
+                <a rel=NSTimer 不用的时候为什么需要调用invalidate？ href="2017-09-13/1.jpg" class="swipebox" title=undefined><img src="2017-09-13/1.jpg" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure><br>当我们不需要一个 timer 的时候，我们是使用 NSTimer 的一个方法 <code>invalidate</code> 来进行解除所有和这个 timer 相关的持有关系。</p>
+<p>同样我们也能看到 __CFRunLoopMode 使用的也是 pthread_mutex_t 锁。</p>
+<h4 id="回答前面的问题"><a href="#回答前面的问题" class="headerlink" title="回答前面的问题"></a>回答前面的问题</h4><p><strong>当我有一个 viewController，持有了一个 timer, 我能不能只调用 <code>self.timer = nil;</code>?</strong></p>
+<blockquote>
+<p>不能，因为 <code>self.timer = nil;</code> 只是解除了 viewController 持有 timer，但是并没有解除 runLoopMode 里面的数组持有 timer 的关系，所以必须调用invalidate来解除所有和 timer 相关的关系。</p>
+</blockquote>
+
+        </div>
+        
+<blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-05-08T10:41:49.417Z" itemprop="dateUpdated">2019-05-08 18:41:49</time>
+</span><br>
+
+
+        
+        转载注明出处，原文地址：<a href="/2017/09/13/NSTimer 不用的时候为什么需要调用invalidate？/" target="_blank" rel="external">http://http://ioshc.github.io/2017/09/13/NSTimer 不用的时候为什么需要调用invalidate？/</a>
+        
+    </div>
+    <footer>
+        <a href="http://http://ioshc.github.io">
+            <img src="/img/avatar.jpg" alt="Eden Huang">
+            Eden Huang
+        </a>
+    </footer>
+</blockquote>
+
+        
+            <div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+            
+        
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NSTimer/">NSTimer</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OC/">OC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+
+            <div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://http://ioshc.github.io/2017/09/13/NSTimer 不用的时候为什么需要调用invalidate？/&title=《NSTimer 不用的时候为什么需要调用invalidate？》 — Hello World&pic=http://http://ioshc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://http://ioshc.github.io/2017/09/13/NSTimer 不用的时候为什么需要调用invalidate？/&title=《NSTimer 不用的时候为什么需要调用invalidate？》 — Hello World&source=任何描述都是多余的" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+        </div>
+        
+            
+
+
+        
+    </div>
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="prev">
+      <a href="/2017/10/03/这些__attribute__的知识你应该知道/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">这些__attribute__的知识你应该知道</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="next">
+      <a href="/2017/08/21/面向对象：三大特征、五大原则/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">面向对象：三大特征、五大原则</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+        <aside class="post-widget">
+            <nav class="post-toc-wrap" id="post-toc">
+                <strong>目录</strong>
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#问题"><span class="post-toc-number">1.</span> <span class="post-toc-text">问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#什么是-NSTimer？"><span class="post-toc-number">2.</span> <span class="post-toc-text">什么是 NSTimer？</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#CFRunLoopTimer"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">__CFRunLoopTimer</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#CFRunLoopMode"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">__CFRunLoopMode</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#回答前面的问题"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">回答前面的问题</span></a></li></ol></li></ol>
+            </nav>
+            <div class="toc-bar"><div>
+        </aside>
+    
+</article>
+
+    <div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        我们一起来让这个世界有趣一点
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/reward-wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/reward-wechat.jpg" data-alipay="/img/reward-alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+    
+</div>
+
+        <footer class="footer">
+    
+    <div class="top">
+        
+    </div>
+    
+    <div class="bottom">
+        <p>
+            <span>
+                Eden Huang &copy; 2018 - 2019
+            </span>
+        		
+           	
+            
+            
+            <span>
+	            Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/codefine/hexo-theme-mellow" target="_blank">mellow</a>
+            </span>
+            
+            
+            
+
+            
+                
+<span class="site-uv" title="总访客量">
+    <i class="icon icon-user"></i>
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"></i>
+</span>
+
+
+<span class="site-pv" title="总访问量">
+    <i class="icon icon-eye"></i>
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"></i>
+</span>
+
+            
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://http://ioshc.github.io/2017/09/13/NSTimer 不用的时候为什么需要调用invalidate？/&title=《NSTimer 不用的时候为什么需要调用invalidate？》 — Hello World&pic=http://http://ioshc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://http://ioshc.github.io/2017/09/13/NSTimer 不用的时候为什么需要调用invalidate？/&title=《NSTimer 不用的时候为什么需要调用invalidate？》 — Hello World&source=任何描述都是多余的" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADMElEQVR42u3aQW4bQQwEQP//0/I1gK2om1wD2lHtKbDl1dTkQJDNr6/4ecTPv59v3/bstz/f+ewzFz/Y2NjYN2HnjATz7PPJ2/IrSL73xd9iY2NjH8dOXrchJeB9sUws2NjY2NjJFbQXkfQL+aVjY2NjY7fs5ECbC21bF2xsbOzPZM/G/clo/v/HzQf9s9jgglkaNjY29tuz81T0/f/9J/k2NjY29huzH+WTlJPZETerObUCGxsb+yB2207kLUp7uFn5nJ0fGxsb+zz2ZvSTFLDk/deOh/JTYWNjY5/NzstJMtavD7R+T3RN2NjY2DdnXxudtlewjx+G4ypsbGzs49hJCWlXav4iKtiPurCxsbHPYycDoHY8lLcHbYQ8a3uK3gsbGxv7tuzkpXlIkDcP+UXM3lb8n2NjY2Pflp0UiXaolDQD+TVtootoloaNjY19BHu18lIO7jcXN/uWX36CjY2NfTT7ETybUjSLE9rA4MUnsbGxsQ9lJ8WjXaaZLfdsLjf6W2xsbOzj2O0iTjviaZ9rF4Yu2z/CxsbGfkt20py0P9/EvbNmqS112NjY2Cex8zWa9pry4dG1LU1UFLGxsbGPZudj/VnAsC9yCfXF1WNjY2MfxJ6VmWgtZnQFszhhMzXCxsbGvjs7Ofos6G1jhnYRJ1/3+eW32NjY2Aex80LVlq5ZaUl4efMTnQ0bGxv75uy2AOQHLYb1wcXleXURD2BjY2Mfwb5qnLQpSPnR89gganiwsbGxj2bPlmnacU/eeOTXlC8SYWNjY5/Hbpdj8lHUPlTY59jFaAkbGxv7CPbmKLNiloe7bdw7vCFsbGzsm7NnSzxtezCLitsoepWNYGNjY9+KPWsn9mP6TfzQLgMVqQg2Njb2TdiP8mnbgH1IPAuGX1wTNjY29kHsduzeruNsgoEc374NGxsb+zx2XrTakOCqyCGPn4vFHWxsbOzj2HlhmC1iborfpvY+fSc2Njb2B7PzgVF+9CROzktmVMawsbGxP5g9a1ryyCHvHdrQ94K6jY2Njf3G7DbczYPedtyzDxKia8LGxsY+iN2OZvJCNRvx5/3C5huxsbGxj2B/A/JC7TlRXnOoAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+    
+    <!-- main-js -->
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/2.1.0/jquery.min.js"></script>
+<script type="text/javascript" src="/js/plugins/fastclick.js?v=1.3.2"></script>
+<script type="text/javascript" src="/js/plugins/ios-orientationchange-fix.js?v=1.3.2"></script>
+<script type="text/javascript" src="/js/plugins/jquery.swipebox.min.js?v=1.3.2"></script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script type="text/javascript" src="/js/method.js?v=1.3.2"></script>
+<script type="text/javascript" src="/js/blog.js?v=1.3.2"></script>
+
+<!-- third-party -->
+<script type="text/javascript">
+;( function( $ ) {
+
+	$( '.swipebox' ).swipebox({
+		hideCloseButtonOnMobile: true
+	});
+
+} )( jQuery );
+</script>
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?[object Object]";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<script type="text/javascript" src="/js/plugins/local_search.js?v=1.3.2"></script>
+<script type="text/javascript">
+	var search_path = "search.xml";
+	if (search_path.length === 0) {
+		search_path = "search.xml";
+	}
+	var path = "/" + search_path;
+	searchFunc(path, "local-search-input", "local-search-result");
+</script>
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+    
+    
+
+
+
+
+
+    <!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+            processEscapes: true,
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+    
+</body>
+</html>

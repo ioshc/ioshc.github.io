@@ -3,6 +3,100 @@
   
     
     <entry>
+      <title>iOS 11 中 UIBarButtonItem 的变化</title>
+      <link href="/2017/11/09/iOS%2011%20%E4%B8%AD%20UIBarButtonItem%20%E7%9A%84%E5%8F%98%E5%8C%96/"/>
+      <url>/2017/11/09/iOS%2011%20%E4%B8%AD%20UIBarButtonItem%20%E7%9A%84%E5%8F%98%E5%8C%96/</url>
+      <content type="html"><![CDATA[<h3 id="序"><a href="#序" class="headerlink" title="序"></a>序</h3><p>随着 iOS 11 和 Xcode 9 的发布，导航栏<code>UINavigationBar</code> 里面的控件 <code>UIBarButtonItem</code> 有一些变化，下面我们一起看看有哪些变化。</p><h3 id="变化"><a href="#变化" class="headerlink" title="变化"></a>变化</h3><ul><li><code>UIBarButtonItems</code> 的custom view的点击区域更小了</li><li>返回按钮的点击区域也更小了</li><li>如果上一个屏幕的 title 有变化，则返回按钮的 label 不再自动更新（iOS 10 前会自动更新）</li><li><code>UIBarButtonSystemItemFixedSpace</code> 类型的 <code>UIBarButtonItem</code> 现在至少有 8 个点的最小宽度，负数的 width 不再生效</li><li>重写 <code>alignmentRectInsets</code> 可能会导致 custom views 超出点击区域</li></ul><p>下面会详细的讲解上面几点变化。</p><h3 id="点击区域-Tap-Areas"><a href="#点击区域-Tap-Areas" class="headerlink" title="点击区域(Tap Areas)"></a>点击区域(Tap Areas)</h3><p>我们假设有一个 <strong>iOS 10</strong> 程序，其中包含两个有 custom view 的 <code>UIBarButtonItem</code>。然后我们使用 <code>Debug View Hierarchy</code> 去检查 custom 的真实大小。</p><figure class="image-box">                <img src="2017-11-09/1.png" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><p>他们的点击区域实际上会更大，和下面的红色方块区域大小一致。</p><figure class="image-box">                <img src="2017-11-09/2.png" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><p>然而在 <strong>iOS 11</strong> 上，显示的效果和上面的效果就不同了。点击区域大小和 custom view 的大小一致。</p><figure class="image-box">                <img src="2017-11-09/3.png" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><p>在 <strong>iOS 11</strong> 上，这种点击区域的大小的确会使得用户很难点击。为了扩大点击区域，custom view 的需要扩大边距。我们可以创建一个拥有最小的size 约束的 Wrapper view。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WrapperView</span>: <span class="title">UIView</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> minimumSize: <span class="type">CGSize</span> = <span class="type">CGSize</span>(width: <span class="number">44.0</span>, height: <span class="number">44.0</span>)</span><br><span class="line">    <span class="keyword">let</span> underlyingView: <span class="type">UIView</span></span><br><span class="line">    <span class="keyword">init</span>(underlyingView: <span class="type">UIView</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.underlyingView = underlyingView</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(frame: underlyingView.bounds)</span><br><span class="line"></span><br><span class="line">        underlyingView.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        addSubview(underlyingView)</span><br><span class="line"></span><br><span class="line">        <span class="type">NSLayoutConstraint</span>.activate([</span><br><span class="line">            underlyingView.leadingAnchor.constraint(equalTo: leadingAnchor),</span><br><span class="line">            underlyingView.trailingAnchor.constraint(equalTo: trailingAnchor),</span><br><span class="line">            underlyingView.topAnchor.constraint(equalTo: topAnchor),</span><br><span class="line">            underlyingView.bottomAnchor.constraint(equalTo: bottomAnchor),</span><br><span class="line">            heightAnchor.constraint(greaterThanOrEqualToConstant: minimumSize.height),</span><br><span class="line">            widthAnchor.constraint(greaterThanOrEqualToConstant: minimumSize.width)</span><br><span class="line">        ])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="image-box">                <img src="2017-11-09/4.png" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><h3 id="返回按钮-Back-Button"><a href="#返回按钮-Back-Button" class="headerlink" title="返回按钮(Back Button)"></a>返回按钮(Back Button)</h3><h4 id="点击区域-Tap-Area"><a href="#点击区域-Tap-Area" class="headerlink" title="点击区域(Tap Area)"></a>点击区域(Tap Area)</h4><p>当 view controller 的 title 很长的时候，iOS 11 上的返回按钮点击区域会变得更小。</p><p>在 iOS 10 上的返回按钮有一个比较大的最小宽度，利于用户点击。</p><figure class="image-box">                <img src="2017-11-09/5.png" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><p>然而在 iOS 11 上，返回按钮的点击区域变得很小。更糟糕的是 view controller 的 title，有时看起来像是返回按钮的 label。</p><figure class="image-box">                <img src="2017-11-09/6.png" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><h4 id="动态更新-Label"><a href="#动态更新-Label" class="headerlink" title="动态更新(Label)"></a>动态更新(Label)</h4><p>iOS 11 上面另外一个更新是返回按钮的 label。</p><p>举个例子，假设有一个能够自动更新 title 的 <code>First(4)</code> 页面 (UIViewController),</p><figure class="image-box">                <img src="2017-11-09/7.png" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><p>界面从 <code>First(4)</code> 页面 push 到 <code>Second</code> 页面，</p><figure class="image-box">                <img src="2017-11-09/8.png" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><p>在 iOS 10 上，当 <code>First(4)</code>的 title 从 First(4) 变化到 First(6) 之后，返回按钮也变成了 First(6)，</p><figure class="image-box">                <img src="2017-11-09/9.png" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><p>而在 iOS 11 上，返回按钮的 label 并没有自动更新，而是保持不变。</p><figure class="image-box">                <img src="2017-11-09/10.png" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><h3 id="自动布局-Auto-Layout"><a href="#自动布局-Auto-Layout" class="headerlink" title="自动布局(Auto Layout)"></a>自动布局(Auto Layout)</h3><p><code>UINavigationBar</code> 现在能够使用自动布局（Auto Layout）来布局它的 subviews（包括 custom views）。在今年的 WWDC上中的 <a href="https://developer.apple.com/videos/play/wwdc2017/204/" target="_blank" rel="noopener">Updating Your Apps for iOS 11</a> 里面有提到。</p><p>在 iOS 11 中，我们能够从 <code>Debug View Hierarchy</code> 检查 <code>UINavigationBar</code> 看到，<code>UINavigationBar</code> 内部的 buttons 都被放置在一个 stack view 中。</p><figure class="image-box">                <img src="2017-11-09/11.png" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><p>当我们正确的实现了 custom view 的 <code>sizeThatFits</code> 和 <code>intrinsicContentSize</code>，<code>UINavigationBar</code>也会如以前那样工作正常。</p><p>但是，需要注意的是，当我们把custom view 的 <code>translatesAutoresizingMaskIntoConstraints</code> 设成 <code>false</code>，在 iOS 10（如果你的 App 还支持 iOS 10的话）上，可能出现一些莫名其妙的问题。比如可能导致custom view 的 top-left 方向布局错位。这种情况下，一个简单的保护代码如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let customView = createCustomView()</span><br><span class="line">if #available(iOS 11, *) &#123;</span><br><span class="line">    customView.translatesAutoresizingMaskIntoConstraints = false</span><br><span class="line">&#125;</span><br><span class="line">navigationItem.rightBarButtonItem = UIBarButtonIte(customView: customView)</span><br></pre></td></tr></table></figure><h3 id="自定义对齐-Custom-Alignment"><a href="#自定义对齐-Custom-Alignment" class="headerlink" title="自定义对齐(Custom Alignment)"></a>自定义对齐(Custom Alignment)</h3><p>很多时候，我们想能够自由的控制 custom <code>UIBarButtonItem</code> 的布局（对齐），特别是和屏幕两边的边距大小。在 iOS 10（及以前）来说，我们经常用到两种小技巧：</p><ul><li>使用fixed space item，即<code>UIBarButtonItem(barButtonSystemItem: .fixedSpace …)</code>，并且赋值一个负数，比如-15</li><li>重写 custom view 的 <code>alignmentRectInsets</code></li></ul><p>但是在 iOS 11 上，上面两个方法都有点变化，第一个办法已经失效，而第二个办法也有点问题。</p><h4 id="Fixed-Space-Items"><a href="#Fixed-Space-Items" class="headerlink" title="Fixed Space Items"></a>Fixed Space Items</h4><p>当我们使用 custom view 的时候， 默认的边距是16个点，</p><figure class="image-box">                <img src="2017-11-09/12.png" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><p>假设我们想将边距减少到 8 个点，那么在 iOS 10 上面，我们需要设置fixed space <code>UIBarButtonItem</code> 的宽度为 -8 就可以达到我们想要的效果。</p><figure class="image-box">                <img src="2017-11-09/13.png" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let spacer = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)</span><br><span class="line">spacer.width = -8</span><br><span class="line">let barButtonsItems = [</span><br><span class="line">    spacer,</span><br><span class="line">    UIBarButtonItem(customView: createCustomButton()),</span><br><span class="line">    UIBarButtonItem(customView: createCustomButton())</span><br><span class="line">]</span><br><span class="line">navigationItem.rightBarButtonItems = barButtonItems</span><br></pre></td></tr></table></figure><figure class="image-box">                <img src="2017-11-09/14.png" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><p>然而在 iOS 11 上，修改fixed space <code>UIBarButtonItem</code> 的宽度为 -8 会不生效。</p><h4 id="Alignment-Rect-Insets"><a href="#Alignment-Rect-Insets" class="headerlink" title="Alignment Rect Insets"></a>Alignment Rect Insets</h4><p>而重写 custom view 的 <code>alignmentRectInsets</code>，在 iOS 10 上面也能够修改布局边距</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class CustomView: UIView &#123;</span><br><span class="line">    var alignmentRectInsetsOverride: UIEdgeInsets?</span><br><span class="line">    override var alignmentRectInsets: UIEdgeInsets &#123;</span><br><span class="line">        return alignmentRectInsetsOverride ?? super.alignmentRectInsets</span><br><span class="line">    &#125;</span><br><span class="line">    // ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>设置 <code>alignmentRectInsets</code> 的值为 UIEdgeInsets(top: 0, left: -8, bottom: 0, right: 8)，也能够和前面的修改起到相同的作用</p><figure class="image-box">                <img src="2017-11-09/15.png" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><p>上面的代码在 iOS 11 上面依然能够起到作用，但是有一个小的问题是，item 里面有一小部分超出了 stack view 的范围。超出的区域不能点击，也就意味着点击区域变小了。</p><figure class="image-box">                <img src="2017-11-09/16.png" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><h4 id="Workaround"><a href="#Workaround" class="headerlink" title="Workaround"></a>Workaround</h4><p>根据前面<a href="#fixed-space-items">fixed space的例子</a>，我们发现相对于未使用 custom view 的情况，边距有所变小。</p><figure class="image-box">                <img src="2017-11-09/17.png" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><p>当我们未使用 custom view 的时候，边距到屏幕边缘是 8 个点</p><figure class="image-box">                <img src="2017-11-09/18.png" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><p>当我们使用了 custom view 的时候，边距到屏幕是 16 个点</p><figure class="image-box">                <img src="2017-11-09/19.png" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><p>根据上面的发现，我们的目标是：让 custom view 的边距在 iOS 11 上面依然是 8 个点。添加一个 <code>fix space item</code> 将会使得内部的 stack view 减少边距，那么修改 <code>alignmentRectInsets</code> 的值去移动 <code>custom view</code> 的 frame，可以使内部的 stack view 对齐。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">func alignedBarButtonItems() -&gt; [UIBarButtonItem] &#123;</span><br><span class="line">    let spacer = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)</span><br><span class="line">    spacer.width = 8</span><br><span class="line">    let barButtonsItems = [</span><br><span class="line">        spacer,</span><br><span class="line">        UIBarButtonItem(customView: createCustomButton(offset: spacer.width)),</span><br><span class="line">        UIBarButtonItem(customView: createCustomButton(offset: spacer.width)),</span><br><span class="line">        ]</span><br><span class="line">    return barButtonsItems</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func createCustomButton(offset: CGFloat = 0) -&gt; UIButton &#123;</span><br><span class="line">    let button = CustomButton(frame: CGRect(x:0, y: 0, width: 24, height: 24))</span><br><span class="line">    button.alignmentRectInsetsOverride = UIEdgeInsets(top: 0, left: -offset, bottom: 0, right: offset)</span><br><span class="line">    button.translatesAutoresizingMaskIntoConstraints = false</span><br><span class="line">    return button</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="image-box">                <img src="2017-11-09/20.png" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><p>目前来说，这个 workaround 只能将边距设置为 8，如果我们将这个值设为一个更小的值，那么custom view 依然会超出 stack view。</p><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul><li><a href="http://www.matrixprojects.net/p/uibarbuttonitem-ios11/" target="_blank" rel="noopener">UIBarButtonItem &amp; iOS 11</a></li></ul>]]></content>
+      
+      <categories>
+          
+          <category> iOS </category>
+          
+          <category> UI </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> iOS11 </tag>
+            
+            <tag> UI </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>这些__attribute__的知识你应该知道</title>
+      <link href="/2017/10/03/%E8%BF%99%E4%BA%9B__attribute__%E7%9A%84%E7%9F%A5%E8%AF%86%E4%BD%A0%E5%BA%94%E8%AF%A5%E7%9F%A5%E9%81%93/"/>
+      <url>/2017/10/03/%E8%BF%99%E4%BA%9B__attribute__%E7%9A%84%E7%9F%A5%E8%AF%86%E4%BD%A0%E5%BA%94%E8%AF%A5%E7%9F%A5%E9%81%93/</url>
+      <content type="html"><![CDATA[<h3 id="序"><a href="#序" class="headerlink" title="序"></a>序</h3><p>最近查看在网上发现了个有趣的小玩意<code>__attribute__</code>, 也就是 Clang Attributes，这是一个编译器提供的功能，能够让我向编译器指定一些特殊的功能，比如</p><ul><li><strong>attribute</strong>((deprecated))：描述一个方法已经废弃；</li><li><strong>attribute</strong>((objc_requires_super))：描述子类继承父类的方法时需要调用 super方法；</li><li><strong>attribute</strong>((cleanup(…))): 描述一个变量在作用域结束时能够执行指定方法；</li><li>……</li></ul><p>Clang 编译器提供了很多的 <code>__attribute__</code> 功能，下面会介绍一些 Objective-C 中常用的一些功能。</p><p>可以参考相关的文章 <a href="http://nshipster.com/__attribute__/" target="_blank" rel="noopener">NShipster</a> 和 <a href="http://blog.sunnyxx.com/2016/05/14/clang-attributes/" target="_blank" rel="noopener">clang-attributes</a>。</p><h3 id="attribute-deprecated"><a href="#attribute-deprecated" class="headerlink" title="__attribute__((deprecated))"></a>__attribute__((deprecated))</h3><p>描述一个<strong>方法</strong>，表明这是一个被废弃的方法，如果有地方在调用，编译器会提示一个警告；并且也提供自定义警告信息，格式如下<strong>attribute</strong>((deprecated(“meesage”)))</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)thisIsADeprecatedMethod __attribute__((deprecated(&quot;This is a deprecated message&quot;)));</span><br></pre></td></tr></table></figure><p>在 Xcode 中，我们编写代码的时候， 编辑器会和 Clang 编译器的预编译系统配合，在我们写代码的时候，就在 IDE 中把警告给显示出来。</p><figure class="image-box">                <img src="2017-10-03/1.jpg" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><h3 id="attribute-objc-boxable"><a href="#attribute-objc-boxable" class="headerlink" title="__attribute__((objc_boxable))"></a>__attribute__((objc_boxable))</h3><p>能够给 struct 和 union 提供快捷的“包装”方式。</p><ol><li>CGRect， CGSize， CGPoint, CGVector 能够使用框架提供的 boxable 快速“包装”；</li><li>自定义 struct 或 union 类型，也可以添加 <strong>attribute</strong>((objc_boxable)) 以支持 boxable 快速“包装”。</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">CGPoint point = &#123;1, 2&#125;;                     // x = 1, y = 2</span><br><span class="line">CGRect rect1 = &#123;1, 2, 3, 4&#125;;                // x = 1, y = 2, width = 3, height = 4</span><br><span class="line">CGTriangle triange1 = &#123;1, 2, 3, 4, 5, 6&#125;;   // a.x = 1, a.y = 2, b.x = 3, b.y = 4, c.x = 5, c.y = 6</span><br><span class="line">// “包装”需要的数据不够，不够的数据补0</span><br><span class="line">CGSize size = &#123;1&#125;;                          // width = 1, height = 0</span><br><span class="line">// “包装”的 CGRect 中的 CGPoint 需要的数据不够，不够的数据补0</span><br><span class="line">CGRect rect2 = &#123;&#123;1&#125;, &#123;3, 4&#125;&#125;;               // x = 1, y = 0, width = 3, height = 4</span><br><span class="line"></span><br><span class="line">typedef struct __attribute__((objc_boxable)) &#123;</span><br><span class="line">    CGPoint x;</span><br><span class="line">    CGPoint y;</span><br><span class="line">    CGPoint z;</span><br><span class="line">&#125; CGTriangle;</span><br><span class="line"></span><br><span class="line">CGTriangle triange = &#123;1, 2, 3, 4, 5, 6&#125;;</span><br><span class="line">// “包装”的数据多了，最后一条丢掉</span><br><span class="line">CGTriangle triange2 = &#123;1, 2, 3, 4, 5, 6, 7&#125;;// a.x = 1, a.y = 2, b.x = 3, b.y = 4, c.x = 5, c.y = 6</span><br></pre></td></tr></table></figure><p>这里“包装”的方式需要注意：</p><ul><li>可以采用<strong>平铺</strong>，如<code>{1, 2, 3, 4}</code>，也可以采用<strong>嵌套</strong>，如 <code>{ {1, 2}, {3, 4} }</code></li><li>如果“包装”赋值数据的个数比定义的少，则没有赋值的部分全部为0，如<code>CGSize size = {1}; // width = 1, height = 0</code></li><li>如果“包装”赋值数据的个数比定义的多，则多余的部分丢掉。如<code>CGTriangle triange2 = {1, 2, 3, 4, 5, 6, 7};// a.x = 1, a.y = 2, b.x = 3, b.y = 4, c.x = 5, c.y = 6</code></li></ul><figure class="image-box">                <img src="2017-10-03/2.jpg" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><h3 id="attribute-objc-subclassing-restricted"><a href="#attribute-objc-subclassing-restricted" class="headerlink" title="__attribute__((objc_subclassing_restricted))"></a>__attribute__((objc_subclassing_restricted))</h3><p>描述一个<strong>类</strong>是一个不能被继承的类。</p><p>如果定义一个 Father 类，并且使用<code>__attribute__((objc_subclassing_restricted))</code>描述，那么如果一个 Son 类要去继承于 Father，编辑器会在编译器的预编译系统的帮助下，在 IDE 里面就把错误显示出来。</p><figure class="image-box">                <img src="2017-10-03/3.jpg" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><h3 id="attribute-objc-requires-super"><a href="#attribute-objc-requires-super" class="headerlink" title="__attribute__((objc_requires_super))"></a>__attribute__((objc_requires_super))</h3><p>描述一个<strong>子类</strong>继承父类的方法时，需要调用 super，否则给出编译警告。</p><p>如果定义一个 Father 类，里面包含一个 call 方法，并且使用<code>__attribute__((objc_requires_super))</code>描述，那么如果一个 Son 在调用 call 的时候，需要显式的调用[super call]，如果没有调用，那么编辑器会在编译器的预编译系统的帮助下，在 IDE 里面就把警告显示出来。</p><figure class="image-box">                <img src="2017-10-03/4.jpg" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><h3 id="attribute-warn-unused-result"><a href="#attribute-warn-unused-result" class="headerlink" title="__attribute__((warn_unused_result))"></a>__attribute__((warn_unused_result))</h3><p>描述一个<strong>方法</strong>，如果此方法有返回值，但是调用的地方<strong>并未使用返回值</strong>，编译器就会提示一个警告。（编辑器在编译器的预编译系统的帮助下，也会在 IDE 中显示警告）</p><p>如下面 Hippo 类的 bite 方法，使用了 <code>__attribute__((warn_unused_result))</code> 进行描述，在 bite 方法调用的时候没有使用返回值，编译器就就提示了一个警告</p><figure class="image-box">                <img src="2017-10-03/5.jpg" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><h3 id="attribute-cleanup-…"><a href="#attribute-cleanup-…" class="headerlink" title="__attribute__((cleanup(…)))"></a>__attribute__((cleanup(…)))</h3><p>修饰一个<strong>变量</strong>，在它的作用域结束时可以执行一个指定的方法。</p><p>cleanup 是一个用好了就很爽的属性，详细内容可以查看<a href="http://blog.sunnyxx.com/2014/09/15/objc-attribute-cleanup/" target="_blank" rel="noopener">黑魔法<strong>attribute</strong>((cleanup))</a></p><h4 id="基本类型变量"><a href="#基本类型变量" class="headerlink" title="基本类型变量"></a>基本类型变量</h4><p>如果一个<strong>临时基本类型变量</strong>，在其超出作用域之后，这个变量会直接调用 cleanup。</p><figure class="image-box">                <img src="2017-10-03/8.jpg" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><h4 id="对象变量"><a href="#对象变量" class="headerlink" title="对象变量"></a>对象变量</h4><p>如果一个<strong>临时变量对象</strong>，在超出其作用域之后，其临时变量（变量本身）会被释放，但是其指向的对象则会根据他的生命周期来决定是否释放。也就是说：</p><blockquote><ul><li>如果临时变量对象，没有被其他对象持有，那么最后其会先调用 cleanup，然后再调用 dealloc 方法</li><li>如果临时变量对象，被其他对象持有了，那么其只会调用 cleanup，而 dealloc 是不会被调用的。（这是因为临时变量（变量本身）会被释放，但是其指向的对象则会根据他的生命周期来决定是否释放）</li></ul></blockquote><p>下面两个例子可以很好的阐述上面两个观点：</p><figure class="image-box">                <img src="2017-10-03/6.jpg" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><p>而下面的 hippo 对象被当前类给持有了，所以 dealloc 是不会调用的，只会调用 cleanup。</p><figure class="image-box">                <img src="2017-10-03/7.jpg" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>__attribute__ 提供了很多的编译时功能，恰当的运用这些功能，可以使我们的代码更加灵活。</p>]]></content>
+      
+      <categories>
+          
+          <category> iOS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> OC </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>NSTimer 不用的时候为什么需要调用invalidate？</title>
+      <link href="/2017/09/13/NSTimer%20%E4%B8%8D%E7%94%A8%E7%9A%84%E6%97%B6%E5%80%99%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E8%B0%83%E7%94%A8invalidate%EF%BC%9F/"/>
+      <url>/2017/09/13/NSTimer%20%E4%B8%8D%E7%94%A8%E7%9A%84%E6%97%B6%E5%80%99%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E8%B0%83%E7%94%A8invalidate%EF%BC%9F/</url>
+      <content type="html"><![CDATA[<p>最近在调试 NSTimer，发现了一些有趣的东西，在此文分析研究一下。</p><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>一个 viewController，持有了一个 timer, 当不需要这个 timer 的时候，能不能只调用 <code>self.timer = nil;</code>？</p><h3 id="什么是-NSTimer？"><a href="#什么是-NSTimer？" class="headerlink" title="什么是 NSTimer？"></a>什么是 NSTimer？</h3><p>根据 Apple 的开源代码 <a href="https://opensource.apple.com/source/CF/CF-1153.18/CFRunLoop.c" target="_blank" rel="noopener">CFRunLoop.c</a> 的定义，NSTimer 对应着一个 __CFRunLoopTimer 的结构体，具体代码如下：</p><h4 id="CFRunLoopTimer"><a href="#CFRunLoopTimer" class="headerlink" title="__CFRunLoopTimer"></a>__CFRunLoopTimer</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">struct __CFRunLoopTimer &#123;</span><br><span class="line">    CFRuntimeBase _base;</span><br><span class="line">    uint16_t _bits;</span><br><span class="line">    pthread_mutex_t _lock;</span><br><span class="line">    CFRunLoopRef _runLoop;</span><br><span class="line">    CFMutableSetRef _rlModes;</span><br><span class="line">    CFAbsoluteTime _nextFireDate;</span><br><span class="line">    CFTimeInterval _interval;/* immutable */</span><br><span class="line">    CFTimeInterval _tolerance;          /* mutable */</span><br><span class="line">    uint64_t _fireTSR;/* TSR units */</span><br><span class="line">    CFIndex _order;/* immutable */</span><br><span class="line">    CFRunLoopTimerCallBack _callout;/* immutable */</span><br><span class="line">    CFRunLoopTimerContext _context;/* immutable, except invalidation */</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>可以看到 <strong>CFRunLoopTimer 里面有一个<code>CFRunLoopRef _runLoop</code>，这个表示 timer 是属于哪一个 runLoop 的，而里面的<code>CFMutableSetRef _rlModes</code>则表示这个 timer 是在 runLoop 的哪些 mode（</strong>CFRunLoopMode） 中生效。</p><p>同时我们也能看到 __CFRunLoopTimer（即 NSTimer） 使用的是 pthread_mutex_t 锁。</p><h4 id="CFRunLoopMode"><a href="#CFRunLoopMode" class="headerlink" title="__CFRunLoopMode"></a>__CFRunLoopMode</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">struct __CFRunLoopMode &#123;</span><br><span class="line">    CFRuntimeBase _base;</span><br><span class="line">    pthread_mutex_t _lock;/* must have the run loop locked before locking this */</span><br><span class="line">    CFStringRef _name;</span><br><span class="line">    Boolean _stopped;</span><br><span class="line">    char _padding[3];</span><br><span class="line">    CFMutableSetRef _sources0;</span><br><span class="line">    CFMutableSetRef _sources1;</span><br><span class="line">    CFMutableArrayRef _observers;</span><br><span class="line">    CFMutableArrayRef _timers;</span><br><span class="line">    CFMutableDictionaryRef _portToV1SourceMap;</span><br><span class="line">    __CFPortSet _portSet;</span><br><span class="line">    CFIndex _observerMask;</span><br><span class="line">#if USE_DISPATCH_SOURCE_FOR_TIMERS</span><br><span class="line">    dispatch_source_t _timerSource;</span><br><span class="line">    dispatch_queue_t _queue;</span><br><span class="line">    Boolean _timerFired; // set to true by the source when a timer has fired</span><br><span class="line">    Boolean _dispatchTimerArmed;</span><br><span class="line">#endif</span><br><span class="line">#if USE_MK_TIMER_TOO</span><br><span class="line">    mach_port_t _timerPort;</span><br><span class="line">    Boolean _mkTimerArmed;</span><br><span class="line">#endif</span><br><span class="line">#if DEPLOYMENT_TARGET_WINDOWS</span><br><span class="line">    DWORD _msgQMask;</span><br><span class="line">    void (*_msgPump)(void);</span><br><span class="line">#endif</span><br><span class="line">    uint64_t _timerSoftDeadline; /* TSR */</span><br><span class="line">    uint64_t _timerHardDeadline; /* TSR */</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>从 __CFRunLoopMode 的源代码中， 我们可看到里面包含着一个<code>CFMutableArrayRef _timers</code>，也就是说 runLoopMode 有一个存放 timer 的数组，即当我们指定一个 timer 的 runLoopMode 的时候，<code>[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode]</code>， 会把这个 timer 放入相应的 runLoopMode 对象中。也就是说这个 runLoopMode 对象里面的 _timers 数组，会持有这个 timer 对象。这一点可以从 Xcode 的 Memory Graph中看到<br><figure class="image-box">                <img src="2017-09-13/1.jpg" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><br>当我们不需要一个 timer 的时候，我们是使用 NSTimer 的一个方法 <code>invalidate</code> 来进行解除所有和这个 timer 相关的持有关系。</p><p>同样我们也能看到 __CFRunLoopMode 使用的也是 pthread_mutex_t 锁。</p><h4 id="回答前面的问题"><a href="#回答前面的问题" class="headerlink" title="回答前面的问题"></a>回答前面的问题</h4><p><strong>当我有一个 viewController，持有了一个 timer, 我能不能只调用 <code>self.timer = nil;</code>?</strong></p><blockquote><p>不能，因为 <code>self.timer = nil;</code> 只是解除了 viewController 持有 timer，但是并没有解除 runLoopMode 里面的数组持有 timer 的关系，所以必须调用invalidate来解除所有和 timer 相关的关系。</p></blockquote>]]></content>
+      
+      <categories>
+          
+          <category> iOS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> NSTimer </tag>
+            
+            <tag> OC </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>面向对象：三大特征、五大原则</title>
+      <link href="/2017/08/21/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%EF%BC%9A%E4%B8%89%E5%A4%A7%E7%89%B9%E5%BE%81%E3%80%81%E4%BA%94%E5%A4%A7%E5%8E%9F%E5%88%99/"/>
+      <url>/2017/08/21/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%EF%BC%9A%E4%B8%89%E5%A4%A7%E7%89%B9%E5%BE%81%E3%80%81%E4%BA%94%E5%A4%A7%E5%8E%9F%E5%88%99/</url>
+      <content type="html"><![CDATA[<h3 id="三大特征"><a href="#三大特征" class="headerlink" title="三大特征"></a>三大特征</h3><h4 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h4><blockquote><p>将对象的属性和细节隐藏起来，只提供公共的访问方式。</p></blockquote><h4 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h4><blockquote><p>继承是从已有的类派生出新的类，新的类能继承已有类的数据属性和行为，并扩展新的功能。</p></blockquote><h4 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h4><blockquote><p>同一个实现接口，使用不同的实例而执行不同的操作。</p></blockquote><h3 id="五大原则"><a href="#五大原则" class="headerlink" title="五大原则"></a>五大原则</h3><h4 id="单一职责原则"><a href="#单一职责原则" class="headerlink" title="单一职责原则"></a>单一职责原则</h4><blockquote><p>一个类只负责一项职责。</p></blockquote><h4 id="开放-封闭原则"><a href="#开放-封闭原则" class="headerlink" title="开放-封闭原则"></a>开放-封闭原则</h4><blockquote><p>对扩展开放，对修改关闭。</p></blockquote><h4 id="依赖倒置原则"><a href="#依赖倒置原则" class="headerlink" title="依赖倒置原则"></a>依赖倒置原则</h4><blockquote><p>高层模块不应该依赖低层模块，二者都应该依赖其抽象；抽象不应该依赖细节；细节应该依赖抽象。</p></blockquote><h4 id="里氏替换原则"><a href="#里氏替换原则" class="headerlink" title="里氏替换原则"></a>里氏替换原则</h4><blockquote><p>只要父类能出现的地方子类也可以出现，而且替换为子类不会产生任何错误或异常，但是反过来就不行，有子类出现的地方，父类未必就能适应。。</p></blockquote><h4 id="接口隔离原则"><a href="#接口隔离原则" class="headerlink" title="接口隔离原则"></a>接口隔离原则</h4><blockquote><p>一个类对另外一个类的依赖性应当是建立在最小的接口上的。</p></blockquote>]]></content>
+      
+      <categories>
+          
+          <category> 面向对象 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> OO </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>iOS代码规范</title>
       <link href="/2017/07/25/iOS%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/"/>
       <url>/2017/07/25/iOS%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/</url>
@@ -20,6 +114,165 @@
             <tag> iOS </tag>
             
             <tag> 代码规范 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>Category的加载机制</title>
+      <link href="/2017/07/07/Category%E7%9A%84%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/"/>
+      <url>/2017/07/07/Category%E7%9A%84%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</url>
+      <content type="html"><![CDATA[<h3 id="序"><a href="#序" class="headerlink" title="序"></a>序</h3><p>一直在使用Category，但是对Category的机制不太了解，这里对Category的机制进行一个总结。</p><p>参考：<a href="https://tech.meituan.com/DiveIntoCategory.html" target="_blank" rel="noopener">传送门</a></p><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ol><li>Category是在程序启动时作用的， 并且是在 <code>+ load</code> 方法调用前</li><li>如果类和Category都有<code>+ load</code>方法，这个<code>+ load</code>的加载顺序是：先类，后Category</li><li>Category是运行时决议，Swift 的 Extension 是编译时决议</li><li>Category是 runtime 在程序启动时，进行作用<ul><li>加载实例方法到 <code>class</code> 的函数列表中</li><li>加载类方法到 <code>meta class</code> 的函数列表中</li></ul></li><li>Category增加方法，会更新 <code>class</code> 和 <code>meta class</code> 的函数列表，Category新增的方法在前， 原函数列表在后；</li><li>Category如果新增了一个同名的方法，其实并没有替换到原来的函数，只是新增的同名方法在函数列表的前面，原来的方法在后面，所以有时会给人一个错觉——覆盖了方法</li></ol>]]></content>
+      
+      <categories>
+          
+          <category> iOS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Category </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>atomic是不是线程安全的？</title>
+      <link href="/2017/05/27/atomic%E6%98%AF%E4%B8%8D%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%EF%BC%9F/"/>
+      <url>/2017/05/27/atomic%E6%98%AF%E4%B8%8D%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%EF%BC%9F/</url>
+      <content type="html"><![CDATA[<h3 id="序"><a href="#序" class="headerlink" title="序"></a>序</h3><p>记得以前面试的时候，有面试官问到atomic安全不安全，今天突然想起了这个问题，再总结记录一下。</p><h4 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h4><p>atomic是线程不安全的。</p><p>atomic只是保证了getter和setter存取方法的线程安全，但并不能保证这个属性所对应的成员变量是线程安全的。</p><h4 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h4><p>意思就是： 如果多个线程调用了getter或者setter，那么这些getter和setter的调用时线性的， 保证了同一时间只有一个函数(setter和getter)在调用， 但是并不能避免这个属性所对应的成员变量是线程安全的。</p><p>例如：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property (atomic) NSString * name;</span><br></pre></td></tr></table></figure><p>系统自动生成的getter: </p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-(NSString *)name;</span><br></pre></td></tr></table></figure><p>Setter:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-(void)setName:(NSString *)name;</span><br></pre></td></tr></table></figure><p>假设name所对应的成员变量是<code>_name</code>。</p><p>atomic保证的是，setter和getter是线程安全的。<br>如，线程1调用getter了，线程2调用了setter，线程3调用了setter，那么atomic保证了一个线程的调用顺序：getter-&gt;setter-&gt;setter.</p><p>但是atomic并不能保证成员变量_name的线程安全。例如上面的例子中， 如果有个线程4直接release了_name， 那么在线程1、线程2或者线程3的调用过程中， 直接造成崩溃。</p>]]></content>
+      
+      <categories>
+          
+          <category> iOS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> 多线程 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>再总结一下NSString 与 NSMutableString 的 property 约束</title>
+      <link href="/2017/04/02/%E5%86%8D%E6%80%BB%E7%BB%93%E4%B8%80%E4%B8%8BNSString%20%E4%B8%8E%20NSMutableString%20%E7%9A%84%20property%20%E7%BA%A6%E6%9D%9F/"/>
+      <url>/2017/04/02/%E5%86%8D%E6%80%BB%E7%BB%93%E4%B8%80%E4%B8%8BNSString%20%E4%B8%8E%20NSMutableString%20%E7%9A%84%20property%20%E7%BA%A6%E6%9D%9F/</url>
+      <content type="html"><![CDATA[<p>之前在网上看了很多关于 NSString 的 property 约束，不过总感觉总结得没那么直接。这里我再重复的总结一下。</p><h3 id="对于-NSString-来说，到底用-copy-还是-strong"><a href="#对于-NSString-来说，到底用-copy-还是-strong" class="headerlink" title="对于 NSString 来说，到底用 copy 还是 strong?"></a>对于 NSString 来说，到底用 copy 还是 strong?</h3><p>看看下面的代码：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@interface Test: NSObject</span><br><span class="line">@property (nonatomic, strong) NSString * string;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">// Some Code here …………</span><br><span class="line"></span><br><span class="line">NSMutableString * aStr = [@&quot;hello&quot; mutableCopy];</span><br><span class="line">Test * test = [Test new];</span><br><span class="line">test.string = aStr;</span><br><span class="line">[aStr appendString:@&quot; world&quot;];</span><br><span class="line">NSLog(@&quot;%@&quot;, test.string);</span><br></pre></td></tr></table></figure><p>以上代码，原本打算 test 对象的 string 对象赋值之后就不会改变，即一直都是 hello，然而上面的代码输出是 hello world，违背了代码设计的初衷。</p><p>NSString 如果使用 strong 的话， 从外部给这个属性赋值，可能是一个 NSMutableString，如果外部把这个 NSMutableString 的值给改变了， 那么这个属性的值也会被改变。</p><h3 id="对于NSMutableString来说，用-copy-还是-strong"><a href="#对于NSMutableString来说，用-copy-还是-strong" class="headerlink" title="对于NSMutableString来说，用 copy 还是 strong?"></a>对于NSMutableString来说，用 copy 还是 strong?</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@interface Test: NSObject</span><br><span class="line">@property (nonatomic, copy) NSMutableString * mString;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">// Some Code here …………</span><br><span class="line"></span><br><span class="line">NSMutableString * aStr = [@&quot;hello&quot; mutableCopy];</span><br><span class="line">Test * test = [Test new];</span><br><span class="line">test.mString = aStr;</span><br><span class="line">[test.mString appendString:@&quot;world&quot;];</span><br></pre></td></tr></table></figure><p>以上代码中，test 对象的 mString 属性，由于定义的 copy，然而<code>copy属性会拷贝一个不可变的值</code>，然而我们对它进行一些可变协议的操作，即执行：[NSString appendString:]，程序崩溃。</p><p>NSMutableString 如果使用 copy 的话，将一个外部对象赋值给这个属性的时候， 会进行一次 copy 操作， 然而 copy 是拷贝出一个不可变的对象给属性（实际上应该调用 mutableCopy，但是@property 并没有 mutableCopy），如果之后对这个属性（实际上是一个不可变的对象）进行可变协议的调用， 那么程序就会崩溃。</p><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>和 NSString 与 NSMutableString 类似，NSArray 与 NSMutableArray， NSDictionary 与 NSMutableDictiontary也与以上运行效果一致。</p><ul><li><strong>NSString, NSArray 与 NSDictionary 使用 copy；</strong></li><li><strong>NSMutableString, NSMutableArray 与 NSMutableDictionary使用 strong。</strong></li></ul>]]></content>
+      
+      <categories>
+          
+          <category> iOS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> OC </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>优化之离屏渲染</title>
+      <link href="/2017/03/20/%E4%BC%98%E5%8C%96%E4%B9%8B%E7%A6%BB%E5%B1%8F%E6%B8%B2%E6%9F%93/"/>
+      <url>/2017/03/20/%E4%BC%98%E5%8C%96%E4%B9%8B%E7%A6%BB%E5%B1%8F%E6%B8%B2%E6%9F%93/</url>
+      <content type="html"><![CDATA[<p>这篇文章主要是总结一下我对离屏渲染的理解，之前一直不太理解离屏渲染到底是个什么，也不太理解为什么他会引起滚动界面卡顿，一直也没有去深入了解，自己也深感惭愧。以前看到了<a href="https://blog.ibireme.com" target="_blank" rel="noopener">@ibireme</a>写的<a href="https://blog.ibireme.com/2015/11/12/smooth_user_interfaces_for_ios/" target="_blank" rel="noopener">iOS 保持界面流畅的技巧</a>这篇文章，里面也描述了下屏幕显示原理。现在再次深入阅读，才比较理解离屏渲染到底是怎么回事。</p><h3 id="屏幕显示原理"><a href="#屏幕显示原理" class="headerlink" title="屏幕显示原理"></a>屏幕显示原理</h3><p>引用一下<a href="https://blog.ibireme.com" target="_blank" rel="noopener">@ibireme</a>的原文</p><blockquote><p>首先从过去的 CRT 显示器原理说起。CRT 的电子枪按照上面方式，从上到下一行行扫描，扫描完成后显示器就呈现一帧画面，随后电子枪回到初始位置继续下一次扫描。为了把显示器的显示过程和系统的视频控制器进行同步，显示器（或者其他硬件）会用硬件时钟产生一系列的定时信号。当电子枪换到新的一行，准备进行扫描时，显示器会发出一个水平同步信号（horizonal synchronization），简称 HSync；而当一帧画面绘制完成后，电子枪回复到原位，准备画下一帧前，显示器会发出一个垂直同步信号（vertical synchronization），简称 VSync。显示器通常以固定频率进行刷新，这个刷新率就是 VSync 信号产生的频率。尽管现在的设备大都是液晶显示屏了，但原理仍然没有变。</p></blockquote><blockquote><p>CPU 计算好显示内容提交到 GPU，GPU 渲染完成后将渲染结果放入帧缓冲区，随后视频控制器会按照 VSync 信号逐行读取帧缓冲区的数据，经过可能的数模转换传递给显示器显示。</p></blockquote><figure class="image-box">                <img src="2017-03-20/ios_screen_scan.png" alt="" title="" class="">                <p></p>            </figure><blockquote><p>在最简单的情况下，帧缓冲区只有一个，这时帧缓冲区的读取和刷新都都会有比较大的效率问题。为了解决效率问题，显示系统通常会引入两个缓冲区，即双缓冲机制。在这种情况下，GPU 会预先渲染好一帧放入一个缓冲区内，让视频控制器读取，当下一帧渲染好后，GPU 会直接把视频控制器的指针指向第二个缓冲器。如此一来效率会有很大的提升。</p></blockquote><p>这里介绍了 GPU 为了效率问题，使用了两个帧缓冲区。对于帧缓冲区的个数，iOS 系统中使用的是双缓冲机制，而 Android 使用的三缓冲机制。题外话，不得不佩服 iOS 系统的设计，在硬件不如 Android 的提前下，界面的流畅度却超过 Android 机器。</p><h3 id="离屏渲染"><a href="#离屏渲染" class="headerlink" title="离屏渲染"></a>离屏渲染</h3><p>直接引用网络上的一段文字：</p><blockquote><p>OpenGL中，GPU屏幕渲染有以下两种方式：</p><ol><li><strong>On-Screen Rendering</strong> 意为当前屏幕渲染，指的是GPU的渲染操作是在当前用于显示的屏幕缓冲区中进行。</li><li><strong>Off-Screen Rendering</strong> 意为离屏渲染，指的是GPU在当前屏幕缓冲区以外新开辟一个缓冲区进行渲染操作。</li></ol></blockquote><p>对于一个 UIView 的渲染过程：</p><blockquote><ol><li>UIView的layer层有一个content，指向一块缓存，即backing store</li><li>UIView绘制时，会调用drawRect方法，通过context将数据写入backing store</li><li>在backing store写完后，通过render server交给GPU去渲染，将backing store中的bitmap数据显示在屏幕上</li></ol></blockquote><figure class="image-box">                <img src="2017-03-20/uiview_render.png" alt="" title="" class="">                <p></p>            </figure><p>当我们在使用<strong>Group Opacity</strong>、<strong>corner（圆角）</strong>、<strong>shadow（阴影）</strong>、<strong>edge antialiasing（抗锯齿）</strong>和<strong>mask</strong>等视图功能的时候，由于图层不是那种简单的覆盖，而是需要额外计算图层的显示关系，由于当前已经是 GPU 渲染了，所以在 GPU 的当前屏幕缓冲区外，新建了一个缓冲区，在这个缓冲区中，去进行这些额外的渲染，这就是离屏渲染。</p><ol><li>创建离屏缓冲区是一个代价是很大的。</li><li>（假设我们的在界面中画了圆角），如果我们创建的圆角 N 个，那么在这个离屏缓冲区中，去处理这 N 个圆角的时候，会大量的切换上下文，然而，切换上下文也是一个代价非常大的操作。</li></ol><p>所以，当在开发过程中，<strong>如果离屏渲染没有处理好，对 App 的性能影响是非常大的</strong>， 后文会有相关的实例对比。</p><h3 id="离屏渲染的优化"><a href="#离屏渲染的优化" class="headerlink" title="离屏渲染的优化"></a>离屏渲染的优化</h3><ul><li>尽量使用当前屏幕渲染。由于离屏渲染、CPU渲染可能带来的性能问题，一般情况下，尽量使用当前屏幕渲染。</li><li>由于 GPU 的浮点运算能力比 CPU 强，虽然 CPU 渲染的效率不如 GPU，但有时使用 CPU 渲染的效率会比 GPU 离屏渲染好，毕竟离屏渲染要涉及到缓冲区创建和上下文切换等耗时操作。</li></ul><h4 id="圆角"><a href="#圆角" class="headerlink" title="圆角"></a>圆角</h4><p>一般情况，我们写圆角的时候，会这样写：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">view.layer.cornerRadius = 10;</span><br><span class="line">view.layer.masksToBounds = YES;</span><br></pre></td></tr></table></figure><p>运行时，查看 Off-screen Rendered</p><figure class="image-box">                <img src="2017-03-20/corner_offscreen_rendered.jpg" alt="corner_offscreen_rendered" title="" class="">                <p>corner_offscreen_rendered</p>            </figure><p>我们可以看到按钮上的四个角被黄色覆盖，表明这四个角被离屏渲染了，这是因为 GPU 渲染的时候，发现这个按钮不是一个规整的图形，不能简单的采用(x, y, width, height)的规则进行渲染，对于上面的四个角，必须进行离屏渲染，新建一块缓冲区进行计算渲染，和下一层的 layer 进行合成处理，这样才能再界面上形成一个有弧度的视觉效果。</p><p>然而这里只有四个角所处的矩形范围进行了离屏渲染，是因为计算机里面的图形坐标都是以类似于(x, y, width, height)的规则来描述的，也就是说是一个矩形图形。然而这儿不是整个按钮而只是其他的四个角的区域的原因，是因为效率问题，GPU 确定除了四个角所在的矩形区域之外， 其他的区域都不需要合成处理，这样选择性的进行离屏渲染，能够获得更高的性能。</p><p>这里我们如何处理圆角带来的离屏渲染呢？答案是采用 Core Graphics 提供的函数，在 CPU 里面绘制圆角，这样相当于在 CPU 处理的时候就已经 GPU 离屏渲染做的事情给完成了。</p><p>使用下面提供的代码能够给 UIView 的子类添加圆角，能够避免离屏渲染。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 仅添加圆角</span><br><span class="line">[view addCorner:30];</span><br><span class="line">// 添加圆角和边框</span><br><span class="line">[view addCorner:30 borderWidth:0.5 borderColor:[UIColor redColor]];</span><br></pre></td></tr></table></figure><p>由于<code>addCorner:</code>和<code>addCorner:borderWidth:borderColor:</code>的代码较长，需要查看和下载的，<a href="https://snippets.cacher.io/snippet/6450c5ef0cf37484bb58" target="_blank" rel="noopener">请点击此处查看下载</a></p><h4 id="阴影"><a href="#阴影" class="headerlink" title="阴影"></a>阴影</h4><p>对于 shadow 来说，</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">view.layer.shadowColor = [UIColor redColor].CGColor;</span><br><span class="line">view.layer.shadowOffset = CGSizeMake(5, 5);</span><br><span class="line">view.layer.shadowOpacity = 1.0;</span><br></pre></td></tr></table></figure><p>查看 Off-screen Rendered</p><figure class="image-box">                <img src="2017-03-20/shadow_offscreen_rendered.jpg" alt="corner_offscreen_rendered" title="" class="">                <p>corner_offscreen_rendered</p>            </figure><p>可以看到，整个 view 的 frame，包括 frame 之外还有一点都进行了离屏渲染。</p><p>这儿有一个问题，如果有谁知道，请在评论区讲解一下。<strong>为什么是整个 view 都被离屏渲染了呢？</strong> 为了效率中间的区域可以不需要被离屏渲染，但是对于 shadow 却被离屏渲染了？</p><p>对于 shadow 的优化，直接在上面的代码后面添加一句就行了</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">view.layer.shadowColor = [UIColor redColor].CGColor;</span><br><span class="line">view.layer.shadowOffset = CGSizeMake(5, 5);</span><br><span class="line">view.layer.shadowOpacity = 1.0;</span><br><span class="line">// 添加 shadowPath，能够解决离屏渲染</span><br><span class="line">view.layer.shadowPath = [UIBezierPath bezierPathWithRect:view.bounds].CGPath;</span><br></pre></td></tr></table></figure><h4 id="Mask"><a href="#Mask" class="headerlink" title="Mask"></a>Mask</h4><p>一般的 Mask 设置代码如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UIImageView * mask = [[UIImageView alloc] initWithFrame:view.bounds];</span><br><span class="line">mask.image = [UIImage imageNamed:@&quot;mask.png&quot;];</span><br><span class="line">view.maskView = mask;</span><br></pre></td></tr></table></figure><p>对于 Mask 的优化，其实并没有一个很好的方式来解决，目前的解决方案是：rasterize（光栅化），然而 rasterize（光栅化）也会造成离屏渲染，不过由于离屏渲染大部分时候会在大量出现的时候造成性能问题，所以在滚动页面进行 rasterize（光栅化）的时候，会将光栅化后的内容缓存起来，如果对应的layer及其sublayers没有发生改变，在下一帧的时候可以直接复用, 把GPU的操作转到CPU上了，生成位图缓存，各种阴影遮罩等效果也会保存到位图中并缓存起来，直接读取复用，从而减少渲染的频度。rasterize（光栅化）有一个不好的效果，会造成文字 label 视觉效果模糊。</p>]]></content>
+      
+      <categories>
+          
+          <category> iOS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> 优化 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>iOS的单元测试</title>
+      <link href="/2016/11/22/iOS%E7%9A%84%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/"/>
+      <url>/2016/11/22/iOS%E7%9A%84%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</url>
+      <content type="html"><![CDATA[<h3 id="序"><a href="#序" class="headerlink" title="序"></a>序</h3><p>Specta + OCMock + Expecta + OHHTTPStubs + FBSnapshotTestCase + “Expecta+Snapshots” </p><p>Specta: BDD框架 <a href="https://github.com/specta/specta" target="_blank" rel="noopener">参考链接</a></p><p>Expecta: 断言框架 <a href="https://github.com/specta/expecta" target="_blank" rel="noopener">参考链接</a></p><p>OCMock: mock框架 <a href="http://ocmock.org" target="_blank" rel="noopener">参考链接</a></p><p>FBSnapshotTestCase: 截图测试框架 <a href="https://github.com/facebookarchive/ios-snapshot-test-case" target="_blank" rel="noopener">参考链接</a></p><p>Expecta+Snapshots: FBSnapshotTestCase的扩展， 支持Expecta <a href="https://github.com/dblock/ios-snapshot-test-case-expecta" target="_blank" rel="noopener">参考链接</a></p>]]></content>
+      
+      <categories>
+          
+          <category> iOS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 单元测试 </tag>
+            
+            <tag> iOS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>Swift中的闭包定义</title>
+      <link href="/2016/08/21/Swift%E4%B8%AD%E7%9A%84%E9%97%AD%E5%8C%85%E5%AE%9A%E4%B9%89/"/>
+      <url>/2016/08/21/Swift%E4%B8%AD%E7%9A%84%E9%97%AD%E5%8C%85%E5%AE%9A%E4%B9%89/</url>
+      <content type="html"><![CDATA[<h4 id="定义闭包变量"><a href="#定义闭包变量" class="headerlink" title="定义闭包变量"></a>定义闭包变量</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var closureName: (ParameterTypes) -&gt; (ReturnType)</span><br></pre></td></tr></table></figure><h4 id="定义可选闭包变量"><a href="#定义可选闭包变量" class="headerlink" title="定义可选闭包变量"></a>定义可选闭包变量</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var closureName: ((ParameterTypes) -&gt; (ReturnType))?</span><br></pre></td></tr></table></figure><h4 id="定义闭包别名"><a href="#定义闭包别名" class="headerlink" title="定义闭包别名"></a>定义闭包别名</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">typealias ClosureType = (ParameterTypes) -&gt; (ReturnType)</span><br></pre></td></tr></table></figure><h4 id="定义闭包常量"><a href="#定义闭包常量" class="headerlink" title="定义闭包常量"></a>定义闭包常量</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let closureName: ClosureType = &#123; ... &#125;</span><br></pre></td></tr></table></figure><h4 id="在函数内部"><a href="#在函数内部" class="headerlink" title="在函数内部"></a>在函数内部</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">funcName(&#123;(ParameterTypes) -&gt; (ReturnType) in statements&#125;)</span><br></pre></td></tr></table></figure><h4 id="作为函数参数"><a href="#作为函数参数" class="headerlink" title="作为函数参数"></a>作为函数参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array.sort(&#123; (item1: Int, item2: Int) -&gt; Bool in return item1 &lt; item2 &#125;)</span><br></pre></td></tr></table></figure><h4 id="作为函数参数-隐式参数类型"><a href="#作为函数参数-隐式参数类型" class="headerlink" title="作为函数参数(隐式参数类型)"></a>作为函数参数(隐式参数类型)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array.sort(&#123; (item1, item2) -&gt; Bool in return item1 &lt; item2 &#125;)</span><br></pre></td></tr></table></figure><h4 id="作为函数参数-隐式参数类型、隐式返回类型"><a href="#作为函数参数-隐式参数类型、隐式返回类型" class="headerlink" title="作为函数参数(隐式参数类型、隐式返回类型)"></a>作为函数参数(隐式参数类型、隐式返回类型)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array.sort(&#123; (item1, item2) in return item1 &lt; item2 &#125;)</span><br></pre></td></tr></table></figure><h4 id="作为函数最后的参数"><a href="#作为函数最后的参数" class="headerlink" title="作为函数最后的参数"></a>作为函数最后的参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array.sort &#123; (item1, item2) in return item1 &lt; item2 &#125;</span><br></pre></td></tr></table></figure><h4 id="作为函数最后的参数-使用简略参数命名方式"><a href="#作为函数最后的参数-使用简略参数命名方式" class="headerlink" title="作为函数最后的参数(使用简略参数命名方式)"></a>作为函数最后的参数(使用简略参数命名方式)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array.sort &#123; return $0 &lt; $1 &#125;</span><br></pre></td></tr></table></figure><h4 id="作为函数最后的参数-隐式返回值"><a href="#作为函数最后的参数-隐式返回值" class="headerlink" title="作为函数最后的参数(隐式返回值)"></a>作为函数最后的参数(隐式返回值)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array.sort &#123; $0 &lt; $1 &#125;</span><br></pre></td></tr></table></figure><h4 id="作为函数最后的参数-as-a-reference-to-an-existing-function"><a href="#作为函数最后的参数-as-a-reference-to-an-existing-function" class="headerlink" title="作为函数最后的参数(as a reference to an existing function)"></a>作为函数最后的参数(as a reference to an existing function)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array.sort(&lt;)</span><br></pre></td></tr></table></figure>]]></content>
+      
+      <categories>
+          
+          <category> iOS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Swift </tag>
+            
+            <tag> iOS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>Swift中的init</title>
+      <link href="/2016/07/07/Swift%E4%B8%AD%E7%9A%84init/"/>
+      <url>/2016/07/07/Swift%E4%B8%AD%E7%9A%84init/</url>
+      <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近总算开始做新项目， 语言肯定的选Swift了。问题一个接一个，不过还好，来一个解决一个。<br>今天遇到了Swift中的init的问题， 用Xcode也没有自动补全，也没有看到相关init的东西，所以对init构造过程进行一个分析。</p><h3 id="两个类"><a href="#两个类" class="headerlink" title="两个类"></a>两个类</h3><p>有一个Parent的Class</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class Parent: NSObject &#123;</span><br><span class="line">override init() &#123;</span><br><span class="line">NSLog(&quot;Parent Init&quot;)</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>有一个Child的Class继承于Parent</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class Child: Parent &#123;</span><br><span class="line">override init() &#123;</span><br><span class="line">NSLog(&quot;Child Init&quot;)</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="调用代码"><a href="#调用代码" class="headerlink" title="调用代码"></a>调用代码</h3><p>在其他的某个类中，初始化一个Child对象出来，</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">func doSomething() &#123;</span><br><span class="line">Child()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>由于Xcode没有默认添加super.init()，所以这里到底是怎样一个逻辑过程？<br>按照我对其他语言的理解，我猜测是有两种可能情况：</p><ol><li>只会输出Child Init</li><li>先输出Parent Init，然后输出Child Init”</li></ol><h3 id="运行代码"><a href="#运行代码" class="headerlink" title="运行代码"></a>运行代码</h3><p>代码的运行情况出乎我的意料</p><p>输出结果是：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Child Init</span><br><span class="line">Parent Init</span><br></pre></td></tr></table></figure><p>居然先输出Child Init。</p><p>也就是说先调用了子类的init(), 然后再调用父类的init()。</p><h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>Swift中的init过程，子类如果没有调用super.init()，那么会在子类的init()的<strong>末尾</strong>隐式添加super.init()</p><h3 id="我们该如何处理？"><a href="#我们该如何处理？" class="headerlink" title="我们该如何处理？"></a>我们该如何处理？</h3><p>一般情况，我们需要在子类的init()中，应该显式地、尽快地调用super.init()</p><p>如上面的Child类就该写成</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Child: Parent &#123;</span><br><span class="line">override init() &#123;</span><br><span class="line">super.init() // 显式的添加super.init()到第一行</span><br><span class="line">NSLog(&quot;Child Init&quot;)</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      <categories>
+          
+          <category> iOS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Swift </tag>
+            
+            <tag> iOS </tag>
             
         </tags>
       
@@ -53,6 +306,29 @@
     </entry>
     
     <entry>
+      <title>也来写一写我理解中的代码布局、xib布局以及storyboard布局</title>
+      <link href="/2016/06/08/%E4%B9%9F%E6%9D%A5%E5%86%99%E4%B8%80%E5%86%99%E6%88%91%E7%90%86%E8%A7%A3%E4%B8%AD%E7%9A%84%E4%BB%A3%E7%A0%81%E5%B8%83%E5%B1%80%E3%80%81xib%E5%B8%83%E5%B1%80%E4%BB%A5%E5%8F%8Astoryboard%E5%B8%83%E5%B1%80/"/>
+      <url>/2016/06/08/%E4%B9%9F%E6%9D%A5%E5%86%99%E4%B8%80%E5%86%99%E6%88%91%E7%90%86%E8%A7%A3%E4%B8%AD%E7%9A%84%E4%BB%A3%E7%A0%81%E5%B8%83%E5%B1%80%E3%80%81xib%E5%B8%83%E5%B1%80%E4%BB%A5%E5%8F%8Astoryboard%E5%B8%83%E5%B1%80/</url>
+      <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>前几天在CocoaChina上看了一篇关于代码布局、xib布局以及storyboard布局的争论，我也参与了其中，大半夜的写出了我自己的理解，结果一个误操作，打了十几分钟的字，就被自己丢失掉了（哎，再一次上了没有保存的当！）。不过本着要发表点自己意见的心态， 还是再次花了十几分钟，重新发表了自己的想法。自己总算参与了iOS开发大军的互喷中。</p><h3 id="为什么有人不喜欢xib和storyboard？"><a href="#为什么有人不喜欢xib和storyboard？" class="headerlink" title="为什么有人不喜欢xib和storyboard？"></a>为什么有人不喜欢xib和storyboard？</h3><p>看了网上很多人的评论，我总结了下，90%的开发认为：</p><ol><li>xib和storyboard布局，没有代码布局看着方便，在xib和storyboard上看UI布局的比较费时；</li><li>xib和storyboard布局，容易冲突，多人协作的时候容易抓狂；</li><li>xib和storyboard布局，不方便维护，后期需求修改的时候没有代码布局修改方便；</li></ol><p>其他的一些观点，我就不列举了。</p><p>有位朋友这样说</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">对于支持xib的，我只想说，别坑自己人。</span><br><span class="line">团队开发矛盾就在这时候体现出来了。</span><br><span class="line">以后去了插件化公司你就会明白为什么不让你用xib了。</span><br><span class="line">之前公司所有分配的项目都要求打包成静态库或者动态库，而且不允许打包bundle，统一使用主框架下的图片。</span><br><span class="line">我看看你们傻眼不？</span><br></pre></td></tr></table></figure><p>对于这位朋友的观点，我的想法是类似于架构设计，要有远见，但是也不能过度设计。因地制宜，杀鸡不用牛刀。</p><h3 id="我自己的一些观点"><a href="#我自己的一些观点" class="headerlink" title="我自己的一些观点"></a>我自己的一些观点</h3><p>就个人观点， storyboard，xib 和代码， 都有各自适合的场景。</p><p>在我的理解中， UI 是分成<strong>UI 逻辑</strong>和<strong>UI 布局</strong>， 然而， sb 和 xib，以及代码， 都只是 UI 布局这个环节。</p><p>我个人倾向于 sb， 为什么呢？</p><ol><li>sb 更加直观， 对于整个项目来说， 一个完美的流程图及时呈现在你面前， 你肯定对 整个项目的掌握了然于胸。</li><li>sb 实现起来更快。不论是添加控件，还是给控件布局，sb 都会很 nice 的。</li><li>sb 减少了开发的工作。（我说的只是减少， 不是完全没了）sb 能够很好的把布局工作从代码中拿出来， 让我们的代码只专注于我们的业务和逻辑。我的开发理念是， 能少写一行代码的就不能多写一行。能把事情交给 apple 做的， 我就不会自己来做。</li></ol><p>和代码布局相比起来，</p><ol><li>代码布局不直观， 流程得看代码。（不要说整个项目都是一个人从头到尾做的，自己很清楚之类的。这儿主要讨论团队开发）</li><li>代码布局太费时了。<br>用代码布局， 首先要写添加这个控件的代码， 然后写这个控件的布局，或者写约束，相对 sb 来说，的确太耗时了。<br>不过可能大家要说 sb 修改起来太麻烦了。 其实就我个人观点，sb 相对于代码来说，修改起来反而更加简单。因为要修改或者删除 sb 里面的控件的时候， 如果理不清的时候， 直接删掉所有控件， 重新添加控件， 重现布局，也不是一个多大的事。<br>然而， 如果用代码的话， 大家首先得理解这段代码的含义， 然后还要考虑这个代码能不能改， 能不能删，思考的时间绝对不少了。 而且，一般大家也不敢随便动其他人写的代码， 怕改出问题。</li><li>代码布局效率高，sb 效率低。<br>我觉得编译时期， 的确 sb布局被代码完爆。 不过在运行的时候， 个人觉得差不太多， 估计代码布局会好点。但是相对于程序结构来说， 我觉得完全没必要。</li><li>代码布局相对于 sb 布局的团队合作来说， 要略胜一筹。但是 sb 布局的冲突， 其实从技术上是可以规避的， 不过具体方式就不在这儿讨论了</li></ol><p>在 UI 的实现上，我在概念上将 UI分成 UI 逻辑和 UI 布局， 我觉得苹果之所以出 xib 和 sb，就是想把 UI 布局的工作给抽出来，让我们只关注与业务和逻辑。不要被布局给困扰。</p><p>所以我在实现UI 的时候， 基本上我的代码只看得到 UI 逻辑部分， 而布局相关的代码完全没了。</p><h3 id="一些大牛的观点"><a href="#一些大牛的观点" class="headerlink" title="一些大牛的观点"></a>一些大牛的观点</h3><p><a href="https://onevcat.com/2013/12/code-vs-xib-vs-storyboard/" target="_blank" rel="noopener">https://onevcat.com/2013/12/code-vs-xib-vs-storyboard/</a></p><p><a href="http://blog.devtang.com/2015/03/22/ios-dev-controversy-2/" target="_blank" rel="noopener">http://blog.devtang.com/2015/03/22/ios-dev-controversy-2/</a></p><h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><p>虽然上面我说了我个人倾向于sb，不过还是得看项目，不同的项目要因地制宜。</p>]]></content>
+      
+      <categories>
+          
+          <category> iOS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> UI </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>markdown基本语法</title>
       <link href="/2016/05/20/markdown%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/"/>
       <url>/2016/05/20/markdown%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/</url>
@@ -73,6 +349,52 @@
       
     </entry>
     
+    <entry>
+      <title>细说 iOS 中的 http 协议</title>
+      <link href="/2016/02/02/%E7%BB%86%E8%AF%B4%20iOS%20%E4%B8%AD%E7%9A%84%20http%20%E5%8D%8F%E8%AE%AE/"/>
+      <url>/2016/02/02/%E7%BB%86%E8%AF%B4%20iOS%20%E4%B8%AD%E7%9A%84%20http%20%E5%8D%8F%E8%AE%AE/</url>
+      <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>http 协议在我们的工作中，基本上99%的 app 都是无法避免的，http 协议的重要性，不亚于 UIKit 的存在。</p><p>当我们在工作中，对 http 协议的理解层度，很多时候决定了我们项目架构的深度和稳定性；<br>当我们在<strong>找工作</strong>中，对 http 协议的理解层度，很多时候也决定了我们应聘的职位 level。</p><p>在这篇文章中，我会详细的、系统的讲解下 http 协议，以及 http 协议在 iOS 中相关的一些知识。</p><blockquote><ul><li>http 协议细说</li><li>http 协议在 iOS 中如何存在的</li></ul></blockquote><h3 id="http-协议"><a href="#http-协议" class="headerlink" title="http 协议"></a>http 协议</h3><p>关于 http 协议，</p>]]></content>
+      
+      <categories>
+          
+          <category> iOS </category>
+          
+          <category> Http </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Http </tag>
+            
+            <tag> iOS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>计算机图形渲染的流程</title>
+      <link href="/2015/08/12/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E6%B8%B2%E6%9F%93%E7%9A%84%E6%B5%81%E7%A8%8B/"/>
+      <url>/2015/08/12/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E6%B8%B2%E6%9F%93%E7%9A%84%E6%B5%81%E7%A8%8B/</url>
+      <content type="html"><![CDATA[<p><a href="https://bbs.feng.com/read-htm-tid-6880069.html" target="_blank" rel="noopener">原文链接</a></p><p>计算机的绘图过程可以简单用流水线来说明，而产品（数据）就是经过流水线作业（渲染）到屏幕的图像。这条流水线可以简化为（本文的概念）：绘图位置座标指定；着色指定；输出指定；图1简单解释了这一个流水线过程。计算机绘图需要一个输入绘图数据，这个数据可以是用户指定的，也可以是操作系统决定的，也可以是混合的。这些数据是分组的。</p><p>座标生成：当绘图数据送入座标生成系统后，流水线就会对其进行座标分派，图1右上的线框图抽象描述了这个过程。</p><p>着色指定：当座标系统生成出带座标的绘图数据后就需要送入着色器，着色器指定了这些线框的填充颜色或纹理。</p><p>渲染：着色器将绘图数据加上着色数据后就被送入渲染器，渲染器根据绘图数据描述，将像素填充到描述的线框组里并送入帧缓存，然后然后送入显示器，显示器获取到帧缓存的数据后再根据数据的描述来绘图到屏幕上。</p><figure class="image-box">                <img src="2015-08-12/1.png" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><h3 id="像素与点（point）与点（dot）"><a href="#像素与点（point）与点（dot）" class="headerlink" title="像素与点（point）与点（dot）"></a>像素与点（point）与点（dot）</h3><p>像素与点（point），点（dot）这三个单位很容易令人混淆，原因在于它们在很多场合上是可以互换的。但是本文需要区分这两者的概念。</p><p>像素指的是一种数据结构，这个数据结构包含了RGB三个数据，分别对应的是红色，绿色，蓝色。我们说一张计算机生成的位图时，我们会说这图是多少像素x多少像素，例如800x600像素。值得注意的是，像素没有一个固定的尺寸单位，它只是一个抽象概念。</p><p>点（dot）指的是显示器屏幕的点或打印的点，是具体指代的事物。我们想说的DPI即dot per inch，每英寸多少个点。一般来说1个点对应一个像素，常见的打印尺寸是72DPI，即每英寸72点，也就是包含72个像素的数据。当像素被计算机输出成点投射都屏幕或纸面上时，它才具备了尺寸的概念，即点（dot）。</p><p>点（point）指的是座标点，是一个数据结构，包含了两个数据（或三个）X和Y(和Z)座标。绘图数据里是包含了这个座标数据的。对于没有使用HiDPI的操作系统来说，一个座标点对应一个像素。</p><h3 id="点（point）不一定等于像素"><a href="#点（point）不一定等于像素" class="headerlink" title="点（point）不一定等于像素"></a>点（point）不一定等于像素</h3><p>一般来说，点（dot）与像素是可以互换指代的，而且我们在Retina的概念被提出前一直这样使用它们。但是，现在这两个概念必须要区分出来。像素只是一个描述RGB的数据结构，它没有任何尺寸单位，它更不是一个矩形。当像素被输出到屏幕或纸张上时，我们应该用点来指代这种含有颜色，有尺寸的具体事物。</p><p>普通的显示屏幕或打印机，我们会说屏幕上的一个点（dot）是由一个像素（RGB数据）组成的，打印后的点是由一个像素经过色彩转换（CMYK数据）组成的。</p><p>对于打印机来说，一般的DPI是72。也就是指我们在显示器屏幕上看到720x720像素的位图，在打印出来后的面积是10x10英寸，但是屏幕上的位图面积并不会跟打印出来的面积一致。因为屏幕上的一个点与打印的点的尺寸不一样。</p><p>PPI指的是每英寸多少像素，与DPI有一定概念上的区别。PPI一般指的是屏幕的点密度，DPI指的是打印点的密度。PPI不是固定的，不同屏幕尺寸结合不同的分辨率会有不同的PPI，但是DPI则是相对固定在72。</p><p>HiDPI是苹果的一项绘图技术，结合这种技术，计算机座标系统上的一个点（point）不再对应一个像素，一般来说会是一个座标点对应四个像素，而一个像素对应屏幕的一个物理点（dot）。</p><p>由于像素是一组色彩数据，所以绘图数据在经过着色器后才包含了它。举个例子，绘图数据在送入着色器前是描述一个100x100的矩形，经过着色器指定色彩属性后会被送入一个HiDPI系统，这个系统将200x200个像素的数据添加到绘图数据里。在经过渲染器后，相当于将200x200个像素填充进100x100这个矩形线框。</p><figure class="image-box">                <img src="2015-08-12/2.png" alt="Picture description" title="" class="">                <p>Picture description</p>            </figure><h3 id="帧缓存与显示器屏幕"><a href="#帧缓存与显示器屏幕" class="headerlink" title="帧缓存与显示器屏幕"></a>帧缓存与显示器屏幕</h3><p>帧缓存是储存计算机渲染后的图形数据的，这些数据包括座标，像素，分辨率等等。。简单来说就是描述图象的数据，当这些描述数据送入显示器后，显示器就知道怎么绘图了。</p><p>一般来说的屏幕分辨率指的是渲染器生产出来的像素数据排列，例如1280x800像素。值得注意的是这个屏幕分辨率与显示器屏幕的物理点排列没关系的。屏幕分辨率是可设置的，显示器的物理点排列是固定的。例如帧缓存里的分辨率是1280x800像素，但是显示器屏幕是1920x1200点排列的，那么显示器会怎么将帧缓存里的数据呈现到屏幕上呢？答案是通过自适应放缩，是经过显示器内部芯片来转换的。</p><p>13寸的RMBP在分辨率设置里是这样描述的，看起来像1280x800像素，看起来像1440x900像素。我们需要这样理解，1280x800像素是相对于旧款不带Retina的机器，也就是绘图数据送入着色器前的座标系统与渲染后的座标是1:1对应的参考值。实际上在经过渲染后，它的实际像素是2560x1600，也就是帧缓存里是数据是2560x1600像素。同样地看起来1440x900像素实际渲染后的像素是2880x1800。由于13寸的屏幕实际点排列是2560x1600，所以帧缓存2880x1800像素在输出到屏幕后会被自适应缩放掉。</p><h3 id="DPI与Retina"><a href="#DPI与Retina" class="headerlink" title="DPI与Retina"></a>DPI与Retina</h3><p>操作系统标准的桌面打印DPI是72，但是随着HiDPI技术和高PPI屏幕出现后，这个标准也许会有一定的变化。我们在Retina的OS X下用Photoshop新建一个文件时默认的DPI指定在144上了，这是标准转变的一个信号。</p><p>在没有使用类似HiDPI技术的操作系统上，屏幕分辨率对应的打印DPI是72。使用HiDPI的Retina机器的打印DPI是144，用以保证在统一尺下具有更多的点密度。这点对于印前工作非常重要。</p>]]></content>
+      
+      <categories>
+          
+          <category> 计算机基础 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 图形渲染 </tag>
+            
+        </tags>
+      
+    </entry>
+    
   
   
     
@@ -84,17 +406,17 @@
     </entry>
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
-      <content type="html"><![CDATA[]]></content>
-    </entry>
-    
-    <entry>
       <title>自定义页面演示</title>
       <link href="/custom/index.html"/>
       <url>/custom/index.html</url>
       <content type="html"><![CDATA[<h1 id="双栏结构"><a href="#双栏结构" class="headerlink" title="双栏结构"></a>双栏结构</h1><p>@column-2{</p><p>@card{</p><h1 id="左"><a href="#左" class="headerlink" title="左"></a>左</h1><p>}</p><p>@card{</p><h1 id="右"><a href="#右" class="headerlink" title="右"></a>右</h1><p>}</p><p>}</p><h1 id="控制文本对齐方式的三栏结构"><a href="#控制文本对齐方式的三栏结构" class="headerlink" title="控制文本对齐方式的三栏结构"></a>控制文本对齐方式的三栏结构</h1><p>@column-3{</p><p>@card{</p><p>左</p><p>}</p><p>@card{</p><p>@center{</p><p>中</p><p>}</p><p>}</p><p>@card{</p><p>@right{</p><p>右</p><p>}</p><p>}</p><p>}</p><p>@timeline{</p><h5 id="2016"><a href="#2016" class="headerlink" title="2016"></a>2016</h5><p>@item{</p><h6 id="11月6日"><a href="#11月6日" class="headerlink" title="11月6日"></a>11月6日</h6><p>为 <code>Card theme</code> 添加 <code>page layout</code>。<br>第二行测试</p><p>}</p><p>@item{</p><h6 id="11月20日"><a href="#11月20日" class="headerlink" title="11月20日"></a>11月20日</h6><p>另一个 Time line .<br>第二行测试</p><p>}</p><p>@item{</p><h6 id="11月20日-1"><a href="#11月20日-1" class="headerlink" title="11月20日"></a>11月20日</h6><p>还有一个 Time line .<br>第二行测试</p><p>}</p><p>}</p>]]></content>
+    </entry>
+    
+    <entry>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
+      <content type="html"><![CDATA[]]></content>
     </entry>
     
     <entry>
@@ -105,16 +427,16 @@
     </entry>
     
     <entry>
-      <title>study</title>
-      <link href="/study/index.html"/>
-      <url>/study/index.html</url>
+      <title>tags</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       <content type="html"><![CDATA[]]></content>
     </entry>
     
     <entry>
-      <title>tags</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title>study</title>
+      <link href="/study/index.html"/>
+      <url>/study/index.html</url>
       <content type="html"><![CDATA[]]></content>
     </entry>
     

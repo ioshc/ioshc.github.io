@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    
+    <title>再总结一下NSString 与 NSMutableString 的 property 约束 | Hello World | 路漫漫其修远兮，吾将上下而求索</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="iOS,OC">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/third-party/swipebox.min.css?v=1.3.2">
+    <link rel="stylesheet" href="/css/style.css?v=1.3.2">
+    
+    <script type="text/javascript">
+        // Data Center
+        var DC = {
+            reward:	true,
+            lv: JSON.parse('{"enable":false,"app_id":null,"app_key":null,"icon":true}'),
+            v: JSON.parse('{"enable":false,"appid":null,"appkey":null,"notify":true,"verify":true,"placeholder":"give me some sugers plz...","avatar":"wavatar"}'),
+            g: JSON.parse('{"enable":false,"lazy":true,"owner":"codefine","repo":"gitment","oauth":{"client_id":null,"client_secret":null},"perPage":10}'),
+            d: JSON.parse('{"app_id":null}')
+        };
+    </script>
+    <script type="text/javascript">
+        window.lazyScripts=[];
+    </script>
+    
+</head>
+
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      
+      <img src="/img/brand.jpg" class="brand-bg">
+      
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Eden Huang</h5>
+          <a href="mailto:huangcong520@icloud.com" title="huangcong520@icloud.com" class="mail">
+            
+              <span>h</span>
+            
+              <span>u</span>
+            
+              <span>a</span>
+            
+              <span>n</span>
+            
+              <span>g</span>
+            
+              <span>c</span>
+            
+              <span>o</span>
+            
+              <span>n</span>
+            
+              <span>g</span>
+            
+              <span>5</span>
+            
+              <span>2</span>
+            
+              <span>0</span>
+            
+              <span>@</span>
+            
+              <span>i</span>
+            
+              <span>c</span>
+            
+              <span>l</span>
+            
+              <span>o</span>
+            
+              <span>u</span>
+            
+              <span>d</span>
+            
+              <span>.</span>
+            
+              <span>c</span>
+            
+              <span>o</span>
+            
+              <span>m</span>
+            
+          </a>
+        </hgroup>
+        
+        <ul class="menu-link">
+          
+              <li>
+                <a href="https://github.com/ioshc" target="_blank">
+                  <i class="icon icon-lg icon-github"></i>
+                </a>
+              </li>
+            
+        </ul>
+        
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/reading"  >
+                <i class="icon icon-lg icon-book"></i>
+                阅读
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/study"  >
+                <i class="icon icon-lg icon-question-circle"></i>
+                学习
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/themes"  >
+                <i class="icon icon-lg icon-file-image-o"></i>
+                主题
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                关于
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/custom"  >
+                <i class="icon icon-lg icon-file"></i>
+                测试页面
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row clearfix">
+        <a href="javascript:;" class="header-icon pull-left waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">
+            <span>再总结一下NSString 与 NSMutableString 的 property 约束</span>
+            
+        </div>
+        
+        <a href="javascript:;" id="site_search_btn" class="header-icon pull-right waves-effect waves-circle waves-light">
+            <i class="icon icon-lg icon-search"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+    <img src="/img/banner.jpg" class="header-bg">
+    <div class="container fade-scale">
+        <h1 class="title">再总结一下NSString 与 NSMutableString 的 property 约束</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-04-02T09:43:00.000Z" itemprop="datePublished" class="page-time">
+  2017-04-02
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/iOS/">iOS</a></li></ul>
+
+            
+        </h5>
+        
+    </div>
+    
+
+</header>
+
+<div id="site_search">
+    <div class="search-title clearfix">
+        <span class="pull-left">
+          <i class="icon icon-lg icon-search"></i>
+        </span>
+        <input type="text" id="local-search-input" name="q" results="0" placeholder="search my blog..." class="form-control pull-left"/>
+        <a href="javascript:;" class="close pull-right waves-effect waves-circle waves-light">
+          <i class="icon icon-lg icon-close"></i>
+        </a>
+    </div>
+    <div id="local-search-result"></div>
+</div>
+
+
+<div class="container body-wrap">
+    <article id="post-再总结一下NSString 与 NSMutableString 的 property 约束"
+  class="post-article article-type-post" itemprop="blogPost">
+    <div class="post-card">
+        <h1 class="post-card-title">再总结一下NSString 与 NSMutableString 的 property 约束</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-04-02 17:43:00" datetime="2017-04-02T09:43:00.000Z"  itemprop="datePublished">2017-04-02</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/iOS/">iOS</a></li></ul>
+
+
+
+            
+
+            
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            
+            <p>之前在网上看了很多关于 NSString 的 property 约束，不过总感觉总结得没那么直接。这里我再重复的总结一下。</p>
+<h3 id="对于-NSString-来说，到底用-copy-还是-strong"><a href="#对于-NSString-来说，到底用-copy-还是-strong" class="headerlink" title="对于 NSString 来说，到底用 copy 还是 strong?"></a>对于 NSString 来说，到底用 copy 还是 strong?</h3><p>看看下面的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@interface Test: NSObject</span><br><span class="line">@property (nonatomic, strong) NSString * string;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">// Some Code here …………</span><br><span class="line"></span><br><span class="line">NSMutableString * aStr = [@&quot;hello&quot; mutableCopy];</span><br><span class="line">Test * test = [Test new];</span><br><span class="line">test.string = aStr;</span><br><span class="line">[aStr appendString:@&quot; world&quot;];</span><br><span class="line">NSLog(@&quot;%@&quot;, test.string);</span><br></pre></td></tr></table></figure>
+<p>以上代码，原本打算 test 对象的 string 对象赋值之后就不会改变，即一直都是 hello，然而上面的代码输出是 hello world，违背了代码设计的初衷。</p>
+<p>NSString 如果使用 strong 的话， 从外部给这个属性赋值，可能是一个 NSMutableString，如果外部把这个 NSMutableString 的值给改变了， 那么这个属性的值也会被改变。</p>
+<h3 id="对于NSMutableString来说，用-copy-还是-strong"><a href="#对于NSMutableString来说，用-copy-还是-strong" class="headerlink" title="对于NSMutableString来说，用 copy 还是 strong?"></a>对于NSMutableString来说，用 copy 还是 strong?</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@interface Test: NSObject</span><br><span class="line">@property (nonatomic, copy) NSMutableString * mString;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">// Some Code here …………</span><br><span class="line"></span><br><span class="line">NSMutableString * aStr = [@&quot;hello&quot; mutableCopy];</span><br><span class="line">Test * test = [Test new];</span><br><span class="line">test.mString = aStr;</span><br><span class="line">[test.mString appendString:@&quot;world&quot;];</span><br></pre></td></tr></table></figure>
+<p>以上代码中，test 对象的 mString 属性，由于定义的 copy，然而<code>copy属性会拷贝一个不可变的值</code>，然而我们对它进行一些可变协议的操作，即执行：[NSString appendString:]，程序崩溃。</p>
+<p>NSMutableString 如果使用 copy 的话，将一个外部对象赋值给这个属性的时候， 会进行一次 copy 操作， 然而 copy 是拷贝出一个不可变的对象给属性（实际上应该调用 mutableCopy，但是@property 并没有 mutableCopy），如果之后对这个属性（实际上是一个不可变的对象）进行可变协议的调用， 那么程序就会崩溃。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>和 NSString 与 NSMutableString 类似，NSArray 与 NSMutableArray， NSDictionary 与 NSMutableDictiontary也与以上运行效果一致。</p>
+<ul>
+<li><strong>NSString, NSArray 与 NSDictionary 使用 copy；</strong></li>
+<li><strong>NSMutableString, NSMutableArray 与 NSMutableDictionary使用 strong。</strong></li>
+</ul>
+
+        </div>
+        
+<blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-05-08T10:43:35.737Z" itemprop="dateUpdated">2019-05-08 18:43:35</time>
+</span><br>
+
+
+        
+        转载注明出处，原文地址：<a href="/2017/04/02/再总结一下NSString 与 NSMutableString 的 property 约束/" target="_blank" rel="external">http://http://ioshc.github.io/2017/04/02/再总结一下NSString 与 NSMutableString 的 property 约束/</a>
+        
+    </div>
+    <footer>
+        <a href="http://http://ioshc.github.io">
+            <img src="/img/avatar.jpg" alt="Eden Huang">
+            Eden Huang
+        </a>
+    </footer>
+</blockquote>
+
+        
+            <div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+            
+        
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OC/">OC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+
+            <div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://http://ioshc.github.io/2017/04/02/再总结一下NSString 与 NSMutableString 的 property 约束/&title=《再总结一下NSString 与 NSMutableString 的 property 约束》 — Hello World&pic=http://http://ioshc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://http://ioshc.github.io/2017/04/02/再总结一下NSString 与 NSMutableString 的 property 约束/&title=《再总结一下NSString 与 NSMutableString 的 property 约束》 — Hello World&source=任何描述都是多余的" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+        </div>
+        
+            
+
+
+        
+    </div>
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="prev">
+      <a href="/2017/05/27/atomic是不是线程安全的？/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">atomic是不是线程安全的？</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="next">
+      <a href="/2017/03/20/优化之离屏渲染/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">优化之离屏渲染</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+        <aside class="post-widget">
+            <nav class="post-toc-wrap" id="post-toc">
+                <strong>目录</strong>
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#对于-NSString-来说，到底用-copy-还是-strong"><span class="post-toc-number">1.</span> <span class="post-toc-text">对于 NSString 来说，到底用 copy 还是 strong?</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#对于NSMutableString来说，用-copy-还是-strong"><span class="post-toc-number">2.</span> <span class="post-toc-text">对于NSMutableString来说，用 copy 还是 strong?</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#总结"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">总结</span></a></li></ol></li></ol>
+            </nav>
+            <div class="toc-bar"><div>
+        </aside>
+    
+</article>
+
+    <div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        我们一起来让这个世界有趣一点
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/reward-wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/reward-wechat.jpg" data-alipay="/img/reward-alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+    
+</div>
+
+        <footer class="footer">
+    
+    <div class="top">
+        
+    </div>
+    
+    <div class="bottom">
+        <p>
+            <span>
+                Eden Huang &copy; 2018 - 2019
+            </span>
+        		
+           	
+            
+            
+            <span>
+	            Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/codefine/hexo-theme-mellow" target="_blank">mellow</a>
+            </span>
+            
+            
+            
+
+            
+                
+<span class="site-uv" title="总访客量">
+    <i class="icon icon-user"></i>
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"></i>
+</span>
+
+
+<span class="site-pv" title="总访问量">
+    <i class="icon icon-eye"></i>
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"></i>
+</span>
+
+            
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://http://ioshc.github.io/2017/04/02/再总结一下NSString 与 NSMutableString 的 property 约束/&title=《再总结一下NSString 与 NSMutableString 的 property 约束》 — Hello World&pic=http://http://ioshc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://http://ioshc.github.io/2017/04/02/再总结一下NSString 与 NSMutableString 的 property 约束/&title=《再总结一下NSString 与 NSMutableString 的 property 约束》 — Hello World&source=任何描述都是多余的" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADJ0lEQVR42u3aQVLjQBAEQP7/ae8DWOOqbkFY49SJIGShHB+aqZqvr/h6fLvyT+VPe/abZ09r36e+sLGxsW/Cfvx45YBn4M3rJm/ybOFefFXY2NjYx7F/Hj/JAPt5ICVDK1/6fMg9/T02Njb2x7N/+0o2LdjY2NjYLTv5uR11yWZms+3BxsbG/hx2PkjyeCiJ/mdL8KdZGjY2Nvbbs9vK9p1//pV+GxsbG/uN2fvQJxlOScEwqxxmCmxsbOyT2LPAKN+EtPfPIqR8+4SNjY19HjspUPPRNYvp84E0w9cnOrGxsbFvyJ4Ng7y4bY/d5M9shx82Njb2eew20NmXuLPAaFZUFN85NjY29m3Zs/i+jYfq0TKqb/M4DBsbG/tU9n6E5LA2JNovPTY2Nvap7Nl4aMuG9vhOUvTutz3Y2NjYp7JnlW2ygdlvJ2ZfQPRZbGxs7NuyN0dt8ihqNqj2FcKLegAbGxv7IHYe7uw3G/komh0eioYcNjY29nHsWbnbHtbcjLHZRiXab2FjY2PfnN2OimSk5eF+snCznCwKs7CxsbEPYm/K3VnonxQJ7ZfRjmRsbGzs89j55mG25Wi3Me0gHH5h2NjY2Ddn57F+W/rOtg3tcMLGxsbGbl9xc4ymvbMdmUVohY2NjX0cOy9ZNyOkjfLb4iF/Z2xsbOxPYM8OxLSRfV4Vb/7Wf56AjY2NfRw7iezbYmAf9+cHhvLFwsbGxj6Pnfxzv2mPE8Dmzk3ZgI2NjX0Se3/gsv1jm/vbyiESYWNjY9+W3R7Q+ZsYaHOIM6oQsLGxsQ9iX/vvfhL6bIKkpBguKg1sbGzsI9j78TCrb9vB1sZVL56PjY2NfRB7mDzFFcJVW4vZ9eJp2NjY2EewH+U1qxZm0X8SXQ0XCxsbG/sg9mwYzLYQm0M5bc2cLB82Njb2Sew2pp8dncyf1i7rZS03NjY29s3ZbXXaxkZ5oH/BcZwkLMPGxsb+SPaMmlezVx0eiqoObGxs7I9k5/df9bQk+s+XHhsbG/tsdh4b7UvZ2dLvj/4UB3ewsbGxb8WelaltrJ8w8iGXh0qrQzzY2NjY787+B8siZBfH1LdAAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+    
+    <!-- main-js -->
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/2.1.0/jquery.min.js"></script>
+<script type="text/javascript" src="/js/plugins/fastclick.js?v=1.3.2"></script>
+<script type="text/javascript" src="/js/plugins/ios-orientationchange-fix.js?v=1.3.2"></script>
+<script type="text/javascript" src="/js/plugins/jquery.swipebox.min.js?v=1.3.2"></script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script type="text/javascript" src="/js/method.js?v=1.3.2"></script>
+<script type="text/javascript" src="/js/blog.js?v=1.3.2"></script>
+
+<!-- third-party -->
+<script type="text/javascript">
+;( function( $ ) {
+
+	$( '.swipebox' ).swipebox({
+		hideCloseButtonOnMobile: true
+	});
+
+} )( jQuery );
+</script>
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?[object Object]";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<script type="text/javascript" src="/js/plugins/local_search.js?v=1.3.2"></script>
+<script type="text/javascript">
+	var search_path = "search.xml";
+	if (search_path.length === 0) {
+		search_path = "search.xml";
+	}
+	var path = "/" + search_path;
+	searchFunc(path, "local-search-input", "local-search-result");
+</script>
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+    
+    
+
+
+
+
+
+    <!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+            processEscapes: true,
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+    
+</body>
+</html>

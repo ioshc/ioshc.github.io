@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    
+    <title>计算机图形渲染的流程 | Hello World | 路漫漫其修远兮，吾将上下而求索</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="图形渲染">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/third-party/swipebox.min.css?v=1.3.2">
+    <link rel="stylesheet" href="/css/style.css?v=1.3.2">
+    
+    <script type="text/javascript">
+        // Data Center
+        var DC = {
+            reward:	true,
+            lv: JSON.parse('{"enable":false,"app_id":null,"app_key":null,"icon":true}'),
+            v: JSON.parse('{"enable":false,"appid":null,"appkey":null,"notify":true,"verify":true,"placeholder":"give me some sugers plz...","avatar":"wavatar"}'),
+            g: JSON.parse('{"enable":false,"lazy":true,"owner":"codefine","repo":"gitment","oauth":{"client_id":null,"client_secret":null},"perPage":10}'),
+            d: JSON.parse('{"app_id":null}')
+        };
+    </script>
+    <script type="text/javascript">
+        window.lazyScripts=[];
+    </script>
+    
+</head>
+
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      
+      <img src="/img/brand.jpg" class="brand-bg">
+      
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Eden Huang</h5>
+          <a href="mailto:huangcong520@icloud.com" title="huangcong520@icloud.com" class="mail">
+            
+              <span>h</span>
+            
+              <span>u</span>
+            
+              <span>a</span>
+            
+              <span>n</span>
+            
+              <span>g</span>
+            
+              <span>c</span>
+            
+              <span>o</span>
+            
+              <span>n</span>
+            
+              <span>g</span>
+            
+              <span>5</span>
+            
+              <span>2</span>
+            
+              <span>0</span>
+            
+              <span>@</span>
+            
+              <span>i</span>
+            
+              <span>c</span>
+            
+              <span>l</span>
+            
+              <span>o</span>
+            
+              <span>u</span>
+            
+              <span>d</span>
+            
+              <span>.</span>
+            
+              <span>c</span>
+            
+              <span>o</span>
+            
+              <span>m</span>
+            
+          </a>
+        </hgroup>
+        
+        <ul class="menu-link">
+          
+              <li>
+                <a href="https://github.com/ioshc" target="_blank">
+                  <i class="icon icon-lg icon-github"></i>
+                </a>
+              </li>
+            
+        </ul>
+        
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/reading"  >
+                <i class="icon icon-lg icon-book"></i>
+                阅读
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/study"  >
+                <i class="icon icon-lg icon-question-circle"></i>
+                学习
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/themes"  >
+                <i class="icon icon-lg icon-file-image-o"></i>
+                主题
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                关于
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/custom"  >
+                <i class="icon icon-lg icon-file"></i>
+                测试页面
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row clearfix">
+        <a href="javascript:;" class="header-icon pull-left waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">
+            <span>计算机图形渲染的流程</span>
+            
+        </div>
+        
+        <a href="javascript:;" id="site_search_btn" class="header-icon pull-right waves-effect waves-circle waves-light">
+            <i class="icon icon-lg icon-search"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+    <img src="/img/banner.jpg" class="header-bg">
+    <div class="container fade-scale">
+        <h1 class="title">计算机图形渲染的流程</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2015-08-12T10:11:29.000Z" itemprop="datePublished" class="page-time">
+  2015-08-12
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/计算机基础/">计算机基础</a></li></ul>
+
+            
+        </h5>
+        
+    </div>
+    
+
+</header>
+
+<div id="site_search">
+    <div class="search-title clearfix">
+        <span class="pull-left">
+          <i class="icon icon-lg icon-search"></i>
+        </span>
+        <input type="text" id="local-search-input" name="q" results="0" placeholder="search my blog..." class="form-control pull-left"/>
+        <a href="javascript:;" class="close pull-right waves-effect waves-circle waves-light">
+          <i class="icon icon-lg icon-close"></i>
+        </a>
+    </div>
+    <div id="local-search-result"></div>
+</div>
+
+
+<div class="container body-wrap">
+    <article id="post-计算机图形渲染的流程"
+  class="post-article article-type-post" itemprop="blogPost">
+    <div class="post-card">
+        <h1 class="post-card-title">计算机图形渲染的流程</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2015-08-12 18:11:29" datetime="2015-08-12T10:11:29.000Z"  itemprop="datePublished">2015-08-12</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/计算机基础/">计算机基础</a></li></ul>
+
+
+
+            
+
+            
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            
+            <p><a href="https://bbs.feng.com/read-htm-tid-6880069.html" target="_blank" rel="noopener">原文链接</a></p>
+<p>计算机的绘图过程可以简单用流水线来说明，而产品（数据）就是经过流水线作业（渲染）到屏幕的图像。这条流水线可以简化为（本文的概念）：绘图位置座标指定；着色指定；输出指定；图1简单解释了这一个流水线过程。计算机绘图需要一个输入绘图数据，这个数据可以是用户指定的，也可以是操作系统决定的，也可以是混合的。这些数据是分组的。</p>
+<p>座标生成：当绘图数据送入座标生成系统后，流水线就会对其进行座标分派，图1右上的线框图抽象描述了这个过程。</p>
+<p>着色指定：当座标系统生成出带座标的绘图数据后就需要送入着色器，着色器指定了这些线框的填充颜色或纹理。</p>
+<p>渲染：着色器将绘图数据加上着色数据后就被送入渲染器，渲染器根据绘图数据描述，将像素填充到描述的线框组里并送入帧缓存，然后然后送入显示器，显示器获取到帧缓存的数据后再根据数据的描述来绘图到屏幕上。</p>
+<figure class="image-box">
+                <a rel=计算机图形渲染的流程 href="2015-08-12/1.png" class="swipebox" title=undefined><img src="2015-08-12/1.png" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<h3 id="像素与点（point）与点（dot）"><a href="#像素与点（point）与点（dot）" class="headerlink" title="像素与点（point）与点（dot）"></a>像素与点（point）与点（dot）</h3><p>像素与点（point），点（dot）这三个单位很容易令人混淆，原因在于它们在很多场合上是可以互换的。但是本文需要区分这两者的概念。</p>
+<p>像素指的是一种数据结构，这个数据结构包含了RGB三个数据，分别对应的是红色，绿色，蓝色。我们说一张计算机生成的位图时，我们会说这图是多少像素x多少像素，例如800x600像素。值得注意的是，像素没有一个固定的尺寸单位，它只是一个抽象概念。</p>
+<p>点（dot）指的是显示器屏幕的点或打印的点，是具体指代的事物。我们想说的DPI即dot per inch，每英寸多少个点。一般来说1个点对应一个像素，常见的打印尺寸是72DPI，即每英寸72点，也就是包含72个像素的数据。当像素被计算机输出成点投射都屏幕或纸面上时，它才具备了尺寸的概念，即点（dot）。</p>
+<p>点（point）指的是座标点，是一个数据结构，包含了两个数据（或三个）X和Y(和Z)座标。绘图数据里是包含了这个座标数据的。对于没有使用HiDPI的操作系统来说，一个座标点对应一个像素。</p>
+<h3 id="点（point）不一定等于像素"><a href="#点（point）不一定等于像素" class="headerlink" title="点（point）不一定等于像素"></a>点（point）不一定等于像素</h3><p>一般来说，点（dot）与像素是可以互换指代的，而且我们在Retina的概念被提出前一直这样使用它们。但是，现在这两个概念必须要区分出来。像素只是一个描述RGB的数据结构，它没有任何尺寸单位，它更不是一个矩形。当像素被输出到屏幕或纸张上时，我们应该用点来指代这种含有颜色，有尺寸的具体事物。</p>
+<p>普通的显示屏幕或打印机，我们会说屏幕上的一个点（dot）是由一个像素（RGB数据）组成的，打印后的点是由一个像素经过色彩转换（CMYK数据）组成的。</p>
+<p>对于打印机来说，一般的DPI是72。也就是指我们在显示器屏幕上看到720x720像素的位图，在打印出来后的面积是10x10英寸，但是屏幕上的位图面积并不会跟打印出来的面积一致。因为屏幕上的一个点与打印的点的尺寸不一样。</p>
+<p>PPI指的是每英寸多少像素，与DPI有一定概念上的区别。PPI一般指的是屏幕的点密度，DPI指的是打印点的密度。PPI不是固定的，不同屏幕尺寸结合不同的分辨率会有不同的PPI，但是DPI则是相对固定在72。</p>
+<p>HiDPI是苹果的一项绘图技术，结合这种技术，计算机座标系统上的一个点（point）不再对应一个像素，一般来说会是一个座标点对应四个像素，而一个像素对应屏幕的一个物理点（dot）。</p>
+<p>由于像素是一组色彩数据，所以绘图数据在经过着色器后才包含了它。举个例子，绘图数据在送入着色器前是描述一个100x100的矩形，经过着色器指定色彩属性后会被送入一个HiDPI系统，这个系统将200x200个像素的数据添加到绘图数据里。在经过渲染器后，相当于将200x200个像素填充进100x100这个矩形线框。</p>
+<figure class="image-box">
+                <a rel=计算机图形渲染的流程 href="2015-08-12/2.png" class="swipebox" title=undefined><img src="2015-08-12/2.png" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<h3 id="帧缓存与显示器屏幕"><a href="#帧缓存与显示器屏幕" class="headerlink" title="帧缓存与显示器屏幕"></a>帧缓存与显示器屏幕</h3><p>帧缓存是储存计算机渲染后的图形数据的，这些数据包括座标，像素，分辨率等等。。简单来说就是描述图象的数据，当这些描述数据送入显示器后，显示器就知道怎么绘图了。</p>
+<p>一般来说的屏幕分辨率指的是渲染器生产出来的像素数据排列，例如1280x800像素。值得注意的是这个屏幕分辨率与显示器屏幕的物理点排列没关系的。屏幕分辨率是可设置的，显示器的物理点排列是固定的。例如帧缓存里的分辨率是1280x800像素，但是显示器屏幕是1920x1200点排列的，那么显示器会怎么将帧缓存里的数据呈现到屏幕上呢？答案是通过自适应放缩，是经过显示器内部芯片来转换的。</p>
+<p>13寸的RMBP在分辨率设置里是这样描述的，看起来像1280x800像素，看起来像1440x900像素。我们需要这样理解，1280x800像素是相对于旧款不带Retina的机器，也就是绘图数据送入着色器前的座标系统与渲染后的座标是1:1对应的参考值。实际上在经过渲染后，它的实际像素是2560x1600，也就是帧缓存里是数据是2560x1600像素。同样地看起来1440x900像素实际渲染后的像素是2880x1800。由于13寸的屏幕实际点排列是2560x1600，所以帧缓存2880x1800像素在输出到屏幕后会被自适应缩放掉。</p>
+<h3 id="DPI与Retina"><a href="#DPI与Retina" class="headerlink" title="DPI与Retina"></a>DPI与Retina</h3><p>操作系统标准的桌面打印DPI是72，但是随着HiDPI技术和高PPI屏幕出现后，这个标准也许会有一定的变化。我们在Retina的OS X下用Photoshop新建一个文件时默认的DPI指定在144上了，这是标准转变的一个信号。</p>
+<p>在没有使用类似HiDPI技术的操作系统上，屏幕分辨率对应的打印DPI是72。使用HiDPI的Retina机器的打印DPI是144，用以保证在统一尺下具有更多的点密度。这点对于印前工作非常重要。</p>
+
+        </div>
+        
+<blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-05-08T10:44:25.899Z" itemprop="dateUpdated">2019-05-08 18:44:25</time>
+</span><br>
+
+
+        
+        转载注明出处，原文地址：<a href="/2015/08/12/计算机图形渲染的流程/" target="_blank" rel="external">http://http://ioshc.github.io/2015/08/12/计算机图形渲染的流程/</a>
+        
+    </div>
+    <footer>
+        <a href="http://http://ioshc.github.io">
+            <img src="/img/avatar.jpg" alt="Eden Huang">
+            Eden Huang
+        </a>
+    </footer>
+</blockquote>
+
+        
+            <div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+            
+        
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图形渲染/">图形渲染</a></li></ul>
+
+            <div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://http://ioshc.github.io/2015/08/12/计算机图形渲染的流程/&title=《计算机图形渲染的流程》 — Hello World&pic=http://http://ioshc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://http://ioshc.github.io/2015/08/12/计算机图形渲染的流程/&title=《计算机图形渲染的流程》 — Hello World&source=任何描述都是多余的" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+        </div>
+        
+            
+
+
+        
+    </div>
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="prev">
+      <a href="/2016/02/02/细说 iOS 中的 http 协议/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">细说 iOS 中的 http 协议</h4>
+      </a>
+    </div>
+  
+
+  
+</nav>
+
+
+    
+    
+        <aside class="post-widget">
+            <nav class="post-toc-wrap" id="post-toc">
+                <strong>目录</strong>
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#像素与点（point）与点（dot）"><span class="post-toc-number">1.</span> <span class="post-toc-text">像素与点（point）与点（dot）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#点（point）不一定等于像素"><span class="post-toc-number">2.</span> <span class="post-toc-text">点（point）不一定等于像素</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#帧缓存与显示器屏幕"><span class="post-toc-number">3.</span> <span class="post-toc-text">帧缓存与显示器屏幕</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#DPI与Retina"><span class="post-toc-number">4.</span> <span class="post-toc-text">DPI与Retina</span></a></li></ol>
+            </nav>
+            <div class="toc-bar"><div>
+        </aside>
+    
+</article>
+
+    <div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        我们一起来让这个世界有趣一点
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/reward-wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/reward-wechat.jpg" data-alipay="/img/reward-alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+    
+</div>
+
+        <footer class="footer">
+    
+    <div class="top">
+        
+    </div>
+    
+    <div class="bottom">
+        <p>
+            <span>
+                Eden Huang &copy; 2018 - 2019
+            </span>
+        		
+           	
+            
+            
+            <span>
+	            Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/codefine/hexo-theme-mellow" target="_blank">mellow</a>
+            </span>
+            
+            
+            
+
+            
+                
+<span class="site-uv" title="总访客量">
+    <i class="icon icon-user"></i>
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"></i>
+</span>
+
+
+<span class="site-pv" title="总访问量">
+    <i class="icon icon-eye"></i>
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"></i>
+</span>
+
+            
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://http://ioshc.github.io/2015/08/12/计算机图形渲染的流程/&title=《计算机图形渲染的流程》 — Hello World&pic=http://http://ioshc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://http://ioshc.github.io/2015/08/12/计算机图形渲染的流程/&title=《计算机图形渲染的流程》 — Hello World&source=任何描述都是多余的" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACw0lEQVR42u3aQW7DMAwEwPz/0y3QU4s09pIU2xzGJyMwZI0OFrPi4xFfH1/X9/vnX66ffL5ejfb83utnDlx4eHh4raknk3i+v/7l+vd8zOtFuVkCPDw8vDVebzO4/ljnyHwO+Zzx8PDw3oGXTG4y3clGgoeHh/eevDySmJfXSZGNh4eH97+8/HPfQ+bL15vPgawFDw8PL+b1pvK/9+vne3h4eHitU/XrD261mSCPfScz/PEWPDw8vAVe3gqQf5rnsULSiFAo5fHw8PCO8noD9Vq1epjRtoSHh4e3wEtgyX/8PLyYjDZp88LDw8M7y5sHDXmD1OSobCWMwMPDw2vFuJMTpQlgEu+WT+3w8PDwlnm9NqbJ83kpX7Dg4eHh/SGvepTVa3KdjBAtKB4eHt4aL39ZMmg+ZhJ5TI7o8PDw8LZ51YJ10oCVbBJ5e8HL9+Lh4eEt8KoFbhXWG2HSqlVeYzw8PLwir9r0mRfK1aOyPOAoHInh4eHhLfCq4UI1xu2FCL1lvSmp8fDw8A7xTrUFVIOJhN0LQV7GEHh4eHiHeHlxHB3VFyd96pmbDQwPDw/vKG8y9fyAv3rcVQ1HbloH8PDw8BZ4vaK2Wl5XQ41e2X2z4+Hh4eGNedXo4brI7kW9p54vhCN4eHh4A17+aB5SzJsJqksQNV3h4eHhLfDmw02QCa9cWOPh4eEt8PISNvnDPzkwy+OMJFZ+VCt0PDw8vJiXfKx7jVDVBeotxE2ygoeHh/eHvOpWkZ83VRsU8sL6l5Hx8PDwFninytwkYkhC23w7yct6PDw8vA1e75gqn3r+0Z9vDIVIAg8PD2/MSwKISXgx2TyqJXsz/cXDw8Nb4E3+/PfaCA7MBw8PD+9teMmnOY+Aq21ehVIeDw8Pb42Xh6pJYJFPcbItRSU7Hh4e3gKvdwA2aSw4MKFDDVt4eHh4Rd4n6hIiFhkEf+cAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+    
+    <!-- main-js -->
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/2.1.0/jquery.min.js"></script>
+<script type="text/javascript" src="/js/plugins/fastclick.js?v=1.3.2"></script>
+<script type="text/javascript" src="/js/plugins/ios-orientationchange-fix.js?v=1.3.2"></script>
+<script type="text/javascript" src="/js/plugins/jquery.swipebox.min.js?v=1.3.2"></script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script type="text/javascript" src="/js/method.js?v=1.3.2"></script>
+<script type="text/javascript" src="/js/blog.js?v=1.3.2"></script>
+
+<!-- third-party -->
+<script type="text/javascript">
+;( function( $ ) {
+
+	$( '.swipebox' ).swipebox({
+		hideCloseButtonOnMobile: true
+	});
+
+} )( jQuery );
+</script>
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?[object Object]";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<script type="text/javascript" src="/js/plugins/local_search.js?v=1.3.2"></script>
+<script type="text/javascript">
+	var search_path = "search.xml";
+	if (search_path.length === 0) {
+		search_path = "search.xml";
+	}
+	var path = "/" + search_path;
+	searchFunc(path, "local-search-input", "local-search-result");
+</script>
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+    
+    
+
+
+
+
+
+    <!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+            processEscapes: true,
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+    
+</body>
+</html>

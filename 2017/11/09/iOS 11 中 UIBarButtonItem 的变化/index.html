@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    
+    <title>iOS 11 中 UIBarButtonItem 的变化 | Hello World | 路漫漫其修远兮，吾将上下而求索</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="iOS11,UI">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/third-party/swipebox.min.css?v=1.3.2">
+    <link rel="stylesheet" href="/css/style.css?v=1.3.2">
+    
+    <script type="text/javascript">
+        // Data Center
+        var DC = {
+            reward:	true,
+            lv: JSON.parse('{"enable":false,"app_id":null,"app_key":null,"icon":true}'),
+            v: JSON.parse('{"enable":false,"appid":null,"appkey":null,"notify":true,"verify":true,"placeholder":"give me some sugers plz...","avatar":"wavatar"}'),
+            g: JSON.parse('{"enable":false,"lazy":true,"owner":"codefine","repo":"gitment","oauth":{"client_id":null,"client_secret":null},"perPage":10}'),
+            d: JSON.parse('{"app_id":null}')
+        };
+    </script>
+    <script type="text/javascript">
+        window.lazyScripts=[];
+    </script>
+    
+</head>
+
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      
+      <img src="/img/brand.jpg" class="brand-bg">
+      
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Eden Huang</h5>
+          <a href="mailto:huangcong520@icloud.com" title="huangcong520@icloud.com" class="mail">
+            
+              <span>h</span>
+            
+              <span>u</span>
+            
+              <span>a</span>
+            
+              <span>n</span>
+            
+              <span>g</span>
+            
+              <span>c</span>
+            
+              <span>o</span>
+            
+              <span>n</span>
+            
+              <span>g</span>
+            
+              <span>5</span>
+            
+              <span>2</span>
+            
+              <span>0</span>
+            
+              <span>@</span>
+            
+              <span>i</span>
+            
+              <span>c</span>
+            
+              <span>l</span>
+            
+              <span>o</span>
+            
+              <span>u</span>
+            
+              <span>d</span>
+            
+              <span>.</span>
+            
+              <span>c</span>
+            
+              <span>o</span>
+            
+              <span>m</span>
+            
+          </a>
+        </hgroup>
+        
+        <ul class="menu-link">
+          
+              <li>
+                <a href="https://github.com/ioshc" target="_blank">
+                  <i class="icon icon-lg icon-github"></i>
+                </a>
+              </li>
+            
+        </ul>
+        
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/reading"  >
+                <i class="icon icon-lg icon-book"></i>
+                阅读
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/study"  >
+                <i class="icon icon-lg icon-question-circle"></i>
+                学习
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/themes"  >
+                <i class="icon icon-lg icon-file-image-o"></i>
+                主题
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                关于
+              </a>
+            </li>
+        
+            <li class="">
+              <a href="/custom"  >
+                <i class="icon icon-lg icon-file"></i>
+                测试页面
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row clearfix">
+        <a href="javascript:;" class="header-icon pull-left waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">
+            <span>iOS 11 中 UIBarButtonItem 的变化</span>
+            
+        </div>
+        
+        <a href="javascript:;" id="site_search_btn" class="header-icon pull-right waves-effect waves-circle waves-light">
+            <i class="icon icon-lg icon-search"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+    <img src="/img/banner.jpg" class="header-bg">
+    <div class="container fade-scale">
+        <h1 class="title">iOS 11 中 UIBarButtonItem 的变化</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-11-09T11:31:50.000Z" itemprop="datePublished" class="page-time">
+  2017-11-09
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/iOS/">iOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/iOS/UI/">UI</a></li></ul></li></ul>
+
+            
+        </h5>
+        
+    </div>
+    
+
+</header>
+
+<div id="site_search">
+    <div class="search-title clearfix">
+        <span class="pull-left">
+          <i class="icon icon-lg icon-search"></i>
+        </span>
+        <input type="text" id="local-search-input" name="q" results="0" placeholder="search my blog..." class="form-control pull-left"/>
+        <a href="javascript:;" class="close pull-right waves-effect waves-circle waves-light">
+          <i class="icon icon-lg icon-close"></i>
+        </a>
+    </div>
+    <div id="local-search-result"></div>
+</div>
+
+
+<div class="container body-wrap">
+    <article id="post-iOS 11 中 UIBarButtonItem 的变化"
+  class="post-article article-type-post" itemprop="blogPost">
+    <div class="post-card">
+        <h1 class="post-card-title">iOS 11 中 UIBarButtonItem 的变化</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-11-09 19:31:50" datetime="2017-11-09T11:31:50.000Z"  itemprop="datePublished">2017-11-09</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/iOS/">iOS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/iOS/UI/">UI</a></li></ul></li></ul>
+
+
+
+            
+
+            
+
+
+            
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            
+            <h3 id="序"><a href="#序" class="headerlink" title="序"></a>序</h3><p>随着 iOS 11 和 Xcode 9 的发布，导航栏<code>UINavigationBar</code> 里面的控件 <code>UIBarButtonItem</code> 有一些变化，下面我们一起看看有哪些变化。</p>
+<h3 id="变化"><a href="#变化" class="headerlink" title="变化"></a>变化</h3><ul>
+<li><code>UIBarButtonItems</code> 的custom view的点击区域更小了</li>
+<li>返回按钮的点击区域也更小了</li>
+<li>如果上一个屏幕的 title 有变化，则返回按钮的 label 不再自动更新（iOS 10 前会自动更新）</li>
+<li><code>UIBarButtonSystemItemFixedSpace</code> 类型的 <code>UIBarButtonItem</code> 现在至少有 8 个点的最小宽度，负数的 width 不再生效</li>
+<li>重写 <code>alignmentRectInsets</code> 可能会导致 custom views 超出点击区域</li>
+</ul>
+<p>下面会详细的讲解上面几点变化。</p>
+<h3 id="点击区域-Tap-Areas"><a href="#点击区域-Tap-Areas" class="headerlink" title="点击区域(Tap Areas)"></a>点击区域(Tap Areas)</h3><p>我们假设有一个 <strong>iOS 10</strong> 程序，其中包含两个有 custom view 的 <code>UIBarButtonItem</code>。然后我们使用 <code>Debug View Hierarchy</code> 去检查 custom 的真实大小。</p>
+<figure class="image-box">
+                <a rel=iOS 11 中 UIBarButtonItem 的变化 href="2017-11-09/1.png" class="swipebox" title=undefined><img src="2017-11-09/1.png" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<p>他们的点击区域实际上会更大，和下面的红色方块区域大小一致。</p>
+<figure class="image-box">
+                <a rel=iOS 11 中 UIBarButtonItem 的变化 href="2017-11-09/2.png" class="swipebox" title=undefined><img src="2017-11-09/2.png" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<p>然而在 <strong>iOS 11</strong> 上，显示的效果和上面的效果就不同了。点击区域大小和 custom view 的大小一致。</p>
+<figure class="image-box">
+                <a rel=iOS 11 中 UIBarButtonItem 的变化 href="2017-11-09/3.png" class="swipebox" title=undefined><img src="2017-11-09/3.png" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<p>在 <strong>iOS 11</strong> 上，这种点击区域的大小的确会使得用户很难点击。为了扩大点击区域，custom view 的需要扩大边距。我们可以创建一个拥有最小的size 约束的 Wrapper view。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WrapperView</span>: <span class="title">UIView</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> minimumSize: <span class="type">CGSize</span> = <span class="type">CGSize</span>(width: <span class="number">44.0</span>, height: <span class="number">44.0</span>)</span><br><span class="line">    <span class="keyword">let</span> underlyingView: <span class="type">UIView</span></span><br><span class="line">    <span class="keyword">init</span>(underlyingView: <span class="type">UIView</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.underlyingView = underlyingView</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(frame: underlyingView.bounds)</span><br><span class="line"></span><br><span class="line">        underlyingView.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        addSubview(underlyingView)</span><br><span class="line"></span><br><span class="line">        <span class="type">NSLayoutConstraint</span>.activate([</span><br><span class="line">            underlyingView.leadingAnchor.constraint(equalTo: leadingAnchor),</span><br><span class="line">            underlyingView.trailingAnchor.constraint(equalTo: trailingAnchor),</span><br><span class="line">            underlyingView.topAnchor.constraint(equalTo: topAnchor),</span><br><span class="line">            underlyingView.bottomAnchor.constraint(equalTo: bottomAnchor),</span><br><span class="line">            heightAnchor.constraint(greaterThanOrEqualToConstant: minimumSize.height),</span><br><span class="line">            widthAnchor.constraint(greaterThanOrEqualToConstant: minimumSize.width)</span><br><span class="line">        ])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="image-box">
+                <a rel=iOS 11 中 UIBarButtonItem 的变化 href="2017-11-09/4.png" class="swipebox" title=undefined><img src="2017-11-09/4.png" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<h3 id="返回按钮-Back-Button"><a href="#返回按钮-Back-Button" class="headerlink" title="返回按钮(Back Button)"></a>返回按钮(Back Button)</h3><h4 id="点击区域-Tap-Area"><a href="#点击区域-Tap-Area" class="headerlink" title="点击区域(Tap Area)"></a>点击区域(Tap Area)</h4><p>当 view controller 的 title 很长的时候，iOS 11 上的返回按钮点击区域会变得更小。</p>
+<p>在 iOS 10 上的返回按钮有一个比较大的最小宽度，利于用户点击。</p>
+<figure class="image-box">
+                <a rel=iOS 11 中 UIBarButtonItem 的变化 href="2017-11-09/5.png" class="swipebox" title=undefined><img src="2017-11-09/5.png" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<p>然而在 iOS 11 上，返回按钮的点击区域变得很小。更糟糕的是 view controller 的 title，有时看起来像是返回按钮的 label。</p>
+<figure class="image-box">
+                <a rel=iOS 11 中 UIBarButtonItem 的变化 href="2017-11-09/6.png" class="swipebox" title=undefined><img src="2017-11-09/6.png" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<h4 id="动态更新-Label"><a href="#动态更新-Label" class="headerlink" title="动态更新(Label)"></a>动态更新(Label)</h4><p>iOS 11 上面另外一个更新是返回按钮的 label。</p>
+<p>举个例子，假设有一个能够自动更新 title 的 <code>First(4)</code> 页面 (UIViewController),</p>
+<figure class="image-box">
+                <a rel=iOS 11 中 UIBarButtonItem 的变化 href="2017-11-09/7.png" class="swipebox" title=undefined><img src="2017-11-09/7.png" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<p>界面从 <code>First(4)</code> 页面 push 到 <code>Second</code> 页面，</p>
+<figure class="image-box">
+                <a rel=iOS 11 中 UIBarButtonItem 的变化 href="2017-11-09/8.png" class="swipebox" title=undefined><img src="2017-11-09/8.png" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<p>在 iOS 10 上，当 <code>First(4)</code>的 title 从 First(4) 变化到 First(6) 之后，返回按钮也变成了 First(6)，</p>
+<figure class="image-box">
+                <a rel=iOS 11 中 UIBarButtonItem 的变化 href="2017-11-09/9.png" class="swipebox" title=undefined><img src="2017-11-09/9.png" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<p>而在 iOS 11 上，返回按钮的 label 并没有自动更新，而是保持不变。</p>
+<figure class="image-box">
+                <a rel=iOS 11 中 UIBarButtonItem 的变化 href="2017-11-09/10.png" class="swipebox" title=undefined><img src="2017-11-09/10.png" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<h3 id="自动布局-Auto-Layout"><a href="#自动布局-Auto-Layout" class="headerlink" title="自动布局(Auto Layout)"></a>自动布局(Auto Layout)</h3><p><code>UINavigationBar</code> 现在能够使用自动布局（Auto Layout）来布局它的 subviews（包括 custom views）。在今年的 WWDC上中的 <a href="https://developer.apple.com/videos/play/wwdc2017/204/" target="_blank" rel="noopener">Updating Your Apps for iOS 11</a> 里面有提到。</p>
+<p>在 iOS 11 中，我们能够从 <code>Debug View Hierarchy</code> 检查 <code>UINavigationBar</code> 看到，<code>UINavigationBar</code> 内部的 buttons 都被放置在一个 stack view 中。</p>
+<figure class="image-box">
+                <a rel=iOS 11 中 UIBarButtonItem 的变化 href="2017-11-09/11.png" class="swipebox" title=undefined><img src="2017-11-09/11.png" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<p>当我们正确的实现了 custom view 的 <code>sizeThatFits</code> 和 <code>intrinsicContentSize</code>，<code>UINavigationBar</code>也会如以前那样工作正常。</p>
+<p>但是，需要注意的是，当我们把custom view 的 <code>translatesAutoresizingMaskIntoConstraints</code> 设成 <code>false</code>，在 iOS 10（如果你的 App 还支持 iOS 10的话）上，可能出现一些莫名其妙的问题。比如可能导致custom view 的 top-left 方向布局错位。这种情况下，一个简单的保护代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let customView = createCustomView()</span><br><span class="line">if #available(iOS 11, *) &#123;</span><br><span class="line">    customView.translatesAutoresizingMaskIntoConstraints = false</span><br><span class="line">&#125;</span><br><span class="line">navigationItem.rightBarButtonItem = UIBarButtonIte(customView: customView)</span><br></pre></td></tr></table></figure>
+<h3 id="自定义对齐-Custom-Alignment"><a href="#自定义对齐-Custom-Alignment" class="headerlink" title="自定义对齐(Custom Alignment)"></a>自定义对齐(Custom Alignment)</h3><p>很多时候，我们想能够自由的控制 custom <code>UIBarButtonItem</code> 的布局（对齐），特别是和屏幕两边的边距大小。在 iOS 10（及以前）来说，我们经常用到两种小技巧：</p>
+<ul>
+<li>使用fixed space item，即<code>UIBarButtonItem(barButtonSystemItem: .fixedSpace …)</code>，并且赋值一个负数，比如-15</li>
+<li>重写 custom view 的 <code>alignmentRectInsets</code></li>
+</ul>
+<p>但是在 iOS 11 上，上面两个方法都有点变化，第一个办法已经失效，而第二个办法也有点问题。</p>
+<h4 id="Fixed-Space-Items"><a href="#Fixed-Space-Items" class="headerlink" title="Fixed Space Items"></a>Fixed Space Items</h4><p>当我们使用 custom view 的时候， 默认的边距是16个点，</p>
+<figure class="image-box">
+                <a rel=iOS 11 中 UIBarButtonItem 的变化 href="2017-11-09/12.png" class="swipebox" title=undefined><img src="2017-11-09/12.png" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<p>假设我们想将边距减少到 8 个点，那么在 iOS 10 上面，我们需要设置fixed space <code>UIBarButtonItem</code> 的宽度为 -8 就可以达到我们想要的效果。</p>
+<figure class="image-box">
+                <a rel=iOS 11 中 UIBarButtonItem 的变化 href="2017-11-09/13.png" class="swipebox" title=undefined><img src="2017-11-09/13.png" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let spacer = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)</span><br><span class="line">spacer.width = -8</span><br><span class="line">let barButtonsItems = [</span><br><span class="line">    spacer,</span><br><span class="line">    UIBarButtonItem(customView: createCustomButton()),</span><br><span class="line">    UIBarButtonItem(customView: createCustomButton())</span><br><span class="line">]</span><br><span class="line">navigationItem.rightBarButtonItems = barButtonItems</span><br></pre></td></tr></table></figure>
+<figure class="image-box">
+                <a rel=iOS 11 中 UIBarButtonItem 的变化 href="2017-11-09/14.png" class="swipebox" title=undefined><img src="2017-11-09/14.png" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<p>然而在 iOS 11 上，修改fixed space <code>UIBarButtonItem</code> 的宽度为 -8 会不生效。</p>
+<h4 id="Alignment-Rect-Insets"><a href="#Alignment-Rect-Insets" class="headerlink" title="Alignment Rect Insets"></a>Alignment Rect Insets</h4><p>而重写 custom view 的 <code>alignmentRectInsets</code>，在 iOS 10 上面也能够修改布局边距</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class CustomView: UIView &#123;</span><br><span class="line">    var alignmentRectInsetsOverride: UIEdgeInsets?</span><br><span class="line">    override var alignmentRectInsets: UIEdgeInsets &#123;</span><br><span class="line">        return alignmentRectInsetsOverride ?? super.alignmentRectInsets</span><br><span class="line">    &#125;</span><br><span class="line">    // ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>设置 <code>alignmentRectInsets</code> 的值为 UIEdgeInsets(top: 0, left: -8, bottom: 0, right: 8)，也能够和前面的修改起到相同的作用</p>
+<figure class="image-box">
+                <a rel=iOS 11 中 UIBarButtonItem 的变化 href="2017-11-09/15.png" class="swipebox" title=undefined><img src="2017-11-09/15.png" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<p>上面的代码在 iOS 11 上面依然能够起到作用，但是有一个小的问题是，item 里面有一小部分超出了 stack view 的范围。超出的区域不能点击，也就意味着点击区域变小了。</p>
+<figure class="image-box">
+                <a rel=iOS 11 中 UIBarButtonItem 的变化 href="2017-11-09/16.png" class="swipebox" title=undefined><img src="2017-11-09/16.png" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<h4 id="Workaround"><a href="#Workaround" class="headerlink" title="Workaround"></a>Workaround</h4><p>根据前面<a href="#fixed-space-items">fixed space的例子</a>，我们发现相对于未使用 custom view 的情况，边距有所变小。</p>
+<figure class="image-box">
+                <a rel=iOS 11 中 UIBarButtonItem 的变化 href="2017-11-09/17.png" class="swipebox" title=undefined><img src="2017-11-09/17.png" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<p>当我们未使用 custom view 的时候，边距到屏幕边缘是 8 个点</p>
+<figure class="image-box">
+                <a rel=iOS 11 中 UIBarButtonItem 的变化 href="2017-11-09/18.png" class="swipebox" title=undefined><img src="2017-11-09/18.png" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<p>当我们使用了 custom view 的时候，边距到屏幕是 16 个点</p>
+<figure class="image-box">
+                <a rel=iOS 11 中 UIBarButtonItem 的变化 href="2017-11-09/19.png" class="swipebox" title=undefined><img src="2017-11-09/19.png" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<p>根据上面的发现，我们的目标是：让 custom view 的边距在 iOS 11 上面依然是 8 个点。添加一个 <code>fix space item</code> 将会使得内部的 stack view 减少边距，那么修改 <code>alignmentRectInsets</code> 的值去移动 <code>custom view</code> 的 frame，可以使内部的 stack view 对齐。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">func alignedBarButtonItems() -&gt; [UIBarButtonItem] &#123;</span><br><span class="line">    let spacer = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)</span><br><span class="line">    spacer.width = 8</span><br><span class="line">    let barButtonsItems = [</span><br><span class="line">        spacer,</span><br><span class="line">        UIBarButtonItem(customView: createCustomButton(offset: spacer.width)),</span><br><span class="line">        UIBarButtonItem(customView: createCustomButton(offset: spacer.width)),</span><br><span class="line">        ]</span><br><span class="line">    return barButtonsItems</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func createCustomButton(offset: CGFloat = 0) -&gt; UIButton &#123;</span><br><span class="line">    let button = CustomButton(frame: CGRect(x:0, y: 0, width: 24, height: 24))</span><br><span class="line">    button.alignmentRectInsetsOverride = UIEdgeInsets(top: 0, left: -offset, bottom: 0, right: offset)</span><br><span class="line">    button.translatesAutoresizingMaskIntoConstraints = false</span><br><span class="line">    return button</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="image-box">
+                <a rel=iOS 11 中 UIBarButtonItem 的变化 href="2017-11-09/20.png" class="swipebox" title=undefined><img src="2017-11-09/20.png" alt="Picture description" title="" class=""></a>
+                <p>Picture description</p>
+            </figure>
+<p>目前来说，这个 workaround 只能将边距设置为 8，如果我们将这个值设为一个更小的值，那么custom view 依然会超出 stack view。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="http://www.matrixprojects.net/p/uibarbuttonitem-ios11/" target="_blank" rel="noopener">UIBarButtonItem &amp; iOS 11</a></li>
+</ul>
+
+        </div>
+        
+<blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2019-05-08T10:40:21.887Z" itemprop="dateUpdated">2019-05-08 18:40:21</time>
+</span><br>
+
+
+        
+        转载注明出处，原文地址：<a href="/2017/11/09/iOS 11 中 UIBarButtonItem 的变化/" target="_blank" rel="external">http://http://ioshc.github.io/2017/11/09/iOS 11 中 UIBarButtonItem 的变化/</a>
+        
+    </div>
+    <footer>
+        <a href="http://http://ioshc.github.io">
+            <img src="/img/avatar.jpg" alt="Eden Huang">
+            Eden Huang
+        </a>
+    </footer>
+</blockquote>
+
+        
+            <div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+            
+        
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UI/">UI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS11/">iOS11</a></li></ul>
+
+            <div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://http://ioshc.github.io/2017/11/09/iOS 11 中 UIBarButtonItem 的变化/&title=《iOS 11 中 UIBarButtonItem 的变化》 — Hello World&pic=http://http://ioshc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://http://ioshc.github.io/2017/11/09/iOS 11 中 UIBarButtonItem 的变化/&title=《iOS 11 中 UIBarButtonItem 的变化》 — Hello World&source=任何描述都是多余的" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+        </div>
+        
+            
+
+
+        
+    </div>
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="next">
+      <a href="/2017/10/03/这些__attribute__的知识你应该知道/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">这些__attribute__的知识你应该知道</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+    
+        <aside class="post-widget">
+            <nav class="post-toc-wrap" id="post-toc">
+                <strong>目录</strong>
+                <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#序"><span class="post-toc-number">1.</span> <span class="post-toc-text">序</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#变化"><span class="post-toc-number">2.</span> <span class="post-toc-text">变化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#点击区域-Tap-Areas"><span class="post-toc-number">3.</span> <span class="post-toc-text">点击区域(Tap Areas)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#返回按钮-Back-Button"><span class="post-toc-number">4.</span> <span class="post-toc-text">返回按钮(Back Button)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#点击区域-Tap-Area"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">点击区域(Tap Area)</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#动态更新-Label"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">动态更新(Label)</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#自动布局-Auto-Layout"><span class="post-toc-number">5.</span> <span class="post-toc-text">自动布局(Auto Layout)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#自定义对齐-Custom-Alignment"><span class="post-toc-number">6.</span> <span class="post-toc-text">自定义对齐(Custom Alignment)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Fixed-Space-Items"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">Fixed Space Items</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Alignment-Rect-Insets"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">Alignment Rect Insets</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Workaround"><span class="post-toc-number">6.3.</span> <span class="post-toc-text">Workaround</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#参考"><span class="post-toc-number">7.</span> <span class="post-toc-text">参考</span></a></li></ol>
+            </nav>
+            <div class="toc-bar"><div>
+        </aside>
+    
+</article>
+
+    <div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        我们一起来让这个世界有趣一点
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/reward-wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/reward-wechat.jpg" data-alipay="/img/reward-alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+    
+</div>
+
+        <footer class="footer">
+    
+    <div class="top">
+        
+    </div>
+    
+    <div class="bottom">
+        <p>
+            <span>
+                Eden Huang &copy; 2018 - 2019
+            </span>
+        		
+           	
+            
+            
+            <span>
+	            Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/codefine/hexo-theme-mellow" target="_blank">mellow</a>
+            </span>
+            
+            
+            
+
+            
+                
+<span class="site-uv" title="总访客量">
+    <i class="icon icon-user"></i>
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"></i>
+</span>
+
+
+<span class="site-pv" title="总访问量">
+    <i class="icon icon-eye"></i>
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"></i>
+</span>
+
+            
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://http://ioshc.github.io/2017/11/09/iOS 11 中 UIBarButtonItem 的变化/&title=《iOS 11 中 UIBarButtonItem 的变化》 — Hello World&pic=http://http://ioshc.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://http://ioshc.github.io/2017/11/09/iOS 11 中 UIBarButtonItem 的变化/&title=《iOS 11 中 UIBarButtonItem 的变化》 — Hello World&source=任何描述都是多余的" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACrElEQVR42u3aQW7cMBAEwP3/p52z4UjpnhHXi6B0MmyJYskASfTM6xVfXz+uq3uu7r8a4Wq0qzFfJy48PDy89dSvJnH/svt72meTke/njIeHh3ea1y7K7dKfA5Jnkznj4eHhfSavXqZv39tuDHh4eHj/By85KN8ftWeHcjw8PLz389qwdRZetBHGA1sRHh4e3gFeXkX6nJ+P1Pfw8PDw1lX1TSy7KVzNIuO/jIaHh4d3gJcvuLPS/qx566n78fDw8E7w8iU7L1YlJa48xm3jj28/4+Hh4b2FN5vorDRVT7cs0eHh4eGd4G0OsnnwmmwwJ4IPPDw8vN/itSttshnMpj77Kx4eHt4JXrtkt4v7iY2kmCEeHh7eW3h7wAMhbHCIjyJgPDw8vAO8fDNIhts0Ws0+QR4l4+Hh4e15+XE2Kee3sWzeLjALkfHw8PBO8PJGqE3LVNtMsH+2CCPw8PDwFrx9oDC7J/9M7Vvw8PDwzvFmm8G+TDWLKpKgGQ8PD+8cL3ngfjlOlux8rd4foL+Ng4eHh3eAt2lmasPZ+/GfKoO92m+Jh4eH92htqG1dncUHdawQ/Hvw8PDwzvHy4+y+PNa2rrbUor6Hh4eHt+Ylq2j7yny6q+y5bDjAw8PDO8F7ql1gVjybxRCb7QQPDw9vxkvKTvmBu4gJgk+zaV/Aw8PDO81LlvX9NtBGCZvWLjw8PLz38GaH7FkQsNlOipHx8PDwHuXNyvltKJBHt/s05R87Hh4eHt6a1y61eYvVppmg/RAPXHh4eHgPVc/zgCBvrkrwm9Hw8PDw3slro9V8hBx2YgPDw8PD+wReu2S3wUfyEZNPhoeHh/c5vFm40E63/ZRHjtR4eHh46zBidkRuW69mb79E4uHh4R3g5ctx/pv2YF2ECycuPDw8vPT6A8SpK/AZga0nAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+    
+    <!-- main-js -->
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/2.1.0/jquery.min.js"></script>
+<script type="text/javascript" src="/js/plugins/fastclick.js?v=1.3.2"></script>
+<script type="text/javascript" src="/js/plugins/ios-orientationchange-fix.js?v=1.3.2"></script>
+<script type="text/javascript" src="/js/plugins/jquery.swipebox.min.js?v=1.3.2"></script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script type="text/javascript" src="/js/method.js?v=1.3.2"></script>
+<script type="text/javascript" src="/js/blog.js?v=1.3.2"></script>
+
+<!-- third-party -->
+<script type="text/javascript">
+;( function( $ ) {
+
+	$( '.swipebox' ).swipebox({
+		hideCloseButtonOnMobile: true
+	});
+
+} )( jQuery );
+</script>
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?[object Object]";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<script type="text/javascript" src="/js/plugins/local_search.js?v=1.3.2"></script>
+<script type="text/javascript">
+	var search_path = "search.xml";
+	if (search_path.length === 0) {
+		search_path = "search.xml";
+	}
+	var path = "/" + search_path;
+	searchFunc(path, "local-search-input", "local-search-result");
+</script>
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+    
+    
+
+
+
+
+
+    <!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+            processEscapes: true,
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+    
+</body>
+</html>
